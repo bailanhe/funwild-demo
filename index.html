@@ -1897,6 +1897,17 @@ h2.section-h {
 .mp-cal-selhead { font-family:var(--font-zh); font-size:12px; color:var(--text-secondary); margin:6px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--bd-subtle); }
 .mp-cal-selhead strong { color:var(--acc-700); }
 
+/* ===== Partner apply (入驻) wizard ===== */
+.fw-pa-input { width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid var(--bd-default); border-radius:8px; font-size:14px; font-family:var(--font-zh); outline:none; background:var(--surface-raised); color:var(--text-primary); }
+.fw-pa-input:focus { border-color:var(--acc-500); }
+.fw-pa-chip { padding:7px 13px; background:var(--surface-raised); border:1px solid var(--bd-default); border-radius:20px; font-family:var(--font-zh); font-size:13px; color:var(--text-secondary); cursor:pointer; transition:all 120ms; }
+.fw-pa-chip.on { background:var(--acc-50); border-color:var(--acc-500); color:var(--acc-800); font-weight:600; }
+.fw-pa-typecard { display:flex; align-items:center; gap:14px; padding:16px 18px; background:var(--surface-raised); border:1px solid var(--bd-default); border-radius:10px; cursor:pointer; transition:all 120ms; }
+.fw-pa-typecard.on { background:var(--acc-50); border-color:var(--acc-500); }
+.fw-pa-typecode { font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--acc-700); letter-spacing:-1px; }
+.fw-pa-upload { width:100%; padding:18px; background:var(--surface-sunken); border:1.5px dashed var(--bd-default); border-radius:10px; font-family:var(--font-zh); font-size:13px; color:var(--text-muted); cursor:pointer; transition:all 120ms; }
+.fw-pa-upload:hover { border-color:var(--acc-400); color:var(--acc-700); }
+
 /* ===== Demo password gate ===== */
 #fw-gate { position:fixed; inset:0; z-index:99999; background:#1a1410; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans SC',sans-serif; }
 #fw-gate .fw-gate-card { background:#fff; border-radius:16px; padding:40px 36px; width:340px; max-width:90vw; box-shadow:0 30px 80px rgba(0,0,0,.45); text-align:center; }
@@ -6508,6 +6519,8 @@ function render() {
       if (state.showWebShare && typeof renderWebShareModal === 'function') html += renderWebShareModal();
       if (state.showWebOnboarding && typeof renderWebOnboardingModal === 'function') html += renderWebOnboardingModal();
     }
+    // Partner onboarding (入驻) — web section, no login required
+    if (state.section === 'web' && state.showPartnerApply && typeof renderPartnerApplyModal === 'function') html += renderPartnerApplyModal();
     // wx pay modal works on any section
     if (state.showWxPay && typeof renderWxPayModal === 'function') html += renderWxPayModal();
     // Safety check modal works on any section (mp + web)
@@ -12406,7 +12419,7 @@ function renderWebBecomeCoach() {
   <h1 style="font-family:var(--font-display);font-size:48px;font-weight:600;letter-spacing:-1.5px;line-height:1.1;margin:0 0 16px;">入驻 Funwild · 让欧洲华人学员找到你</h1>
   <p style="font-family:var(--font-zh);font-size:16px;color:var(--text-muted);max-width:640px;margin:0 auto 28px;line-height:1.7;">免抽佣 · 个人 SEO 页 · N47 社群学员流量 · 真实评价沉淀 · €99/年</p>
   <div style="display:flex;gap:12px;justify-content:center;">
-    <button class="web-cta-primary" onclick="openQrModal({target:'profile', ctx:{}, fromPage:'become-coach', title:'扫码完成入驻', subtitle:'微信扫码 · 上传资质 · 24h 内审核', hint:'点击二维码进入小程序「我的」'})">申请入驻 →</button>
+    <button class="web-cta-primary" onclick="partnerApplyOpen('coach')">申请入驻 →</button>
     <button class="web-cta-ghost" onclick="goWeb('coach', {slug:'zhanglei'})">查看示例教练页</button>
   </div>
 </div>
@@ -12444,8 +12457,11 @@ function renderWebBecomeCoach() {
 
   <div style="text-align:center;margin-top:64px;padding:48px;background:var(--surface-sunken);border-radius:8px;">
     <h3 style="font-family:var(--font-display);font-size:24px;font-weight:600;margin:0 0 8px;">准备好了？</h3>
-    <p style="font-family:var(--font-zh);color:var(--text-muted);margin-bottom:20px;">扫码加客服磊子 / 詹敏杰，3 分钟入驻</p>
-    <button class="web-cta-primary" onclick="openQrModal({target:'profile', ctx:{}, fromPage:'become-coach', title:'扫码完成入驻', subtitle:'微信扫码 · 上传资质 · 24h 内审核', hint:'点击下方二维码模拟扫码进入小程序「我的」'})">申请入驻 →</button>
+    <p style="font-family:var(--font-zh);color:var(--text-muted);margin-bottom:20px;">在线 3 分钟提交申请,或扫码加客服磊子 / 詹敏杰</p>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <button class="web-cta-primary" onclick="partnerApplyOpen('coach')">申请入驻 →</button>
+      <button class="web-cta-ghost" onclick="openQrModal({target:'profile', ctx:{}, fromPage:'become-coach', title:'扫码加客服入驻', subtitle:'微信扫码 · 人工协助上传资质', hint:'点击下方二维码模拟扫码进入小程序「我的」'})">或扫码加客服</button>
+    </div>
   </div>
 </div>`;
 }
@@ -12491,7 +12507,7 @@ function renderWebBecomePartner() {
   </div>
 
   <div style="text-align:center;margin-top:48px;">
-    <button class="web-cta-primary" onclick="openQrModal({target:'profile', ctx:{}, fromPage:'become-partner', title:'扫码联系入驻', subtitle:'微信扫码 · 3 分钟提交资质', hint:'点击下方二维码模拟扫码进入小程序「我的」'})">扫码联系入驻 →</button>
+    <button class="web-cta-primary" onclick="partnerApplyOpen('')">申请入驻 →</button>
   </div>
 </div>`;
 }
@@ -12505,7 +12521,7 @@ function renderWebBecomeOutfitter() {
   <h1 style="font-family:var(--font-display);font-size:44px;font-weight:600;letter-spacing:-1.5px;line-height:1.1;margin:0 0 16px;">让国内游客找到你的欧洲深度团</h1>
   <p style="font-family:var(--font-zh);font-size:16px;color:var(--text-muted);max-width:640px;margin:0 auto 28px;line-height:1.7;">同步团期 · 国内小红书引流 · 微信内 1v1 直连 · €199/年 · 团费 0% 抽佣</p>
   <div style="display:flex;gap:12px;justify-content:center;">
-    <button class="web-cta-primary" onclick="openQrModal({target:'outfitter-list', ctx:{}, fromPage:'become-outfitter', title:'扫码进小程序', subtitle:'查看现有地接案例', hint:'点击二维码进入小程序「地接列表」'})">申请入驻 →</button>
+    <button class="web-cta-primary" onclick="partnerApplyOpen('outfitter')">申请入驻 →</button>
     <button class="web-cta-ghost" onclick="openInMini('outfitter-list', {}, 'web', 'become-outfitter')">查看地接列表 ↗</button>
   </div>
 </div>
@@ -12558,7 +12574,7 @@ function renderWebBecomeGuide() {
   <h1 style="font-family:var(--font-display);font-size:44px;font-weight:600;letter-spacing:-1.5px;line-height:1.1;margin:0 0 16px;">徒步 · 攀登 · 越野 · 雪山领攀</h1>
   <p style="font-family:var(--font-zh);font-size:16px;color:var(--text-muted);max-width:640px;margin:0 auto 28px;line-height:1.7;">按行程发布 · credit 信任系统 · €59/年 · 灵活上下线</p>
   <div style="display:flex;gap:12px;justify-content:center;">
-    <button class="web-cta-primary" onclick="openQrModal({target:'coach-list', ctx:{}, fromPage:'become-guide', title:'扫码进小程序', subtitle:'查看现有教练 / 向导', hint:'点击二维码进入小程序'})">申请入驻 →</button>
+    <button class="web-cta-primary" onclick="partnerApplyOpen('guide')">申请入驻 →</button>
     <button class="web-cta-ghost" onclick="openInMini('coach-list', {}, 'web', 'become-guide')">查看示例 ↗</button>
   </div>
 </div>
@@ -12595,7 +12611,7 @@ function renderWebBecomeGuide() {
   <div style="text-align:center;margin-top:64px;padding:48px;background:var(--surface-sunken);border-radius:8px;">
     <h3 style="font-family:var(--font-display);font-size:24px;font-weight:600;margin:0 0 8px;">资质齐全？</h3>
     <p style="font-family:var(--font-zh);color:var(--text-muted);margin-bottom:20px;">扫码上传 · 48h 内审核回复</p>
-    <button class="web-cta-primary" onclick="openQrModal({target:'profile', ctx:{}, fromPage:'become-guide', title:'扫码上传资质', subtitle:'48h 内审核回复', hint:'点击二维码进入小程序「我的」'})">扫码上传 →</button>
+    <button class="web-cta-primary" onclick="partnerApplyOpen('guide')">申请入驻 →</button>
   </div>
 </div>`;
 }
@@ -16473,6 +16489,229 @@ function webOnboardingFinish() {
   });
   render();
 }
+// ===== Partner onboarding (入驻) — full self-serve flow: 选身份 → 信息 → 资质 → 提交 → 审核 → 生成主页 =====
+const PARTNER_TYPES = {
+  coach:     { noun: '教练',  label: '滑雪 / 户外教练',  code: '01' },
+  outfitter: { noun: '地接',  label: '地接 / 旅行社',     code: '02' },
+  guide:     { noun: '向导',  label: '向导 / 山地达人',   code: '03' }
+};
+function partnerApplyOpen(type) {
+  state.partnerApply = {
+    step: type ? 2 : 1,        // skip 选身份 when entered from a specific page
+    type: type || '',
+    name: '', wechat: '', city: '', sport: '', langs: [], rate: '', bio: '',
+    certs: [], uploaded: '',
+    orgName: '', dest: '', days: '', price: '', includes: [],
+    status: 'draft', generated: null
+  };
+  state.showPartnerApply = true;
+  state.partnerApplyAnimated = false;
+  render();
+}
+function partnerApplyClose() { state.showPartnerApply = false; render(); }
+function partnerApplySet(f, v) { state.partnerApply[f] = v; render(); }
+function partnerApplyToggle(f, v) {
+  var a = state.partnerApply[f];
+  var i = a.indexOf(v);
+  if (i >= 0) a.splice(i, 1); else a.push(v);
+  render();
+}
+function partnerApplyUpload() {
+  var p = state.partnerApply;
+  p.uploaded = (p.type === 'outfitter') ? '营业执照.pdf' : '资质证书.pdf';
+  render();
+}
+function partnerApplyNext() {
+  var p = state.partnerApply;
+  if (p.step === 1 && !p.type) return;
+  if (p.step === 2) {
+    if (p.type === 'outfitter') { if (!p.orgName || !p.wechat) return; }
+    else if (!p.name || !p.wechat) return;
+  }
+  if (p.step === 3 && !p.uploaded) return;
+  p.step = Math.min(4, p.step + 1);
+  render();
+}
+function partnerApplyBack() {
+  var p = state.partnerApply;
+  var min = p.type && p._fromType !== false ? 2 : 1;  // can't go back past 2 if type was preset
+  p.step = Math.max(p.step <= 2 && p.type ? 2 : 1, p.step - 1);
+  render();
+}
+function partnerApplySubmit() {
+  state.partnerApply.status = 'reviewing';
+  render();
+}
+function _partnerSlug(name, type) {
+  var a = (name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  return (a || type) + '-' + (COACHES.length + OUTFITTERS.length);
+}
+function partnerApplyApprove() {
+  var p = state.partnerApply;
+  var firstChar = (p.name || p.orgName || '新').charAt(0);
+  if (p.type === 'outfitter') {
+    var oslug = _partnerSlug(p.orgName || p.name, 'outfitter');
+    OUTFITTERS.push({
+      slug: oslug, name: p.orgName || p.name || '新地接团', org: p.orgName || '商业地接',
+      days: p.days || '5 天 4 夜', dest: p.dest || '欧洲', price: parseInt(p.price, 10) || 1200,
+      audience: '华人游客', rating: 5.0, completed: 0,
+      summary: p.bio || '新入驻地接团 · 等待首批成团评价。',
+      includes: p.includes.length ? p.includes : ['住宿', '缆车', '教练']
+    });
+    p.generated = { kind: 'outfitter', slug: oslug };
+  } else {
+    var cslug = _partnerSlug(p.name, p.type);
+    COACHES.push({
+      slug: cslug, name: p.name, avatar: firstChar, initial: firstChar,
+      sport: p.sport || (p.type === 'guide' ? '向导' : '双板'),
+      langs: p.langs.length ? p.langs : ['中文'], city: p.city || '—',
+      rate: p.rate || '€60-90/h', lessons: 0, rating: 5.0, reviewCount: 0, replyRate: 100,
+      certs: p.certs.length ? p.certs : ['First Aid'], checkins: {}, bio: p.bio || '',
+      schedule: [], reviews: [],
+      tags: p.type === 'guide' ? ['向导', '新入驻'] : ['新入驻'],
+      resorts: []
+    });
+    p.generated = { kind: 'coach', slug: cslug };
+  }
+  p.status = 'approved';
+  render();
+}
+function partnerApplyViewProfile() {
+  var g = state.partnerApply.generated;
+  state.showPartnerApply = false;
+  if (!g) { render(); return; }
+  if (g.kind === 'outfitter') goWeb('outfitter-detail', { slug: g.slug });
+  else goWeb('coach', { slug: g.slug });
+}
+function renderPartnerApplyModal() {
+  if (!state.showPartnerApply) return '';
+  var p = state.partnerApply;
+  var noAnim = state.partnerApplyAnimated ? 'no-anim' : '';
+  state.partnerApplyAnimated = true;
+  var T = PARTNER_TYPES[p.type] || { noun: '合作伙伴', label: '' };
+  var isOut = p.type === 'outfitter';
+  var head = function(eyebrow, title, sub) {
+    return '<div style="text-align:center;margin-bottom:18px;">' +
+      '<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:var(--text-muted);font-weight:700;">' + eyebrow + '</div>' +
+      '<div style="font-family:var(--font-display);font-size:22px;font-weight:600;margin:6px 0 4px;">' + title + '</div>' +
+      (sub ? '<div style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);">' + sub + '</div>' : '') + '</div>';
+  };
+  var field = function(label, inputHtml) {
+    return '<div style="margin-bottom:14px;"><label style="display:block;font-family:var(--font-zh);font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">' + label + '</label>' + inputHtml + '</div>';
+  };
+  var inp = function(f, ph, val) {
+    return '<input class="fw-pa-input" value="' + escHtml(val || '') + '" placeholder="' + ph + '" oninput="state.partnerApply.' + f + '=this.value">';
+  };
+  var chips = function(f, opts) {
+    return '<div style="display:flex;flex-wrap:wrap;gap:6px;">' + opts.map(function(o) {
+      var on = p[f].indexOf(o) >= 0;
+      return '<button class="fw-pa-chip ' + (on ? 'on' : '') + '" onclick="partnerApplyToggle(\'' + f + '\',\'' + o + '\')">' + escHtml(o) + '</button>';
+    }).join('') + '</div>';
+  };
+  var single = function(f, opts) {
+    return '<div style="display:flex;flex-wrap:wrap;gap:6px;">' + opts.map(function(o) {
+      var on = p[f] === o;
+      return '<button class="fw-pa-chip ' + (on ? 'on' : '') + '" onclick="partnerApplySet(\'' + f + '\',\'' + o + '\')">' + escHtml(o) + '</button>';
+    }).join('') + '</div>';
+  };
+
+  var body = '', footer = '';
+
+  if (p.status === 'reviewing') {
+    body = '<div style="text-align:center;padding:24px 0;">' +
+      '<div style="width:64px;height:64px;border-radius:50%;background:var(--surface-sunken);display:inline-flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:28px;">⏳</div>' +
+      '<div style="font-family:var(--font-display);font-size:22px;font-weight:600;margin-bottom:8px;">申请已提交 · 审核中</div>' +
+      '<div style="font-family:var(--font-zh);font-size:13px;color:var(--text-muted);line-height:1.8;max-width:360px;margin:0 auto;">我们会在 <strong>24h 内</strong>人工审核你的资质（' + escHtml(p.uploaded || '资质材料') + '）。<br>通过后你的专属 SEO 主页自动生成,客服磊子 / 詹敏杰会微信通知你。</div>' +
+      '<div style="margin-top:20px;padding:12px 16px;background:var(--surface-sunken);border-radius:8px;font-family:var(--font-zh);font-size:12px;color:var(--text-secondary);">演示:点下方按钮模拟"审核通过"</div>' +
+      '</div>';
+    footer = '<button class="web-cta-ghost" onclick="partnerApplyClose()">关闭</button>' +
+      '<button class="web-cta-primary" onclick="partnerApplyApprove()">▶ 模拟审核通过</button>';
+  } else if (p.status === 'approved') {
+    var g = p.generated || {};
+    var url = 'funwild.com/' + (g.kind === 'outfitter' ? 'outfitter' : (p.type === 'guide' ? 'guide' : 'coach')) + '/' + (g.slug || '');
+    body = '<div style="text-align:center;padding:16px 0;">' +
+      '<div style="width:64px;height:64px;border-radius:50%;background:var(--success-bg);color:var(--success-solid);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+      '<div style="font-family:var(--font-display);font-size:24px;font-weight:600;margin-bottom:6px;">审核通过 · 你的主页已生成 🎉</div>' +
+      '<div style="font-family:var(--font-zh);font-size:13px;color:var(--text-muted);margin-bottom:18px;">已上线并可被 Google 索引,也可分享给学员 / 游客。</div>' +
+      '<div style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:var(--surface-sunken);border:1px dashed var(--acc-400);border-radius:8px;font-family:var(--font-mono);font-size:13px;color:var(--acc-700);">🔗 ' + escHtml(url) + '</div>' +
+      '</div>';
+    footer = '<button class="web-cta-ghost" onclick="partnerApplyClose()">完成</button>' +
+      '<button class="web-cta-primary" onclick="partnerApplyViewProfile()">预览我的主页 →</button>';
+  } else if (p.step === 1) {
+    body = head('入驻 FUNWILD', '你是哪类合作伙伴?', '选一个开始 · 3 分钟完成申请') +
+      '<div style="display:flex;flex-direction:column;gap:10px;">' +
+      Object.keys(PARTNER_TYPES).map(function(k) {
+        var t = PARTNER_TYPES[k];
+        var on = p.type === k;
+        return '<button class="fw-pa-typecard ' + (on ? 'on' : '') + '" onclick="partnerApplySet(\'type\',\'' + k + '\')">' +
+          '<span class="fw-pa-typecode">' + t.code + '</span>' +
+          '<span style="flex:1;text-align:left;font-family:var(--font-zh);font-size:15px;font-weight:600;">' + t.label + '</span>' +
+          (on ? '<span style="color:var(--acc-700);font-weight:700;">✓</span>' : '') + '</button>';
+      }).join('') + '</div>';
+    footer = '<button class="web-cta-ghost" onclick="partnerApplyClose()">取消</button>' +
+      '<button class="web-cta-primary" ' + (!p.type ? 'style="opacity:.4;pointer-events:none;"' : '') + ' onclick="partnerApplyNext()">下一步 →</button>';
+  } else if (p.step === 2) {
+    if (isOut) {
+      body = head('入驻 · ' + T.noun, '机构信息', '让国内游客通过 SEO + 小红书找到你') +
+        field('机构 / 旅行社名称 *', inp('orgName', '例:阿尔卑斯华人深度游', p.orgName)) +
+        field('联系微信 *', inp('wechat', '微信号,用于审核联系', p.wechat)) +
+        field('联系人', inp('name', '负责人姓名', p.name)) +
+        field('主要目的地', inp('dest', '例:奥地利 + 瑞士', p.dest)) +
+        '<div style="display:flex;gap:12px;"><div style="flex:1;">' + field('行程天数', inp('days', '例:7 天 6 夜', p.days)) + '</div>' +
+        '<div style="flex:1;">' + field('起价 €/人', inp('price', '例:1200', p.price)) + '</div></div>';
+    } else {
+      var sportOpts = p.type === 'guide' ? ['登山', '徒步', '攀岩', '越野跑', '滑雪登山'] : ['双板', '单板', '登山滑雪', '自由式', '越野滑雪'];
+      body = head('入驻 · ' + T.noun, '基本信息', '欧洲华人学员将通过这些信息找到你') +
+        field('姓名 *', inp('name', '你的名字 / 昵称', p.name)) +
+        field('联系微信 *', inp('wechat', '微信号,用于审核联系', p.wechat)) +
+        field('常驻城市', inp('city', '例:慕尼黑', p.city)) +
+        field('主项', single('sport', sportOpts)) +
+        field('教学语言（多选）', chips('langs', ['中文', '德文', '英文', '法文', '意大利文'])) +
+        field('收费区间', inp('rate', '例:€60-90/h', p.rate));
+    }
+    footer = '<button class="web-cta-ghost" onclick="' + (p.type && state.partnerApply.step === 2 ? 'partnerApplyClose()' : 'partnerApplyBack()') + '">' + (p.type ? '取消' : '← 上一步') + '</button>' +
+      '<button class="web-cta-primary" onclick="partnerApplyNext()">下一步 →</button>';
+  } else if (p.step === 3) {
+    var credChips = isOut ? ['住宿', '缆车票', '教练', '翻译', '保险', '接送', '餐食']
+      : (p.type === 'guide' ? ['IFMGA', 'UIMLA', 'First Aid', 'Avalanche Pro', '当地向导证'] : ['DSLV', 'BASI', 'Swiss Ski Federation', 'First Aid', 'Avalanche L1']);
+    body = head('入驻 · ' + T.noun, isOut ? '团含什么 + 资质' : '资质 + 简介', isOut ? '上传营业执照,勾选团费包含项' : '上传资质证书,平台 24h 人工审核') +
+      field(isOut ? '团费包含（多选）' : '持有资质 / 证书（多选）', chips(isOut ? 'includes' : 'certs', credChips)) +
+      field(isOut ? '上传营业执照（模拟）' : '上传资质证书（模拟）',
+        p.uploaded
+          ? '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--success-bg);border-radius:8px;font-family:var(--font-zh);font-size:13px;color:var(--success-fg);">✓ 已上传 · ' + escHtml(p.uploaded) + ' <button onclick="state.partnerApply.uploaded=\'\';render()" style="margin-left:auto;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;">重新上传</button></div>'
+          : '<button class="fw-pa-upload" onclick="partnerApplyUpload()">＋ 选择文件上传</button>') +
+      field(isOut ? '团介绍' : '自我介绍',
+        '<textarea class="fw-pa-input" rows="3" placeholder="' + (isOut ? '一句话讲清你的团特色' : '教学经验 / 风格 / 适合的学员') + '" oninput="state.partnerApply.bio=this.value" style="resize:vertical;">' + escHtml(p.bio) + '</textarea>');
+    footer = '<button class="web-cta-ghost" onclick="partnerApplyBack()">← 上一步</button>' +
+      '<button class="web-cta-primary" ' + (!p.uploaded ? 'style="opacity:.4;pointer-events:none;"' : '') + ' onclick="partnerApplyNext()">下一步 →</button>';
+  } else {  // step 4 — confirm
+    var rows = isOut
+      ? [['机构', p.orgName], ['联系人 / 微信', (p.name ? p.name + ' · ' : '') + p.wechat], ['目的地 · 天数', (p.dest || '—') + ' · ' + (p.days || '—')], ['起价', p.price ? '€' + p.price + '/人' : '—'], ['含', p.includes.join('、') || '—'], ['资质', p.uploaded || '—']]
+      : [['姓名', p.name], ['微信', p.wechat], ['城市 · 主项', (p.city || '—') + ' · ' + (p.sport || '—')], ['语言', p.langs.join('/') || '—'], ['收费', p.rate || '—'], ['资质', (p.certs.join('、') || '—') + ' · ' + (p.uploaded || '')]];
+    body = head('入驻 · ' + T.noun, '确认并提交', '提交后 24h 内人工审核') +
+      '<div style="background:var(--surface-sunken);border-radius:10px;padding:6px 16px;">' +
+      rows.map(function(r) {
+        return '<div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--bd-subtle);font-family:var(--font-zh);font-size:13px;"><span style="color:var(--text-muted);flex-shrink:0;">' + r[0] + '</span><span style="text-align:right;font-weight:500;">' + escHtml(r[1] || '—') + '</span></div>';
+      }).join('') + '</div>' +
+      '<div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:12px;line-height:1.6;">提交即表示同意 Funwild 合作伙伴条款 · 年费 ' + (isOut ? '€199' : (p.type === 'guide' ? '€59' : '€99')) + '/年 · 交易 0 抽佣 · 首批入驻免费。</div>';
+    footer = '<button class="web-cta-ghost" onclick="partnerApplyBack()">← 上一步</button>' +
+      '<button class="web-cta-primary" onclick="partnerApplySubmit()">提交申请 →</button>';
+  }
+
+  var showStepper = (p.status === 'draft');
+  var stepN = p.step, stepLabel = p.type && stepN >= 2 ? (stepN - 1) : stepN;
+  var stepTotal = p.type ? 3 : 4;
+  return '\n<div class="web-modal-bg ' + noAnim + '" onclick="if(event.target===this) partnerApplyClose();">' +
+    '<div class="web-modal" onclick="event.stopPropagation();" style="max-width:480px;">' +
+    '<div class="web-modal-header" style="padding:14px 22px 10px;">' +
+    '<div><div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-muted);font-weight:700;">FUNWILD · PARTNER</div>' +
+    (showStepper ? '<div style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin-top:2px;">第 ' + stepLabel + ' / ' + stepTotal + ' 步</div>' : '') + '</div>' +
+    '<button class="web-modal-close" onclick="partnerApplyClose()" aria-label="关闭">×</button></div>' +
+    '<div class="web-modal-body">' + body + '</div>' +
+    '<div class="web-modal-footer">' + footer + '</div>' +
+    '</div></div>';
+}
+
 function renderWebOnboardingModal() {
   if (!state.showWebOnboarding) return '';
   const o = state.webOnboarding;
