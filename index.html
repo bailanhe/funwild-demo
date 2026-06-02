@@ -1896,6 +1896,17 @@ h2.section-h {
 .mp-cal-day.on .mp-cal-dot { background:white; }
 .mp-cal-selhead { font-family:var(--font-zh); font-size:12px; color:var(--text-secondary); margin:6px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--bd-subtle); }
 .mp-cal-selhead strong { color:var(--acc-700); }
+
+/* ===== Demo password gate ===== */
+#fw-gate { position:fixed; inset:0; z-index:99999; background:#1a1410; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans SC',sans-serif; }
+#fw-gate .fw-gate-card { background:#fff; border-radius:16px; padding:40px 36px; width:340px; max-width:90vw; box-shadow:0 30px 80px rgba(0,0,0,.45); text-align:center; }
+#fw-gate .fw-gate-brand { font-family:'Outfit','Noto Sans SC',sans-serif; font-size:26px; font-weight:700; color:#b5651d; margin-bottom:6px; }
+#fw-gate .fw-gate-sub { font-size:13px; color:#999; margin-bottom:24px; }
+#fw-gate #fw-gate-input { width:100%; box-sizing:border-box; padding:12px 14px; border:1px solid #ddd; border-radius:10px; font-size:15px; outline:none; margin-bottom:12px; }
+#fw-gate #fw-gate-input:focus { border-color:#b5651d; }
+#fw-gate button { width:100%; padding:12px; background:#b5651d; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; }
+#fw-gate button:hover { background:#9c5313; }
+#fw-gate #fw-gate-err { color:#c0392b; font-size:12px; margin-top:12px; min-height:14px; }
 .web-modal-header {
   display: flex; justify-content: space-between; align-items: center;
   padding: 18px 22px 14px;
@@ -4689,6 +4700,36 @@ h2.section-h {
 </style>
 </head>
 <body>
+
+<div id="fw-gate">
+  <div class="fw-gate-card">
+    <div class="fw-gate-brand">趣野 Funwild</div>
+    <div class="fw-gate-sub">原型预览 · 请输入访问密码</div>
+    <input id="fw-gate-input" type="password" placeholder="访问密码" autocomplete="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')fwGateCheck();">
+    <button onclick="fwGateCheck()">进入</button>
+    <div id="fw-gate-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var H = '5cfeb628';
+  function fwHash(s){ var h=5381; for(var i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))>>>0; } return h.toString(16); }
+  if (sessionStorage.getItem('fw_gate_ok') === '1') { var g=document.getElementById('fw-gate'); if(g) g.style.display='none'; }
+  window.fwGateCheck = function(){
+    var el = document.getElementById('fw-gate-input');
+    if (fwHash(el.value || '') === H) {
+      sessionStorage.setItem('fw_gate_ok','1');
+      document.getElementById('fw-gate').style.display='none';
+    } else {
+      document.getElementById('fw-gate-err').textContent = '密码不对，再试试';
+      el.value=''; el.focus();
+    }
+  };
+  var i=document.getElementById('fw-gate-input'); if(i && document.getElementById('fw-gate').style.display!=='none') i.focus();
+})();
+</script>
+
 <nav class="topnav">
   <div class="topnav-logo" onclick="goSection('cover')">Funwild</div>
   <div class="topnav-tabs">
