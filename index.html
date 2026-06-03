@@ -13159,6 +13159,7 @@ function renderWebOutfitterDetail() {
   <div class="web-detail-content">
     <div class="web-detail-hero" style="background:linear-gradient(135deg, var(--acc-300), var(--acc-700));position:relative;">
       ${o.org.includes('N47') ? '<span class="web-list-card-chip" style="position:absolute;top:14px;left:14px;background:var(--warning-solid);color:white;font-weight:700;letter-spacing:1px;">N47 合作</span>' : ''}
+      ${o.funwildVerified ? `<span class="web-list-card-chip" style="position:absolute;top:14px;left:14px;background:var(--success-solid);color:white;font-weight:700;letter-spacing:1px;">✓ Funwild 认证${o.certified ? ' · 持证' : ''}</span>` : ''}
       <div class="web-detail-hero-meta">${escHtml(o.days)} · ${escHtml(o.dest)} · 适合 ${escHtml(o.audience)}</div>
     </div>
     <h1 class="web-detail-h1">${escHtml(o.name)}</h1>
@@ -16549,7 +16550,7 @@ function partnerApplyNext() {
     if (p.type === 'outfitter') { if (!p.orgName || !p.wechat) return; }
     else if (!p.name || !p.wechat) return;
   }
-  if (p.step === 3 && !p.uploaded) return;
+  // 资质（step 3）为选填,不再卡门槛
   p.step = Math.min(4, p.step + 1);
   render();
 }
@@ -16577,6 +16578,7 @@ function partnerApplyApprove() {
       days: p.days || '5 天 4 夜', dest: p.destCountries.length ? p.destCountries.join('、') : (p.dest || '欧洲'),
       price: parseInt(p.price, 10) || 1200, currency: p.currency,
       audience: '华人游客', rating: 5.0, completed: 0,
+      funwildVerified: true, certified: !!p.uploaded,
       summary: p.bio || '新入驻地接团 · 等待首批成团评价。',
       includes: p.includes.length ? p.includes : ['住宿', '缆车', '教练']
     });
@@ -16584,14 +16586,20 @@ function partnerApplyApprove() {
   } else {
     var cslug = _partnerSlug(p.name, p.type);
     var genLangs = _partnerLangs(p);
+    // 双层信任标：人人获「Funwild 认证」；上传了证书再加「持证」
+    var genTags = [];
+    if (p.type === 'guide') genTags.push('向导');
+    genTags.push('✓ Funwild 认证');
+    if (p.uploaded) genTags.push('✓ 持证');
+    genTags.push('新入驻');
     COACHES.push({
       slug: cslug, name: p.name, avatar: firstChar, initial: firstChar,
       sport: p.sport || (p.type === 'guide' ? '向导' : '双板'),
       langs: genLangs.length ? genLangs : ['中文'], city: _partnerCity(p),
       rate: _partnerRate(p), lessons: 0, rating: 5.0, reviewCount: 0, replyRate: 100,
-      certs: p.certs.length ? p.certs : ['First Aid'], checkins: {}, bio: p.bio || '',
+      certs: p.certs, checkins: {}, bio: p.bio || '',
       schedule: [], reviews: [],
-      tags: p.type === 'guide' ? ['向导', '新入驻'] : ['新入驻'],
+      tags: genTags,
       resorts: []
     });
     p.generated = { kind: 'coach', slug: cslug };
@@ -16751,16 +16759,21 @@ function renderPartnerApplyModal() {
   } else if (p.step === 3) {
     var credChips = isOut ? ['住宿', '缆车票', '教练', '翻译', '保险', '接送', '餐食']
       : (p.type === 'guide' ? ['IFMGA', 'UIMLA', 'First Aid', 'Avalanche Pro', '当地向导证'] : ['DSLV', 'BASI', 'Swiss Ski Federation', 'First Aid', 'Avalanche L1']);
-    body = head('入驻 · ' + T.noun, isOut ? '团含什么 + 资质' : '资质 + 简介', isOut ? '上传营业执照,勾选团费包含项' : '上传资质证书,平台 24h 人工审核') +
-      field(isOut ? '团费包含（多选）' : '持有资质 / 证书（多选）', chips(isOut ? 'includes' : 'certs', credChips)) +
-      field(isOut ? '上传营业执照（模拟）' : '上传资质证书（模拟）',
+    var uploadLabel = isOut ? '上传营业执照（选填）' : '上传资质证书（选填）';
+    var reassure = isOut
+      ? '资质是加分项,不是门槛。有营业执照会标「持证」,没有也能上架。'
+      : '资质是加分项,不是门槛 —— 有就填,没有也没关系。所有通过审核的伙伴都会获得「Funwild 认证」标;上传了证书的再加「持证」标。';
+    body = head('入驻 · ' + T.noun, isOut ? '团含什么 + 资质' : '资质 + 简介', reassure) +
+      field(isOut ? '团费包含（多选）' : '持有资质 / 证书（选填 · 加分项）', chips(isOut ? 'includes' : 'certs', credChips)) +
+      field(uploadLabel,
         p.uploaded
-          ? '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--success-bg);border-radius:8px;font-family:var(--font-zh);font-size:13px;color:var(--success-fg);">✓ 已上传 · ' + escHtml(p.uploaded) + ' <button onclick="state.partnerApply.uploaded=\'\';render()" style="margin-left:auto;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;">重新上传</button></div>'
-          : '<button class="fw-pa-upload" onclick="partnerApplyUpload()">＋ 选择文件上传</button>') +
+          ? '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--success-bg);border-radius:8px;font-family:var(--font-zh);font-size:13px;color:var(--success-fg);">✓ 已上传 · ' + escHtml(p.uploaded) + ' <button onclick="state.partnerApply.uploaded=\'\';render()" style="margin-left:auto;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;">移除</button></div>'
+          : '<button class="fw-pa-upload" onclick="partnerApplyUpload()">＋ 选择文件上传</button>' +
+            '<div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5;">' + (isOut ? '暂无营业执照?可先上架,后续补充。' : '暂无证书?没关系 —— 可以靠真实评价、雪场打卡、学员口碑建立信任。') + '</div>') +
       field(isOut ? '团介绍' : '自我介绍',
         '<textarea class="fw-pa-input" rows="3" placeholder="' + (isOut ? '一句话讲清你的团特色' : '教学经验 / 风格 / 适合的学员') + '" oninput="state.partnerApply.bio=this.value" style="resize:vertical;">' + escHtml(p.bio) + '</textarea>');
     footer = '<button class="web-cta-ghost" onclick="partnerApplyBack()">← 上一步</button>' +
-      '<button class="web-cta-primary" ' + (!p.uploaded ? 'style="opacity:.4;pointer-events:none;"' : '') + ' onclick="partnerApplyNext()">下一步 →</button>';
+      '<button class="web-cta-primary" onclick="partnerApplyNext()">下一步 →</button>';
   } else {  // step 4 — confirm
     var rows = isOut
       ? [['机构', p.orgName], ['联系人 / 微信', (p.name ? p.name + ' · ' : '') + p.wechat], ['目的地', p.destCountries.join('、') || '—'], ['天数', p.days || '—'], ['起价', p.price ? p.currency + p.price + '/人' : '—'], ['含', p.includes.join('、') || '—'], ['资质', p.uploaded || '—']]
