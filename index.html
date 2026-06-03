@@ -2244,6 +2244,28 @@ h2.section-h {
   display: flex; flex-wrap: wrap; gap: 5px;
   margin-top: 10px;
 }
+/* Coach list card — 3-zone horizontal row (avatar | info | rail) */
+.web-coach-card { display: flex; gap: 18px; align-items: stretch; padding: 18px 20px; }
+.web-coach-main { flex: 1; min-width: 0; }
+.web-coach-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.web-coach-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.web-coach-certs { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 8px; letter-spacing: 0.3px; }
+.web-coach-rail {
+  flex: none; width: 168px;
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 4px; text-align: right;
+  border-left: 1px solid var(--bd-subtle); padding-left: 16px;
+}
+.web-coach-rail .web-list-card-rating { font-size: 13px; }
+.web-coach-rate { font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-top: 2px; letter-spacing: -0.3px; }
+.web-coach-stat { font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); }
+.web-coach-cta { margin-top: auto; padding-top: 10px; font-family: var(--font-zh); font-size: 13px; font-weight: 600; color: var(--acc-700); white-space: nowrap; }
+.web-coach-card:hover .web-coach-cta { text-decoration: underline; }
+@media (max-width: 680px) {
+  .web-coach-card { flex-wrap: wrap; }
+  .web-coach-rail { width: auto; border-left: none; padding-left: 0; align-items: flex-start; text-align: left; margin-top: 12px; }
+  .web-coach-cta { margin-top: 6px; }
+}
 .web-list-card-warning {
   margin-top: 10px; padding: 6px 9px;
   background: var(--warning-bg);
@@ -5127,6 +5149,13 @@ const COACHES = [
     resorts: ['Spitzingsee','Brauneck','Stubaier Gletscher']
   }
 ];
+
+// 平台教练默认带「Funwild 认证」信任标；持有正式证书的再加「持证」。放在技能标前面优先展示。
+COACHES.forEach(function(c) {
+  var badges = ['✓ Funwild 认证'];
+  if (c.certs && c.certs.length) badges.push('✓ 持证');
+  c.tags = badges.concat(c.tags || []);
+});
 
 // ============ Coach Availability (shared by mp date-first view + web matrix) ============
 // One source of truth. Each string is the authored 14-day window aligned to calWindow(0,14):
@@ -12874,29 +12903,23 @@ function renderWebCoachList() {
     ${(!calView && filtered.length === 0) ? `<div style="padding:60px 20px;text-align:center;background:var(--surface-raised);border:1px dashed var(--bd-default);border-radius:10px;"><div style="font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:6px;">没找到教练</div><div style="font-family:var(--font-zh);font-size:13px;color:var(--text-muted);">改一下筛选条件试试</div><button class="web-cta-ghost" style="margin-top:14px;" onclick="state.webFilter={};render()">清空筛选</button></div>` : ''}
     <div class="web-list-grid web-list-grid-2" style="${calView?'display:none;':''}">
       ${filtered.map((c,i) => `
-        <div class="web-list-card" onclick="goWeb('coach', {slug:'${c.slug}'})" style="position:relative;">
+        <div class="web-list-card web-coach-card" onclick="goWeb('coach', {slug:'${c.slug}'})" style="position:relative;">
           ${webCardActions('coach', c.slug, c.name, c.sport + ' 教练 · ' + c.city + ' · ★ ' + c.rating, 'funwild.com/coach/' + c.slug)}
-          <div class="web-list-coach-body">
-            <div class="web-list-coach-row">
-              <div class="mp-coach-avatar" style="width:72px;height:72px;font-size:30px;flex-shrink:0;">${escHtml(c.initial)}</div>
-              <div style="flex:1;min-width:0;">
-                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;">
-                  <div class="web-list-card-title" style="font-size:20px;">${escHtml(c.name)}</div>
-                  <div class="web-list-card-rating">★ ${c.rating} <em>(${c.reviewCount||0})</em></div>
-                </div>
-                <div class="web-list-card-meta">${escHtml(c.sport)} 教练 · ${escHtml(c.city)} · ${c.langs.join(' / ')}</div>
-                <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-primary);margin-top:8px;">${escHtml(c.rate)}</div>
-                <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);margin-top:3px;">${c.replyRate}% 24h 回复 · ${c.lessons} 节课已完成</div>
-                <div class="web-list-card-tags" style="margin-top:10px;">
-                  ${c.tags.map(coachTagHtml).join('')}
-                  ${i===0 ? '<span class="mp-tag" style="background:var(--success-bg);color:var(--success-fg);">本周可约</span>' : ''}
-                </div>
-              </div>
+          <div class="mp-coach-avatar" style="width:64px;height:64px;font-size:26px;flex-shrink:0;">${escHtml(c.initial)}</div>
+          <div class="web-coach-main">
+            <div class="web-coach-name-row">
+              <span class="web-list-card-title" style="font-size:19px;">${escHtml(c.name)}</span>
+              ${i===0 ? '<span class="mp-tag" style="background:var(--success-bg);color:var(--success-fg);">本周可约</span>' : ''}
             </div>
-            <div class="web-list-coach-foot">
-              <span>${escHtml(c.certs.slice(0,2).join(' · '))}</span>
-              <span class="web-list-coach-cta">查看 profile →</span>
-            </div>
+            <div class="web-list-card-meta">${escHtml(c.sport)} 教练 · ${escHtml(c.city)} · ${c.langs.join(' / ')}</div>
+            <div class="web-coach-tags">${c.tags.map(coachTagHtml).join('')}</div>
+            ${c.certs && c.certs.length ? `<div class="web-coach-certs">资质 · ${escHtml(c.certs.slice(0,3).join(' · '))}</div>` : ''}
+          </div>
+          <div class="web-coach-rail">
+            <div class="web-list-card-rating">★ ${c.rating} <em>(${c.reviewCount||0})</em></div>
+            <div class="web-coach-rate">${escHtml(c.rate)}</div>
+            <div class="web-coach-stat">${c.replyRate}% 24h 回复 · ${c.lessons} 节课</div>
+            <span class="web-coach-cta">查看 profile →</span>
           </div>
         </div>
       `).join('')}
