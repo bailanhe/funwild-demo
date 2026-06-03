@@ -1908,6 +1908,57 @@ h2.section-h {
 .fw-pa-upload { width:100%; padding:18px; background:var(--surface-sunken); border:1.5px dashed var(--bd-default); border-radius:10px; font-family:var(--font-zh); font-size:13px; color:var(--text-muted); cursor:pointer; transition:all 120ms; }
 .fw-pa-upload:hover { border-color:var(--acc-400); color:var(--acc-700); }
 
+/* ===== 装备出租 ===== */
+.fw-rt-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:6px 12px 90px; }
+.fw-rt-grid.web { grid-template-columns:repeat(auto-fill,minmax(224px,1fr)); gap:14px; padding:0; }
+.fw-rt-card { background:var(--surface-raised); border:1px solid var(--bd-subtle); border-radius:10px; overflow:hidden; cursor:pointer; transition:transform 160ms, box-shadow 160ms, border-color 160ms; }
+.fw-rt-card:hover { transform:translateY(-2px); border-color:var(--acc-300); box-shadow:0 8px 22px rgba(0,0,0,0.08); }
+.fw-rt-card-photo { position:relative; height:96px; background:linear-gradient(135deg, var(--acc-200), var(--acc-500)); }
+.fw-rt-card-cat { position:absolute; top:8px; left:8px; background:rgba(255,255,255,0.95); color:var(--acc-700); font-family:var(--font-mono); font-size:10px; font-weight:700; padding:3px 8px; border-radius:4px; }
+.fw-rt-card-mine { position:absolute; top:8px; right:8px; background:var(--acc-600); color:white; font-family:var(--font-zh); font-size:10px; padding:3px 8px; border-radius:4px; }
+.fw-rt-card-body { padding:10px 12px 12px; }
+.fw-rt-card-title { font-family:var(--font-zh); font-size:13px; font-weight:600; line-height:1.4; min-height:36px; }
+.fw-rt-card-rate { font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); margin-top:4px; }
+.fw-rt-card-rate strong { font-size:17px; font-weight:700; color:var(--acc-700); letter-spacing:-0.5px; }
+.fw-rt-card-meta { font-family:var(--font-mono); font-size:10px; color:var(--text-muted); margin-top:4px; }
+.fw-rt-card-seller { display:flex; align-items:center; gap:6px; margin-top:9px; padding-top:8px; border-top:1px solid var(--bd-subtle); }
+/* rental modal (shared mp + web) */
+.fw-rt-modal-hd { display:flex; align-items:flex-start; justify-content:space-between; padding:16px 20px 12px; border-bottom:1px solid var(--bd-subtle); }
+.fw-rt-close { background:none; border:none; font-size:22px; color:var(--text-muted); cursor:pointer; line-height:1; }
+.fw-rt-body { padding:16px 20px; max-height:62vh; overflow-y:auto; }
+.fw-rt-foot { display:flex; gap:10px; padding:12px 20px 16px; border-top:1px solid var(--bd-subtle); }
+.fw-rt-btn { flex:1; padding:12px; background:var(--acc-600); color:white; border:none; border-radius:9px; font-family:var(--font-zh); font-size:14px; font-weight:600; cursor:pointer; }
+.fw-rt-btn-ghost { flex:none; padding:12px 18px; background:var(--surface-sunken); color:var(--text-secondary); border:1px solid var(--bd-default); border-radius:9px; font-family:var(--font-zh); font-size:14px; cursor:pointer; }
+.fw-rt-meta { font-family:var(--font-zh); font-size:12px; color:var(--text-primary); line-height:1.7; margin-bottom:14px; }
+.fw-rt-label { font-family:var(--font-zh); font-size:13px; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.fw-rt-legend { font-family:var(--font-zh); font-size:10px; font-weight:400; color:var(--text-muted); display:inline-flex; gap:10px; }
+.fw-rt-legend i { display:inline-block; width:10px; height:10px; border-radius:2px; vertical-align:middle; margin-right:3px; }
+.fw-rt-lg-ok { background:var(--surface-raised); border:1px solid var(--bd-default); }
+.fw-rt-lg-no { background:var(--surface-sunken); border:1px solid var(--bd-default); }
+.fw-rt-cal { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:14px; }
+.fw-rt-day { display:flex; flex-direction:column; align-items:center; gap:2px; padding:7px 0; border:1px solid var(--bd-default); border-radius:8px; background:var(--surface-raised); cursor:pointer; transition:all 100ms; }
+.fw-rt-day .fw-rt-dow { font-family:var(--font-zh); font-size:9px; color:var(--text-muted); }
+.fw-rt-day .fw-rt-d { font-family:var(--font-mono); font-size:14px; font-weight:600; color:var(--text-primary); }
+.fw-rt-day.range { background:var(--acc-50); border-color:var(--acc-200); }
+.fw-rt-day.sel { background:var(--acc-600); border-color:var(--acc-600); }
+.fw-rt-day.sel .fw-rt-dow, .fw-rt-day.sel .fw-rt-d { color:white; }
+.fw-rt-day.booked { background:var(--surface-sunken); cursor:not-allowed; opacity:0.55; }
+.fw-rt-day.booked .fw-rt-d { text-decoration:line-through; color:var(--text-faint); }
+.fw-rt-price { background:var(--surface-sunken); border-radius:10px; padding:6px 14px; }
+.fw-rt-price-row { display:flex; justify-content:space-between; padding:7px 0; font-family:var(--font-zh); font-size:13px; color:var(--text-secondary); border-bottom:1px solid var(--bd-subtle); }
+.fw-rt-price-row:last-child { border-bottom:none; }
+.fw-rt-price-row.total { font-weight:700; color:var(--text-primary); }
+.fw-rt-price-row.total span:last-child { color:var(--acc-700); font-family:var(--font-mono); font-size:16px; }
+/* rental publish form */
+.fw-rt-fld { margin-bottom:14px; }
+.fw-rt-fld-l { font-family:var(--font-zh); font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:7px; }
+.fw-rt-chips { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.fw-rt-chip { padding:7px 13px; background:var(--surface-raised); border:1px solid var(--bd-default); border-radius:18px; font-family:var(--font-zh); font-size:13px; color:var(--text-secondary); cursor:pointer; transition:all 120ms; }
+.fw-rt-chip.on { background:var(--acc-50); border-color:var(--acc-500); color:var(--acc-800); font-weight:600; }
+.fw-rt-input { box-sizing:border-box; padding:9px 12px; border:1px solid var(--bd-default); border-radius:8px; font-size:14px; font-family:var(--font-zh); outline:none; background:var(--surface-raised); color:var(--text-primary); }
+.fw-rt-input:focus { border-color:var(--acc-500); }
+textarea.fw-rt-input, .fw-rt-fld > .fw-rt-input { width:100%; }
+
 /* ===== Demo password gate ===== */
 #fw-gate { position:fixed; inset:0; z-index:99999; background:#1a1410; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans SC',sans-serif; }
 #fw-gate .fw-gate-card { background:#fff; border-radius:16px; padding:40px 36px; width:340px; max-width:90vw; box-shadow:0 30px 80px rgba(0,0,0,.45); text-align:center; }
@@ -5723,6 +5774,38 @@ const MARKET = [
     desc: '2 块原装电池 + 防雾插片 + 头盔支架。备机出。' }
 ];
 
+// ============ 装备出租（market 出租模式）============
+// 物品不限类型，发布时用预选项最小化操作。日期对齐 calWindow(0,14) = 6/6–6/19 2026。
+const RENTAL_CATS = ['双板', '单板', '雪鞋', '雪服', '头盔', '雪镜', '手套', '雪具套装', '其他'];
+const RENTAL_SIZE_PRESETS = {
+  '双板': ['150', '155', '160', '165', '170', '175'],
+  '单板': ['148', '152', '156', '160', '164'],
+  '雪鞋': ['25.5', '26.5', '27.5', '28.5', '29.5'],
+  '雪服': ['S', 'M', 'L', 'XL'],
+  '头盔': ['S', 'M', 'L'],
+  '雪镜': ['均码'],
+  '手套': ['S', 'M', 'L'],
+  '雪具套装': ['板+鞋', '板+鞋+杖', '全套'],
+  '其他': ['均码']
+};
+const RENTALS = [
+  { id: 'rt1', title: 'Nitro 全能单板 156', cat: '单板', size: '156cm', condition: '九成新', ccy: '€', dayRate: 18, weekRate: 99, deposit: 200,
+    seller: { name: '老磊', initial: '磊', credit: 98, city: '慕尼黑' }, city: '慕尼黑', delivery: '面交 / 邮寄', tags: ['全能', '男板'], booked: ['2026-06-09', '2026-06-10'],
+    desc: '我的备用板，雪季内可租。含基础打蜡。押金当面退。' },
+  { id: 'rt2', title: 'Salomon QST 双板 170 + 固定器', cat: '双板', size: '170cm', condition: '八成新', ccy: '€', dayRate: 22, weekRate: 120, deposit: 250,
+    seller: { name: '李四', initial: '李', credit: 95, city: '因斯布鲁克' }, city: '因斯布鲁克', delivery: 'Innsbruck 面交', tags: ['All-mountain', '中级'], booked: ['2026-06-13', '2026-06-14', '2026-06-15'],
+    desc: '回国半个雪季，板子闲置出租。Innsbruck 当面取还。' },
+  { id: 'rt3', title: 'Atomic Hawx 双板雪鞋 26.5', cat: '雪鞋', size: '26.5', condition: '八成新', ccy: '€', dayRate: 8, weekRate: 45, deposit: 80,
+    seller: { name: '阿磊', initial: '磊', credit: 97, city: '萨尔茨堡' }, city: '萨尔茨堡', delivery: '面交 / 邮寄', tags: ['男款', '100 last'], booked: [],
+    desc: '来旅游不想买鞋的可以租，烤过更贴脚。' },
+  { id: 'rt4', title: 'Patagonia 3L 滑雪夹克 男 L', cat: '雪服', size: 'L', condition: '九成新', ccy: '€', dayRate: 10, weekRate: 55, deposit: 100,
+    seller: { name: '张三', initial: '张', credit: 92, city: '苏黎世' }, city: '苏黎世', delivery: '邮寄', tags: ['男 L', '3L Gore'], booked: ['2026-06-07'],
+    desc: '临时来滑雪、不想背厚衣服的很合适。' },
+  { id: 'rt5', title: 'POC 头盔 + 雪镜套装 M', cat: '头盔', size: 'M', condition: '九成新', ccy: '€', dayRate: 6, weekRate: 32, deposit: 60,
+    seller: { name: '小美', initial: '美', credit: 96, city: '慕尼黑' }, city: '慕尼黑', delivery: '面交 / DHL', tags: ['M 码', '带雪镜'], booked: [],
+    desc: '头盔 + 雪镜一起租，卫生衬垫每次清洁。' }
+];
+
 const MESSAGES = [
   { type: 'badge', unread: true, time: '1 小时前', title: '你解锁了"打卡 10 次"',
     body: '太棒了！下一枚徽章："打卡 30 次"还差 20 次。' },
@@ -6552,6 +6635,9 @@ function render() {
     }
     // Partner onboarding (入驻) — web section, no login required
     if (state.section === 'web' && state.showPartnerApply && typeof renderPartnerApplyModal === 'function') html += renderPartnerApplyModal();
+    // 装备出租弹窗 — web section
+    if (state.section === 'web' && state.showRentalDetail && typeof renderRentalDetailModal === 'function') html += renderRentalDetailModal();
+    if (state.section === 'web' && state.showRentalPublish && typeof renderRentalPublishModal === 'function') html += renderRentalPublishModal();
     // wx pay modal works on any section
     if (state.showWxPay && typeof renderWxPayModal === 'function') html += renderWxPayModal();
     // Safety check modal works on any section (mp + web)
@@ -6711,6 +6797,8 @@ function renderMiniStage() {
         ${state.showShareModal ? renderShareModal() : ''}
         ${state.showReportModal ? renderReportModal() : ''}
         ${state.showInvitePoster ? renderInvitePosterModal() : ''}
+        ${state.showRentalDetail ? renderRentalDetailModal() : ''}
+        ${state.showRentalPublish ? renderRentalPublishModal() : ''}
       </div>
     </div>
   </div>
@@ -8717,7 +8805,157 @@ function renderOutfitInquirySent() {
 }
 
 // ===== Market (二手装备 / 市集) =====
+// ===== 装备出租：逻辑 + 共享弹窗（市集「出租」模式）=====
+function getRental(id) { return RENTALS.find(function(r) { return r.id === id; }) || RENTALS[0]; }
+function setRentalMode(m) { state.rentalMode = m; render(); }
+function rentalDayList() { return calWindow(0, 14); }
+function rentalIsBooked(item, day) { return (item.booked || []).indexOf(calIso(day)) >= 0; }
+function rentalDays(b) { return (b.start != null && b.end != null) ? (b.end - b.start + 1) : 0; }
+function rentalTotal(item, b) {
+  var d = rentalDays(b); if (!d) return 0;
+  return Math.floor(d / 7) * item.weekRate + (d % 7) * item.dayRate;
+}
+function rentalOpen(id) {
+  state.rentalId = id;
+  state.rentalBooking = { start: null, end: null };
+  state.rentalDone = false;
+  state.showRentalDetail = true;
+  state.rentalAnimated = false;
+  render();
+}
+function rentalClose() { state.showRentalDetail = false; render(); }
+function rentalPickDay(abs) {
+  var item = getRental(state.rentalId), b = state.rentalBooking, days = rentalDayList();
+  var day = days.find(function(d) { return d.abs === abs; });
+  if (!day || rentalIsBooked(item, day)) return;
+  if (b.start == null || b.end != null) { b.start = abs; b.end = null; }
+  else {
+    var s = Math.min(b.start, abs), e = Math.max(b.start, abs);
+    var span = days.filter(function(d) { return d.abs >= s && d.abs <= e; });
+    if (span.some(function(d) { return rentalIsBooked(item, d); })) { b.start = abs; b.end = null; }
+    else { b.start = s; b.end = e; }
+  }
+  render();
+}
+function rentalBook() {
+  var b = state.rentalBooking; if (b.start == null || b.end == null) return;
+  var item = getRental(state.rentalId), days = rentalDayList();
+  var sd = days.find(function(d) { return d.abs === b.start; }), ed = days.find(function(d) { return d.abs === b.end; });
+  var span = sd.m + '/' + sd.d + '–' + ed.m + '/' + ed.d, total = rentalTotal(item, b);
+  if (typeof convStart === 'function') {
+    var cid = convStart({
+      withUid: 'u-rent-' + item.id, withName: item.seller.name, withInitial: item.seller.initial, withCredit: item.seller.credit,
+      role: 'sender', kind: 'rental', entityId: item.id, entityTitle: '租 · ' + item.title,
+      status: '押金已付（模拟）· 待约取板',
+      bubbles: [{ role: 'me', text: '你好，我想租「' + item.title + '」' + span + '（' + rentalDays(b) + ' 天），租金 ' + item.ccy + total + ' + 押金 ' + item.ccy + item.deposit + '。已付押金，约个时间取板?', at: '刚刚' }]
+    });
+    state.outbox.unshift({
+      kind: 'rental', convId: cid, toName: item.seller.name, toInitial: item.seller.initial, sentAt: '刚刚',
+      form: { title: item.title, span: span, days: rentalDays(b), total: item.ccy + total, deposit: item.ccy + item.deposit },
+      status: '押金已付（模拟）· 待出租方确认取板时间'
+    });
+  }
+  state.rentalDone = true; state.rentalConv = cid;
+  render();
+}
+function rentalPublishOpen() {
+  state.rentalPublishForm = { title: '', cat: '', size: '', condition: '九成新', ccy: '€', dayRate: '', deposit: '', avail: '雪季内', city: '慕尼黑', desc: '' };
+  state.showRentalPublish = true; state.rentalAnimated = false; render();
+}
+function rentalPublishClose() { state.showRentalPublish = false; render(); }
+function rentalPublishSet(f, v) { state.rentalPublishForm[f] = v; render(); }
+function rentalPublishSetCat(c) { state.rentalPublishForm.cat = c; state.rentalPublishForm.size = ''; render(); }
+function rentalPublishSubmit() {
+  var f = state.rentalPublishForm;
+  if (!f.cat || !f.dayRate) return;
+  var dr = parseInt(f.dayRate, 10) || 10;
+  RENTALS.unshift({
+    id: 'rt-' + (RENTALS.length + 1),
+    title: f.title || (f.cat + (f.size ? (' ' + f.size) : '') + ' 出租'),
+    cat: f.cat, size: f.size || '均码', condition: f.condition, ccy: f.ccy,
+    dayRate: dr, weekRate: dr * 5, deposit: parseInt(f.deposit, 10) || dr * 10,
+    seller: { name: (typeof USER !== 'undefined' && USER.name) || '我', initial: (typeof USER !== 'undefined' && USER.initial) || '我', credit: (typeof USER !== 'undefined' && USER.credit) || 95, city: f.city },
+    city: f.city, delivery: '面交 / 邮寄', tags: [f.cat, f.condition].filter(Boolean), booked: [], desc: f.desc || '',
+    mine: true
+  });
+  state.showRentalPublish = false; state.rentalMode = 'rent';
+  state.toast = '出租已发布 · 已在「出租」列表置顶'; render();
+  setTimeout(function() { state.toast = null; render(); }, 2400);
+}
+// Section-aware wrapper: phone-contained on mp, full-window on web
+function _rentalWrap(inner, closeFn) {
+  if (state.section === 'mini')
+    return '<div class="mp-modal-bg" onclick="if(event.target===this)' + closeFn + '();"><div class="mp-modal mp-form-modal" onclick="event.stopPropagation();">' + inner + '</div></div>';
+  var noAnim = state.rentalAnimated ? 'no-anim' : ''; state.rentalAnimated = true;
+  return '<div class="web-modal-bg ' + noAnim + '" onclick="if(event.target===this)' + closeFn + '();"><div class="web-modal" style="max-width:460px;" onclick="event.stopPropagation();">' + inner + '</div></div>';
+}
+function renderRentalDetailModal() {
+  if (!state.showRentalDetail) return '';
+  var item = getRental(state.rentalId), b = state.rentalBooking;
+  var hdr = '<div class="fw-rt-modal-hd"><div><div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-muted);font-weight:700;">RENT · 装备出租</div><div style="font-family:var(--font-display);font-size:18px;font-weight:600;margin-top:2px;">' + escHtml(item.title) + '</div></div><button class="fw-rt-close" onclick="rentalClose()">×</button></div>';
+  if (state.rentalDone) {
+    var inner2 = hdr + '<div style="padding:18px 20px 22px;text-align:center;">' +
+      '<div style="width:60px;height:60px;border-radius:50%;background:var(--success-bg);color:var(--success-solid);display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+      '<div style="font-family:var(--font-display);font-size:20px;font-weight:600;margin-bottom:6px;">租用已确认 · 押金已付（模拟）</div>' +
+      '<div style="font-family:var(--font-zh);font-size:13px;color:var(--text-muted);line-height:1.7;">已和 <strong>' + escHtml(item.seller.name) + '</strong> 建立会话,去约定取板时间和地点。押金在归还后原路退回。</div>' +
+      '<div style="display:flex;gap:10px;margin-top:20px;"><button class="fw-rt-btn-ghost" onclick="rentalClose()">关闭</button><button class="fw-rt-btn" onclick="rentalClose();' + (state.section === 'mini' ? "goMini('messages')" : "goWeb('messages')") + '">查看会话 →</button></div>' +
+      '</div>';
+    return _rentalWrap(inner2, 'rentalClose');
+  }
+  var days = rentalDayList(), d = rentalDays(b), total = rentalTotal(item, b);
+  var cal = days.map(function(day) {
+    var booked = rentalIsBooked(item, day);
+    var sel = (day.abs === b.start || day.abs === b.end);
+    var inRange = (b.start != null && b.end != null && day.abs > b.start && day.abs < b.end);
+    var cls = booked ? 'booked' : (sel ? 'sel' : (inRange ? 'range' : ''));
+    return '<button class="fw-rt-day ' + cls + '"' + (booked ? ' disabled' : ' onclick="rentalPickDay(' + day.abs + ')"') + '><span class="fw-rt-dow">' + day.dow + '</span><span class="fw-rt-d">' + day.d + '</span></button>';
+  }).join('');
+  var price = d
+    ? '<div class="fw-rt-price"><div class="fw-rt-price-row"><span>租期</span><span>' + d + ' 天</span></div><div class="fw-rt-price-row"><span>租金 (' + item.ccy + item.dayRate + '/天)</span><span>' + item.ccy + total + '</span></div><div class="fw-rt-price-row"><span>押金 · 可退</span><span>' + item.ccy + item.deposit + '</span></div><div class="fw-rt-price-row total"><span>现付</span><span>' + item.ccy + (total + item.deposit) + '</span></div></div>'
+    : '<div style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);text-align:center;padding:8px 0;">点选「开始」和「结束」日期(灰色=已被租)</div>';
+  var inner = hdr +
+    '<div class="fw-rt-body">' +
+    '<div class="fw-rt-meta">' + escHtml(item.cat) + ' · ' + escHtml(item.size) + ' · ' + escHtml(item.condition) + ' · ' + escHtml(item.city) + '<br><span style="color:var(--text-muted);">出租方 ' + escHtml(item.seller.name) + ' · credit ' + item.seller.credit + ' · ' + escHtml(item.delivery) + '</span></div>' +
+    '<div class="fw-rt-label">选择租期 <span class="fw-rt-legend"><i class="fw-rt-lg-ok"></i>可租 <i class="fw-rt-lg-no"></i>已租</span></div>' +
+    '<div class="fw-rt-cal">' + cal + '</div>' +
+    price +
+    '</div>' +
+    '<div class="fw-rt-foot"><button class="fw-rt-btn-ghost" onclick="rentalClose()">取消</button><button class="fw-rt-btn"' + (d ? '' : ' style="opacity:.4;pointer-events:none;"') + ' onclick="rentalBook()">' + (d ? '付押金 · 申请租用 →' : '请先选租期') + '</button></div>';
+  return _rentalWrap(inner, 'rentalClose');
+}
+function renderRentalPublishModal() {
+  if (!state.showRentalPublish) return '';
+  var f = state.rentalPublishForm;
+  var chip = function(val, cur, onclick) { return '<button class="fw-rt-chip ' + (val === cur ? 'on' : '') + '" onclick="' + onclick + '">' + escHtml(val) + '</button>'; };
+  var sizes = RENTAL_SIZE_PRESETS[f.cat] || [];
+  var hdr = '<div class="fw-rt-modal-hd"><div><div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-muted);font-weight:700;">RENT · 发布出租</div><div style="font-family:var(--font-display);font-size:18px;font-weight:600;margin-top:2px;">出租闲置装备</div></div><button class="fw-rt-close" onclick="rentalPublishClose()">×</button></div>';
+  var fld = function(label, html) { return '<div class="fw-rt-fld"><div class="fw-rt-fld-l">' + label + '</div>' + html + '</div>'; };
+  var body =
+    fld('类型', '<div class="fw-rt-chips">' + RENTAL_CATS.map(function(c) { return chip(c, f.cat, "rentalPublishSetCat('" + c + "')"); }).join('') + '</div>') +
+    (f.cat ? fld('尺寸 / 规格', '<div class="fw-rt-chips">' + sizes.map(function(s) { return chip(s, f.size, "rentalPublishSet('size','" + s + "')"); }).join('') + '<input class="fw-rt-input" style="width:96px;" placeholder="自定义" value="' + escHtml(f.size && sizes.indexOf(f.size) < 0 ? f.size : '') + '" oninput="state.rentalPublishForm.size=this.value"></div>') : '') +
+    fld('成色', '<div class="fw-rt-chips">' + ['全新', '九成新', '八成新', '七成新'].map(function(c) { return chip(c, f.condition, "rentalPublishSet('condition','" + c + "')"); }).join('') + '</div>') +
+    fld('日租 · 押金', '<div style="display:flex;gap:8px;align-items:center;"><select class="fw-rt-input" style="width:74px;flex:none;" onchange="rentalPublishSet(\'ccy\',this.value)">' + ['€', 'CHF', '£', '¥'].map(function(c) { return '<option ' + (f.ccy === c ? 'selected' : '') + '>' + c + '</option>'; }).join('') + '</select><input class="fw-rt-input" type="number" style="flex:1;" placeholder="日租" value="' + escHtml(f.dayRate) + '" oninput="state.rentalPublishForm.dayRate=this.value"><span style="color:var(--text-muted);">/天</span><input class="fw-rt-input" type="number" style="flex:1;" placeholder="押金" value="' + escHtml(f.deposit) + '" oninput="state.rentalPublishForm.deposit=this.value"></div><div class="fw-rt-chips" style="margin-top:6px;">' + ['8', '12', '18', '25'].map(function(v) { return chip(f.ccy + v + '/天', (f.dayRate === v ? f.ccy + v + '/天' : ''), "state.rentalPublishForm.dayRate='" + v + "';render()"); }).join('') + '</div>') +
+    fld('可租时段', '<div class="fw-rt-chips">' + ['雪季内', '本周末', '本月', '随时'].map(function(c) { return chip(c, f.avail, "rentalPublishSet('avail','" + c + "')"); }).join('') + '</div>') +
+    fld('所在城市', '<div class="fw-rt-chips">' + ['慕尼黑', '因斯布鲁克', '苏黎世', '萨尔茨堡', '维也纳'].map(function(c) { return chip(c, f.city, "rentalPublishSet('city','" + c + "')"); }).join('') + '</div>') +
+    fld('标题 / 说明（选填）', '<input class="fw-rt-input" placeholder="例:Nitro 全能单板 156" value="' + escHtml(f.title) + '" oninput="state.rentalPublishForm.title=this.value"><textarea class="fw-rt-input" rows="2" style="margin-top:6px;resize:vertical;" placeholder="一句话说明（取还方式 / 适用人群）" oninput="state.rentalPublishForm.desc=this.value">' + escHtml(f.desc) + '</textarea>');
+  var inner = hdr + '<div class="fw-rt-body">' + body + '</div>' +
+    '<div class="fw-rt-foot"><button class="fw-rt-btn-ghost" onclick="rentalPublishClose()">取消</button><button class="fw-rt-btn"' + ((f.cat && f.dayRate) ? '' : ' style="opacity:.4;pointer-events:none;"') + ' onclick="rentalPublishSubmit()">发布出租 →</button></div>';
+  return _rentalWrap(inner, 'rentalPublishClose');
+}
+// Rental card (used in both mp + web market 出租 mode)
+function rentalCardHtml(item) {
+  return '<div class="fw-rt-card" onclick="rentalOpen(\'' + item.id + '\')">' +
+    '<div class="fw-rt-card-photo"><span class="fw-rt-card-cat">' + escHtml(item.cat) + '</span>' + (item.mine ? '<span class="fw-rt-card-mine">我的</span>' : '') + '</div>' +
+    '<div class="fw-rt-card-body">' +
+    '<div class="fw-rt-card-title">' + escHtml(item.title) + '</div>' +
+    '<div class="fw-rt-card-rate"><strong>' + item.ccy + item.dayRate + '</strong>/天 · 押金 ' + item.ccy + item.deposit + '</div>' +
+    '<div class="fw-rt-card-meta">' + escHtml(item.size) + ' · ' + escHtml(item.condition) + ' · ' + escHtml(item.city) + '</div>' +
+    '<div class="fw-rt-card-seller"><div class="mp-cp-avatar" style="width:18px;height:18px;font-size:9px;">' + escHtml(item.seller.initial) + '</div><span style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);">' + escHtml(item.seller.name) + '</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--success-fg);">credit ' + item.seller.credit + '</span></div>' +
+    '</div></div>';
+}
+
 function renderMpMarket() {
+  const mode = state.rentalMode || 'sale';
   const cats = [
     { id: 'all', label: '全部', n: MARKET.length },
     { id: '雪板', label: '雪板', n: MARKET.filter(m=>m.cat==='雪板').length },
@@ -8732,30 +8970,41 @@ function renderMpMarket() {
   <div class="mp-header">
     <div class="mp-header-row">
       <div class="mp-back" onclick="miniBack()">${icon('back', 14)} 探索</div>
-      <div class="mp-actions"><span style="cursor:pointer;" onclick="openSearch('market')">${icon('search', 18)}</span> <span style="cursor:pointer;" onclick="marketPostOpen()">${icon('plus', 18)}</span></div>
+      <div class="mp-actions"><span style="cursor:pointer;" onclick="openSearch('market')">${icon('search', 18)}</span> <span style="cursor:pointer;" onclick="${mode==='rent'?'rentalPublishOpen()':'marketPostOpen()'}">${icon('plus', 18)}</span></div>
     </div>
     ${exploreTabBar('market')}
+    <div class="mp-cal-viewtoggle">
+      <button class="${mode==='sale'?'on':''}" onclick="setRentalMode('sale')">二手出售</button>
+      <button class="${mode==='rent'?'on':''}" onclick="setRentalMode('rent')">装备出租</button>
+    </div>
+    ${mode==='sale' ? `
     <div style="display:flex;gap:6px;margin-top:10px;overflow-x:auto;padding-bottom:2px;">
       ${cats.map(c => `
         <button class="mp-filter-pill ${(state.filters.market.cat||'全部')===c.label?'active':''}" onclick="setFilter('market','cat','${c.label}')">${escHtml(c.label)} <em>${c.n}</em></button>
       `).join('')}
     </div>
+    ` : ''}
   </div>
 
   <div class="mp-market-banner">
     <div class="mp-market-banner-icon"></div>
     <div class="mp-market-banner-body">
-      <div class="mp-market-banner-title">趣野市集 · 雪友 1v1 二手交易</div>
-      <div class="mp-market-banner-sub">平台不介入交易 · 卖家信用 / 徽章可见 · 行为不端可一票否决</div>
+      <div class="mp-market-banner-title">${mode==='rent'?'趣野市集 · 装备出租':'趣野市集 · 雪友 1v1 二手交易'}</div>
+      <div class="mp-market-banner-sub">${mode==='rent'?'来欧洲不用背板 · 回国/闲置板子挂出来赚租金 · 押金可退':'平台不介入交易 · 卖家信用 / 徽章可见 · 行为不端可一票否决'}</div>
     </div>
   </div>
 
   <div style="padding:8px 12px 14px;display:flex;gap:6px;align-items:center;">
-    <button class="mp-btn" style="flex:1;" onclick="marketPostOpen()">${icon('plus', 14, 'white')} 我要出二手</button>
+    <button class="mp-btn" style="flex:1;" onclick="${mode==='rent'?'rentalPublishOpen()':'marketPostOpen()'}">${icon('plus', 14, 'white')} ${mode==='rent'?'我要出租':'我要出二手'}</button>
     <button class="mp-filter-pill" style="cursor:pointer;">价格 ↑↓</button>
     <button class="mp-filter-pill" style="cursor:pointer;">同城</button>
   </div>
 
+  ${mode==='rent' ? `
+  <div class="fw-rt-grid">
+    ${RENTALS.map(rentalCardHtml).join('')}
+  </div>
+  ` : `
   <div class="mp-market-grid">
     ${MARKET.filter(m => !state.filters.market.cat || state.filters.market.cat==='全部' || m.cat===state.filters.market.cat).map((m, i) => `
       <div class="mp-market-card" onclick="goMini('market-detail', {id:'${m.id}'})">
@@ -8783,6 +9032,7 @@ function renderMpMarket() {
       </div>
     `).join('')}
   </div>
+  `}
 
   <div class="mp-market-trust">
     <div class="mp-section-eyebrow">交易守则 · TRUST</div>
@@ -13113,6 +13363,7 @@ function renderWebMarket() {
     return true;
   };
   const filteredMkt = MARKET.filter(matchMkt);
+  const mode = state.rentalMode || 'sale';
   return `
 <div class="web-breadcrumb"><a onclick="goWeb('home')">Funwild</a> / 市集</div>
 <div class="web-list-layout">
@@ -13121,15 +13372,25 @@ function renderWebMarket() {
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
       <div style="flex:1;">${webListHeader('MARKETPLACE · ' + MARKET.length, '趣野市集 · 雪友二手装备', '1v1 闲置流通 · 看 credit + 徽章 · 当面交易优先', MARKET.length)}</div>
       <div style="flex-shrink:0;margin-left:18px;margin-top:6px;">
-        <button class="web-cta-primary" style="padding:9px 16px;font-size:13px;" onclick="${state.webUserLoggedIn ? "webMarketPostOpen()" : "openQrModal({target:'market', ctx:{action:'post'}, fromPage:'market', title:'扫码发布闲置', subtitle:'微信图片直传更方便', hint:'点击二维码进入小程序市集页'})"}">+ 发布闲置</button>
+        <button class="web-cta-primary" style="padding:9px 16px;font-size:13px;" onclick="${mode==='rent' ? "rentalPublishOpen()" : (state.webUserLoggedIn ? "webMarketPostOpen()" : "openQrModal({target:'market', ctx:{action:'post'}, fromPage:'market', title:'扫码发布闲置', subtitle:'微信图片直传更方便', hint:'点击二维码进入小程序市集页'})")}">${mode==='rent'?'+ 发布出租':'+ 发布闲置'}</button>
       </div>
     </div>
 
-    <div class="web-market-trust" style="margin:0 0 20px;padding:14px 18px;background:var(--surface-sunken);border-radius:6px;">
-      <strong style="font-family:var(--font-zh);font-size:14px;color:var(--text-primary);">⚠ 平台不介入交易</strong>
-      <p style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin:6px 0 0;line-height:1.7;">趣野市集是雪友之间的 1v1 闲置流通。卖家信用 / 徽章 / 历史交易公开可见。当面交易优先 · 恶意行为 → 一键举报 → credit 清零。</p>
+    <div class="fw-cal-viewtoggle" style="margin-bottom:16px;">
+      <button class="${mode==='sale'?'on':''}" onclick="setRentalMode('sale')">二手出售</button>
+      <button class="${mode==='rent'?'on':''}" onclick="setRentalMode('rent')">装备出租</button>
     </div>
 
+    <div class="web-market-trust" style="margin:0 0 20px;padding:14px 18px;background:var(--surface-sunken);border-radius:6px;">
+      <strong style="font-family:var(--font-zh);font-size:14px;color:var(--text-primary);">${mode==='rent'?'🛟 押金担保 · 用完即还':'⚠ 平台不介入交易'}</strong>
+      <p style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin:6px 0 0;line-height:1.7;">${mode==='rent'?'来欧洲不用背装备,本地租;回国 / 闲置的板子挂出来赚租金。押金在归还后原路退回,出租方 credit / 历史公开可见。':'趣野市集是雪友之间的 1v1 闲置流通。卖家信用 / 徽章 / 历史交易公开可见。当面交易优先 · 恶意行为 → 一键举报 → credit 清零。'}</p>
+    </div>
+
+    ${mode==='rent' ? `
+    <div class="fw-rt-grid web">
+      ${RENTALS.map(rentalCardHtml).join('')}
+    </div>
+    ` : `
     ${filteredMkt.length === 0 ? `<div style="padding:60px 20px;text-align:center;background:var(--surface-raised);border:1px dashed var(--bd-default);border-radius:10px;"><div style="font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:6px;">没找到商品</div><button class="web-cta-ghost" style="margin-top:14px;" onclick="state.webFilter={};render()">清空筛选</button></div>` : ''}
     <div class="web-list-grid web-list-grid-3">
       ${filteredMkt.map((m,i) => `
@@ -13159,6 +13420,7 @@ function renderWebMarket() {
         </div>
       `).join('')}
     </div>
+    `}
   </div>
 </div>`;
 }
