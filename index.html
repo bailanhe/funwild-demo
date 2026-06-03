@@ -16499,7 +16499,10 @@ function partnerApplyOpen(type) {
   state.partnerApply = {
     step: type ? 2 : 1,        // skip 选身份 when entered from a specific page
     type: type || '',
-    name: '', wechat: '', city: '', sport: '', langs: [], rate: '', bio: '',
+    name: '', wechat: '', sport: '', bio: '',
+    country: '', cities: [],                 // 国家 + 城市 tag 选择
+    langs: [], langOther: '',                // 教学语言（选填）+ 其他
+    currency: '€', rateMin: '', rateMax: '', // 收费：币种 + 数字
     certs: [], uploaded: '',
     orgName: '', dest: '', days: '', price: '', includes: [],
     status: 'draft', generated: null
@@ -16510,6 +16513,24 @@ function partnerApplyOpen(type) {
 }
 function partnerApplyClose() { state.showPartnerApply = false; render(); }
 function partnerApplySet(f, v) { state.partnerApply[f] = v; render(); }
+function partnerApplySetCountry(code) { state.partnerApply.country = code; state.partnerApply.cities = []; render(); }
+// Compose a coach's display fields from the structured location / language / rate inputs
+function _partnerCity(p) {
+  var co = LOCATIONS_TAXONOMY.find(function(c) { return c.code === p.country; });
+  var coName = co ? co.name : '';
+  if (p.cities.length) return (coName ? coName + ' · ' : '') + p.cities.join('、');
+  return coName || '—';
+}
+function _partnerLangs(p) {
+  var out = p.langs.filter(function(l) { return l !== '其他'; });
+  if (p.langs.indexOf('其他') >= 0 && p.langOther) out = out.concat(p.langOther.split(/[,，、\/]/).map(function(s){return s.trim();}).filter(Boolean));
+  return out;
+}
+function _partnerRate(p) {
+  if (!p.rateMin && !p.rateMax) return '面议';
+  var num = p.rateMin && p.rateMax ? (p.rateMin + '-' + p.rateMax) : (p.rateMin ? p.rateMin + '+' : '~' + p.rateMax);
+  return p.currency + num + '/h';
+}
 function partnerApplyToggle(f, v) {
   var a = state.partnerApply[f];
   var i = a.indexOf(v);
@@ -16561,11 +16582,12 @@ function partnerApplyApprove() {
     p.generated = { kind: 'outfitter', slug: oslug };
   } else {
     var cslug = _partnerSlug(p.name, p.type);
+    var genLangs = _partnerLangs(p);
     COACHES.push({
       slug: cslug, name: p.name, avatar: firstChar, initial: firstChar,
       sport: p.sport || (p.type === 'guide' ? '向导' : '双板'),
-      langs: p.langs.length ? p.langs : ['中文'], city: p.city || '—',
-      rate: p.rate || '€60-90/h', lessons: 0, rating: 5.0, reviewCount: 0, replyRate: 100,
+      langs: genLangs.length ? genLangs : ['中文'], city: _partnerCity(p),
+      rate: _partnerRate(p), lessons: 0, rating: 5.0, reviewCount: 0, replyRate: 100,
       certs: p.certs.length ? p.certs : ['First Aid'], checkins: {}, bio: p.bio || '',
       schedule: [], reviews: [],
       tags: p.type === 'guide' ? ['向导', '新入驻'] : ['新入驻'],
@@ -16661,13 +16683,48 @@ function renderPartnerApplyModal() {
         '<div style="flex:1;">' + field('起价 €/人', inp('price', '例:1200', p.price)) + '</div></div>';
     } else {
       var sportOpts = p.type === 'guide' ? ['登山', '徒步', '攀岩', '越野跑', '滑雪登山'] : ['双板', '单板', '登山滑雪', '自由式', '越野滑雪'];
+      // 常驻：国家下拉 + 城市 tag 多选
+      var co = LOCATIONS_TAXONOMY.find(function(c) { return c.code === p.country; });
+      var regions = [];
+      LOCATIONS_TAXONOMY.forEach(function(c) { if (regions.indexOf(c.region) < 0) regions.push(c.region); });
+      var locHtml = '<select class="fw-pa-input" onchange="partnerApplySetCountry(this.value)"><option value="">选择国家 / 地区</option>' +
+        regions.map(function(rg) {
+          return '<optgroup label="' + escHtml(rg) + '">' + LOCATIONS_TAXONOMY.filter(function(c) { return c.region === rg; }).map(function(c) {
+            return '<option value="' + c.code + '" ' + (p.country === c.code ? 'selected' : '') + '>' + escHtml(c.name) + '</option>';
+          }).join('') + '</optgroup>';
+        }).join('') + '</select>';
+      if (co) {
+        locHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">' +
+          co.cities.map(function(ct) {
+            var on = p.cities.indexOf(ct.name) >= 0;
+            return '<button class="fw-pa-chip ' + (on ? 'on' : '') + '" onclick="partnerApplyToggle(\'cities\',\'' + ct.name + '\')">' + escHtml(ct.name) + '</button>';
+          }).join('') + '</div>';
+      }
+      // 教学语言（选填）+ 其他
+      var langHtml = chips('langs', ['中文', '德语', '英语', '法语', '意大利语', '其他']);
+      if (p.langs.indexOf('其他') >= 0) {
+        langHtml += '<input class="fw-pa-input" style="margin-top:8px;" value="' + escHtml(p.langOther) + '" placeholder="其他语言（逗号分隔,选填）" oninput="state.partnerApply.langOther=this.value">';
+      }
+      // 收费：币种 + 数字（可填可选预设）
+      var rateHtml = '<div style="display:flex;gap:8px;align-items:center;">' +
+        '<select class="fw-pa-input" style="width:84px;flex:none;" onchange="partnerApplySet(\'currency\',this.value)">' +
+        ['€', 'CHF', '£'].map(function(c) { return '<option ' + (p.currency === c ? 'selected' : '') + '>' + c + '</option>'; }).join('') + '</select>' +
+        '<input class="fw-pa-input" type="number" style="flex:1;" placeholder="最低" value="' + escHtml(p.rateMin) + '" oninput="state.partnerApply.rateMin=this.value">' +
+        '<span style="color:var(--text-muted);">–</span>' +
+        '<input class="fw-pa-input" type="number" style="flex:1;" placeholder="最高" value="' + escHtml(p.rateMax) + '" oninput="state.partnerApply.rateMax=this.value">' +
+        '<span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);flex:none;">/h</span></div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">' +
+        [['40', '60'], ['60', '90'], ['90', '130'], ['130', '']].map(function(r) {
+          var on = p.rateMin === r[0] && p.rateMax === r[1];
+          return '<button class="fw-pa-chip ' + (on ? 'on' : '') + '" onclick="state.partnerApply.rateMin=\'' + r[0] + '\';state.partnerApply.rateMax=\'' + r[1] + '\';render()">' + p.currency + (r[1] ? r[0] + '-' + r[1] : r[0] + '+') + '</button>';
+        }).join('') + '</div>';
       body = head('入驻 · ' + T.noun, '基本信息', '欧洲华人学员将通过这些信息找到你') +
         field('姓名 *', inp('name', '你的名字 / 昵称', p.name)) +
         field('联系微信 *', inp('wechat', '微信号,用于审核联系', p.wechat)) +
-        field('常驻城市', inp('city', '例:慕尼黑', p.city)) +
+        field('常驻国家 / 城市', locHtml) +
         field('主项', single('sport', sportOpts)) +
-        field('教学语言（多选）', chips('langs', ['中文', '德文', '英文', '法文', '意大利文'])) +
-        field('收费区间', inp('rate', '例:€60-90/h', p.rate));
+        field('教学语言（选填 · 多选）', langHtml) +
+        field('收费区间（选填）', rateHtml);
     }
     footer = '<button class="web-cta-ghost" onclick="' + (p.type && state.partnerApply.step === 2 ? 'partnerApplyClose()' : 'partnerApplyBack()') + '">' + (p.type ? '取消' : '← 上一步') + '</button>' +
       '<button class="web-cta-primary" onclick="partnerApplyNext()">下一步 →</button>';
@@ -16687,7 +16744,7 @@ function renderPartnerApplyModal() {
   } else {  // step 4 — confirm
     var rows = isOut
       ? [['机构', p.orgName], ['联系人 / 微信', (p.name ? p.name + ' · ' : '') + p.wechat], ['目的地 · 天数', (p.dest || '—') + ' · ' + (p.days || '—')], ['起价', p.price ? '€' + p.price + '/人' : '—'], ['含', p.includes.join('、') || '—'], ['资质', p.uploaded || '—']]
-      : [['姓名', p.name], ['微信', p.wechat], ['城市 · 主项', (p.city || '—') + ' · ' + (p.sport || '—')], ['语言', p.langs.join('/') || '—'], ['收费', p.rate || '—'], ['资质', (p.certs.join('、') || '—') + ' · ' + (p.uploaded || '')]];
+      : [['姓名', p.name], ['微信', p.wechat], ['常驻', _partnerCity(p)], ['主项', p.sport || '—'], ['语言', _partnerLangs(p).join('/') || '—'], ['收费', _partnerRate(p)], ['资质', (p.certs.join('、') || '—') + ' · ' + (p.uploaded || '')]];
     body = head('入驻 · ' + T.noun, '确认并提交', '提交后 24h 内人工审核') +
       '<div style="background:var(--surface-sunken);border-radius:10px;padding:6px 16px;">' +
       rows.map(function(r) {
