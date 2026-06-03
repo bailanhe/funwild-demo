@@ -6316,6 +6316,13 @@ function mpSafetyStrip(title, sub, slug) {
     '<div style="flex:1;min-width:0;"><div style="font-family:var(--font-zh);font-size:12px;font-weight:600;color:var(--warning-fg);">' + title + '</div><div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.5;">' + sub + '</div></div>' +
     '<span style="font-family:var(--font-zh);font-size:11px;color:var(--warning-fg);font-weight:600;white-space:nowrap;">安全提示 →</span></div>';
 }
+// 网页版上下文安全提示条（与 mp 对应）
+function webSafetyStrip(title, sub, slug) {
+  return '<div style="margin:0 0 20px;padding:14px 18px;background:var(--warning-bg);border:1px solid var(--warning-solid);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:12px;" onclick="goWeb(\'safety-detail\',{slug:\'' + slug + '\'})">' +
+    '<span style="font-size:20px;flex-shrink:0;">⚠</span>' +
+    '<div style="flex:1;min-width:0;"><div style="font-family:var(--font-zh);font-size:14px;font-weight:600;color:var(--warning-fg);">' + title + '</div><div style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin-top:3px;line-height:1.6;">' + sub + '</div></div>' +
+    '<span style="font-family:var(--font-zh);font-size:13px;color:var(--warning-fg);font-weight:600;white-space:nowrap;">安全提示 →</span></div>';
+}
 function avalancheBulletin(r) {
   // Mock: deterministic from slug to make the demo consistent
   if (!r || !r.slug) return '2 级 · 中等';
@@ -12410,6 +12417,10 @@ function renderWebResortDetail() {
       <div class="web-detail-stat"><div class="web-detail-stat-label">日票</div><div class="web-detail-stat-value">€${r.price}</div></div>
     </div>
 
+    ${isRiskResort(r)
+      ? webSafetyStrip('高海拔 / 冰川雪场 · 出发前必看', (r.altitude >= 2800 ? '海拔 ' + r.altitude + 'm · 雪场外区域需 LVS 三件套 · ' : '冰川雪场 · 雪场外不要走 · ') + '雪崩公告 · 天气 · 回撤路线', 'ski-touring')
+      : webSafetyStrip('雪道也有风险 · 出发前看一眼', 'FIS 10 守则 · 永远戴头盔 · 雪道外不要走', 'ski-resort')}
+
     <div class="web-warning">
       <div class="web-warning-h">提醒 ·特别提醒</div>
       <ul>${r.warnings.map(w => `<li>${escHtml(w)}</li>`).join('')}</ul>
@@ -12557,6 +12568,8 @@ function renderWebCoachProfile() {
         </div>
       </div>
     </div>
+
+    ${isSkiTouringCoach(c) ? webSafetyStrip('野雪 / 进阶场景 · 安全须知', '约课前会要求完成安全确认 · 雪崩 / 装备 / 回撤路线', 'ski-touring') : ''}
 
     <h2 class="web-detail-h2">本周行程</h2>
     <div style="background:var(--surface-raised);border:1px solid var(--bd-default);border-radius:6px;padding:16px;">
