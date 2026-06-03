@@ -6309,6 +6309,13 @@ function isSkiTouringCoach(c) {
   if (resorts.some(rr => /Hintertux|Stubaier|Verbier|Zermatt/.test(rr))) return true;
   return false;
 }
+// 上下文安全提示条（小程序详情页用，让安全在语境里更密，但不做成 tab）
+function mpSafetyStrip(title, sub, slug) {
+  return '<div style="margin:12px 16px 0;padding:12px 14px;background:var(--warning-bg);border:1px solid var(--warning-solid);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:10px;" onclick="goMini(\'safety-detail\',{slug:\'' + slug + '\'})">' +
+    '<span style="font-size:18px;flex-shrink:0;">⚠</span>' +
+    '<div style="flex:1;min-width:0;"><div style="font-family:var(--font-zh);font-size:12px;font-weight:600;color:var(--warning-fg);">' + title + '</div><div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.5;">' + sub + '</div></div>' +
+    '<span style="font-family:var(--font-zh);font-size:11px;color:var(--warning-fg);font-weight:600;white-space:nowrap;">安全提示 →</span></div>';
+}
 function avalancheBulletin(r) {
   // Mock: deterministic from slug to make the demo consistent
   if (!r || !r.slug) return '2 级 · 中等';
@@ -7717,7 +7724,7 @@ function renderMpResortDetail() {
       </div>
       <div style="font-family:var(--font-zh);font-size:12px;line-height:1.6;">${r.altitude >= 2800 ? '海拔 ' + r.altitude + 'm · 冰川 / 雪场外区域需 LVS 三件套。' : '冰川雪场 · 雪场外不要走。'}<br>查看 Ski Touring 安全 →</div>
     </div>
-  ` : ''}
+  ` : mpSafetyStrip('雪道也有风险 · 出发前看一眼', 'FIS 10 守则 · 永远戴头盔 · 雪道外不要走', 'ski-resort')}
 
   <div class="mp-warning" onclick="state.resortWarnExpanded=!state.resortWarnExpanded;render();">
     <div class="mp-warning-head">
@@ -7921,6 +7928,8 @@ function renderMpCoachDetail() {
       </div>
     </div>
   </div>
+
+  ${isSkiTouringCoach(c) ? mpSafetyStrip('野雪 / 进阶场景 · 安全须知', '约课前会要求完成安全确认 · 雪崩 / 装备 / 回撤路线', 'ski-touring') : ''}
 
   <div class="mp-info-card">
     <div class="mp-info-card-eyebrow">本周行程</div>
