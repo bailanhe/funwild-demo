@@ -8409,7 +8409,7 @@ function renderMpOutfitterList() {
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:10px;border-top:1px solid var(--bd-subtle);">
             <div>
               <span style="font-family:var(--font-mono);font-size:9px;color:var(--text-muted);">起</span>
-              <span style="font-family:var(--font-mono);font-size:17px;font-weight:700;color:var(--acc-700);margin-left:2px;">€${o.price}</span>
+              <span style="font-family:var(--font-mono);font-size:17px;font-weight:700;color:var(--acc-700);margin-left:2px;">${o.currency||'€'}${o.price}</span>
               <span style="font-family:var(--font-zh);font-size:10px;color:var(--text-muted);">/人</span>
             </div>
             <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-primary);">★ ${o.rating}</span>
@@ -8445,7 +8445,7 @@ function renderMpOutfitterDetail() {
       <div class="mp-back" onclick="miniBack()">${icon('back', 14)} 团详情</div>
       <div class="mp-actions">
         <span class="mp-fav ${isFav('outfitter', o.slug)?'on':''}" onclick="toggleFav('outfitter','${o.slug}')">${icon('heart', 16, isFav('outfitter', o.slug)?'var(--acc-600)':'currentColor')}</span>
-        <span style="cursor:pointer;" onclick="openShare({kind:'outfitter', id:'${o.slug}', title:'${escHtml(o.name)}', subtitle:'${escHtml(o.days)} · ${escHtml(o.dest)} · €${o.price}/人'})">${icon('share', 16)}</span>
+        <span style="cursor:pointer;" onclick="openShare({kind:'outfitter', id:'${o.slug}', title:'${escHtml(o.name)}', subtitle:'${escHtml(o.days)} · ${escHtml(o.dest)} · ${o.currency||'€'}${o.price}/人'})">${icon('share', 16)}</span>
       </div>
     </div>
   </div>
@@ -8470,7 +8470,7 @@ function renderMpOutfitterDetail() {
   </div>
 
   <div class="mp-outfit-detail-stats">
-    <div><div class="mp-outfit-stat-num">€${o.price}</div><div class="mp-outfit-stat-label">起 / 人</div></div>
+    <div><div class="mp-outfit-stat-num">${o.currency||'€'}${o.price}</div><div class="mp-outfit-stat-label">起 / 人</div></div>
     <div><div class="mp-outfit-stat-num">${o.completed}</div><div class="mp-outfit-stat-label">已成团</div></div>
     <div><div class="mp-outfit-stat-num">★ ${o.rating}</div><div class="mp-outfit-stat-label">学员评分</div></div>
     <div><div class="mp-outfit-stat-num">${itinerary.length}</div><div class="mp-outfit-stat-label">天行程</div></div>
@@ -8564,7 +8564,7 @@ function outfitInquirySubmit() {
   });
   scheduleReply(cid, [
     { delay: 2800, text: '你好！我看了你的需求。' + f.people + ' 人 · ' + f.date + ' 我们还有名额。', statusChange: '团长回复 · 有名额' },
-    { delay: 6500, text: '详细报价：含住宿 4 晚 + 教练 + 缆车 + 翻译 + 接送，€' + o.price + '/人。儿童（< 12 岁）减 30%。明早把详细行程 PDF 发你。', statusChange: '已报价 · 待你确认' },
+    { delay: 6500, text: '详细报价：含住宿 4 晚 + 教练 + 缆车 + 翻译 + 接送，' + (o.currency||'€') + o.price + '/人。儿童（< 12 岁）减 30%。明早把详细行程 PDF 发你。', statusChange: '已报价 · 待你确认' },
     { delay: 12000, text: '行程 PDF 已发到你微信。占位免费，24h 内付定金 €200 保留位置。', statusChange: '待付款' }
   ]);
   state.showOutfitInquiry = 'sent';
@@ -8604,7 +8604,7 @@ function renderOutfitInquiryModal() {
       <div class="mp-cp-avatar" style="width:38px;height:38px;font-size:14px;">${escHtml((o.name||'团').charAt(0))}</div>
       <div class="mp-form-recipient-body">
         <div class="mp-form-recipient-name">${escHtml(o.name)}</div>
-        <div class="mp-form-recipient-meta">${escHtml(o.org)} · €${o.price}/人 · 已成团 ${o.completed} 次</div>
+        <div class="mp-form-recipient-meta">${escHtml(o.org)} · ${o.currency||'€'}${o.price}/人 · 已成团 ${o.completed} 次</div>
       </div>
     </div>
 
@@ -11042,7 +11042,7 @@ function renderOutboxItem(o) {
     ${outboxBadge(o)}
   </div>
   <div class="mp-outbox-name">${escHtml(o.title)}</div>
-  <div class="mp-outbox-meta">€${o.price} · ${escHtml(o.cat)} · ${escHtml(o.condition)} · ${escHtml(o.city)}</div>
+  <div class="mp-outbox-meta">${o.currency||'€'}${o.price} · ${escHtml(o.cat)} · ${escHtml(o.condition)} · ${escHtml(o.city)}</div>
   <div class="mp-outbox-status">${escHtml(o.status)}</div>
 </div>`;
   }
@@ -11246,7 +11246,7 @@ function renderMpFavorites() {
     { id: 'resort', label: '雪场', get: id => getResort(id), badge: r => r.country + ' · ' + r.altitude + 'm' },
     { id: 'coach', label: '教练', get: id => getCoach(id), badge: c => c.rate + ' · ★ ' + c.rating },
     { id: 'activity', label: '活动', get: id => getActivity(id), badge: a => a.date },
-    { id: 'outfitter', label: '地接', get: id => getOutfitter(id), badge: o => o.days + ' · €' + o.price + '/人' },
+    { id: 'outfitter', label: '地接', get: id => getOutfitter(id), badge: o => o.days + ' · ' + (o.currency||'€') + o.price + '/人' },
     { id: 'market', label: '装备', get: id => getMarketItem(id), badge: m => '€' + m.price + ' · ' + m.condition }
   ];
   const all = [];
@@ -13039,7 +13039,7 @@ function renderWebOutfitterList() {
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:10px;border-top:1px solid var(--bd-subtle);">
               <div>
                 <span style="font-family:var(--font-mono);font-size:9px;color:var(--text-muted);">起</span>
-                <span style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--acc-700);margin-left:4px;letter-spacing:-0.5px;">€${o.price}</span>
+                <span style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--acc-700);margin-left:4px;letter-spacing:-0.5px;">${o.currency||'€'}${o.price}</span>
                 <span style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);">/人</span>
               </div>
               <span class="web-list-coach-cta">查看 →</span>
@@ -13165,7 +13165,7 @@ function renderWebOutfitterDetail() {
     <div class="web-detail-meta">${escHtml(o.org)} · ★ ${o.rating} · 已成团 ${o.completed} 次</div>
 
     <div class="web-detail-stats">
-      <div class="web-detail-stat"><div class="web-detail-stat-label">起价 / 人</div><div class="web-detail-stat-value">€${o.price}</div></div>
+      <div class="web-detail-stat"><div class="web-detail-stat-label">起价 / 人</div><div class="web-detail-stat-value">${o.currency||'€'}${o.price}</div></div>
       <div class="web-detail-stat"><div class="web-detail-stat-label">天数</div><div class="web-detail-stat-value">${escHtml(o.days)}</div></div>
       <div class="web-detail-stat"><div class="web-detail-stat-label">目的地</div><div class="web-detail-stat-value">${escHtml(o.dest)}</div></div>
       <div class="web-detail-stat"><div class="web-detail-stat-label">学员评分</div><div class="web-detail-stat-value">★ ${o.rating}</div></div>
@@ -13212,7 +13212,7 @@ function renderWebOutfitterDetail() {
     <div class="web-inquiry-card">
       <div class="web-inquiry-price">
         <span class="web-inquiry-price-eyebrow">起</span>
-        <span class="web-inquiry-price-num">€${o.price}</span>
+        <span class="web-inquiry-price-num">${o.currency||'€'}${o.price}</span>
         <span class="web-inquiry-price-unit">/人</span>
       </div>
       <div class="web-inquiry-out">已成团 ${o.completed} 次 · ★ ${o.rating}</div>
@@ -16504,7 +16504,7 @@ function partnerApplyOpen(type) {
     langs: [], langOther: '',                // 教学语言（选填）+ 其他
     currency: '€', rateMin: '', rateMax: '', // 收费：币种 + 数字
     certs: [], uploaded: '',
-    orgName: '', dest: '', days: '', price: '', includes: [],
+    orgName: '', dest: '', destCountries: [], days: '', price: '', includes: [],
     status: 'draft', generated: null
   };
   state.showPartnerApply = true;
@@ -16574,7 +16574,8 @@ function partnerApplyApprove() {
     var oslug = _partnerSlug(p.orgName || p.name, 'outfitter');
     OUTFITTERS.push({
       slug: oslug, name: p.orgName || p.name || '新地接团', org: p.orgName || '商业地接',
-      days: p.days || '5 天 4 夜', dest: p.dest || '欧洲', price: parseInt(p.price, 10) || 1200,
+      days: p.days || '5 天 4 夜', dest: p.destCountries.length ? p.destCountries.join('、') : (p.dest || '欧洲'),
+      price: parseInt(p.price, 10) || 1200, currency: p.currency,
       audience: '华人游客', rating: 5.0, completed: 0,
       summary: p.bio || '新入驻地接团 · 等待首批成团评价。',
       includes: p.includes.length ? p.includes : ['住宿', '缆车', '教练']
@@ -16673,20 +16674,39 @@ function renderPartnerApplyModal() {
     footer = '<button class="web-cta-ghost" onclick="partnerApplyClose()">取消</button>' +
       '<button class="web-cta-primary" ' + (!p.type ? 'style="opacity:.4;pointer-events:none;"' : '') + ' onclick="partnerApplyNext()">下一步 →</button>';
   } else if (p.step === 2) {
+    var regions = [];
+    LOCATIONS_TAXONOMY.forEach(function(c) { if (regions.indexOf(c.region) < 0) regions.push(c.region); });
     if (isOut) {
+      // 目的地：国家级多选 tag（一个团常跨国）
+      var destHtml = regions.map(function(rg) {
+        return '<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:var(--text-faint);margin:8px 0 4px;">' + escHtml(rg) + '</div>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:6px;">' +
+          LOCATIONS_TAXONOMY.filter(function(c) { return c.region === rg; }).map(function(c) {
+            var on = p.destCountries.indexOf(c.name) >= 0;
+            return '<button class="fw-pa-chip ' + (on ? 'on' : '') + '" onclick="partnerApplyToggle(\'destCountries\',\'' + c.name + '\')">' + escHtml(c.name) + '</button>';
+          }).join('') + '</div>';
+      }).join('');
+      // 起价：币种 + 数字（可填可选预设）
+      var priceHtml = '<div style="display:flex;gap:8px;align-items:center;">' +
+        '<select class="fw-pa-input" style="width:84px;flex:none;" onchange="partnerApplySet(\'currency\',this.value)">' +
+        ['€', 'CHF', '£'].map(function(c) { return '<option ' + (p.currency === c ? 'selected' : '') + '>' + c + '</option>'; }).join('') + '</select>' +
+        '<input class="fw-pa-input" type="number" style="flex:1;" placeholder="起价 / 人" value="' + escHtml(p.price) + '" oninput="state.partnerApply.price=this.value">' +
+        '<span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);flex:none;">/人</span></div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">' +
+        ['800', '1200', '2000', '3500'].map(function(v) {
+          return '<button class="fw-pa-chip ' + (p.price === v ? 'on' : '') + '" onclick="state.partnerApply.price=\'' + v + '\';render()">' + p.currency + v + '</button>';
+        }).join('') + '</div>';
       body = head('入驻 · ' + T.noun, '机构信息', '让国内游客通过 SEO + 小红书找到你') +
         field('机构 / 旅行社名称 *', inp('orgName', '例:阿尔卑斯华人深度游', p.orgName)) +
         field('联系微信 *', inp('wechat', '微信号,用于审核联系', p.wechat)) +
         field('联系人', inp('name', '负责人姓名', p.name)) +
-        field('主要目的地', inp('dest', '例:奥地利 + 瑞士', p.dest)) +
-        '<div style="display:flex;gap:12px;"><div style="flex:1;">' + field('行程天数', inp('days', '例:7 天 6 夜', p.days)) + '</div>' +
-        '<div style="flex:1;">' + field('起价 €/人', inp('price', '例:1200', p.price)) + '</div></div>';
+        field('主要目的地（多选国家）', destHtml) +
+        field('行程天数', inp('days', '例:7 天 6 夜', p.days)) +
+        field('起价 / 人', priceHtml);
     } else {
       var sportOpts = p.type === 'guide' ? ['登山', '徒步', '攀岩', '越野跑', '滑雪登山'] : ['双板', '单板', '登山滑雪', '自由式', '越野滑雪'];
       // 常驻：国家下拉 + 城市 tag 多选
       var co = LOCATIONS_TAXONOMY.find(function(c) { return c.code === p.country; });
-      var regions = [];
-      LOCATIONS_TAXONOMY.forEach(function(c) { if (regions.indexOf(c.region) < 0) regions.push(c.region); });
       var locHtml = '<select class="fw-pa-input" onchange="partnerApplySetCountry(this.value)"><option value="">选择国家 / 地区</option>' +
         regions.map(function(rg) {
           return '<optgroup label="' + escHtml(rg) + '">' + LOCATIONS_TAXONOMY.filter(function(c) { return c.region === rg; }).map(function(c) {
@@ -16743,7 +16763,7 @@ function renderPartnerApplyModal() {
       '<button class="web-cta-primary" ' + (!p.uploaded ? 'style="opacity:.4;pointer-events:none;"' : '') + ' onclick="partnerApplyNext()">下一步 →</button>';
   } else {  // step 4 — confirm
     var rows = isOut
-      ? [['机构', p.orgName], ['联系人 / 微信', (p.name ? p.name + ' · ' : '') + p.wechat], ['目的地 · 天数', (p.dest || '—') + ' · ' + (p.days || '—')], ['起价', p.price ? '€' + p.price + '/人' : '—'], ['含', p.includes.join('、') || '—'], ['资质', p.uploaded || '—']]
+      ? [['机构', p.orgName], ['联系人 / 微信', (p.name ? p.name + ' · ' : '') + p.wechat], ['目的地', p.destCountries.join('、') || '—'], ['天数', p.days || '—'], ['起价', p.price ? p.currency + p.price + '/人' : '—'], ['含', p.includes.join('、') || '—'], ['资质', p.uploaded || '—']]
       : [['姓名', p.name], ['微信', p.wechat], ['常驻', _partnerCity(p)], ['主项', p.sport || '—'], ['语言', _partnerLangs(p).join('/') || '—'], ['收费', _partnerRate(p)], ['资质', (p.certs.join('、') || '—') + ' · ' + (p.uploaded || '')]];
     body = head('入驻 · ' + T.noun, '确认并提交', '提交后 24h 内人工审核') +
       '<div style="background:var(--surface-sunken);border-radius:10px;padding:6px 16px;">' +
