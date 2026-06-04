@@ -1959,6 +1959,19 @@ h2.section-h {
 .fw-rt-input:focus { border-color:var(--acc-500); }
 textarea.fw-rt-input, .fw-rt-fld > .fw-rt-input { width:100%; }
 
+/* ===== Embed mode (meeting-review iframe: ?embed=mini / ?embed=web) ===== */
+body.embed { background: transparent; }
+body.embed .topnav { display: none !important; }
+body.embed #demo-player-host { display: none !important; }
+body.embed .section { padding: 0 !important; min-height: 0 !important; }
+body.embed .container { padding: 0 !important; max-width: none !important; margin: 0 !important; }
+body.embed .section-h, body.embed .section-sub { display: none !important; }   /* hide intro headers */
+/* mini: only the phone, centered, no side page-list */
+body.embed-mini .phone-side-panel { display: none !important; }
+body.embed-mini .phone-stage { display: flex !important; justify-content: center !important; padding: 14px !important; gap: 0 !important; }
+/* web: only the browser frame */
+body.embed-web .web-frame { margin: 0 auto !important; }
+
 /* ===== Demo password gate ===== */
 #fw-gate { position:fixed; inset:0; z-index:99999; background:#1a1410; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans SC',sans-serif; }
 #fw-gate .fw-gate-card { background:#fff; border-radius:16px; padding:40px 36px; width:340px; max-width:90vw; box-shadow:0 30px 80px rgba(0,0,0,.45); text-align:center; }
@@ -12275,7 +12288,7 @@ function renderWebLoginGate() {
 // ===== Web Home =====
 function renderWebHome() {
   // First-time visitor → auto-open onboarding once
-  if (!state.webOnboardingSeen && !state.showWebOnboarding && !state.webOnboardingAutoTriggered) {
+  if (!state.webOnboardingSeen && !state.showWebOnboarding && !state.webOnboardingAutoTriggered && !document.body.classList.contains('embed')) {
     state.webOnboardingAutoTriggered = true;
     setTimeout(() => { if (state.section === 'web' && state.webPage === 'home' && !state.webOnboardingSeen) { webOnboardingOpen(); } }, 1200);
   }
@@ -17923,6 +17936,16 @@ function applyHash() {
 }
 applyHash();
 window.addEventListener('hashchange', applyHash);
+
+// Embed mode for the meeting-review tool: ?embed=mini / ?embed=web
+// Renders ONLY one device (no topnav, no section intro, no page sidebar, no demo player).
+(function(){
+  var em = new URLSearchParams(location.search).get('embed');
+  if (em !== 'mini' && em !== 'web') return;
+  document.body.classList.add('embed', 'embed-' + em);
+  state.section = em;
+  goSection(em);
+})();
 </script>
 </body>
 </html>
