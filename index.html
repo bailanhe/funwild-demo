@@ -5201,10 +5201,10 @@ const COACHES = [
   }
 ];
 
-// 平台教练默认带「Funwild 认证」信任标；持有正式证书的再加「持证」。放在技能标前面优先展示。
+// 信任标 = 事实陈述（非背书）：「身份已核验」= 平台核实身份；「资质已核验」= 核实资质文件真实存在。不担保教学水平/安全结果。
 COACHES.forEach(function(c) {
-  var badges = ['✓ Funwild 认证'];
-  if (c.certs && c.certs.length) badges.push('✓ 持证');
+  var badges = ['✓ 身份已核验'];
+  if (c.certs && c.certs.length) badges.push('✓ 资质已核验');
   c.tags = badges.concat(c.tags || []);
 });
 
@@ -6339,8 +6339,12 @@ function avalancheBulletinSource(r) {
   return 'avalanche.report';
 }
 function getCoach(slug) { return COACHES.find(c => c.slug === slug) || COACHES[0]; }
-// Trust badges (✓ Funwild 认证 / ✓ 持证) render green; ordinary skill tags stay accent.
+// Trust badges (✓ 身份已核验 / ✓ 资质已核验) render green; ordinary skill tags stay accent.
 function coachTagHtml(t) { return `<span class="mp-tag ${t.indexOf('✓') === 0 ? 'success' : 'accent'}">${escHtml(t)}</span>`; }
+// 核验 ≠ 担保：把信任标的法律含义收窄成事实陈述，降低平台背书责任。
+function verifyDisclaimer() {
+  return '<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bd-subtle);font-family:var(--font-zh);font-size:10px;color:var(--text-faint);line-height:1.6;">「已核验」仅表示 Funwild 确认了对方身份 / 资质文件真实存在,不构成对其教学水平、服务质量或安全结果的担保。请自行判断并做好安全准备。</div>';
+}
 function getActivity(slug) { return ACTIVITIES.find(a => a.slug === slug) || ACTIVITIES[0]; }
 function getOutfitter(slug) { return OUTFITTERS.find(o => o.slug === slug) || OUTFITTERS[0]; }
 function getMarketItem(id) { return MARKET.find(m => m.id === id) || MARKET[0]; }
@@ -7948,14 +7952,15 @@ function renderMpCoachDetail() {
   <div class="mp-info-card">
     <div class="mp-info-card-eyebrow">资质 / Certifications</div>
     <div style="font-family:var(--font-zh);font-size:13px;color:var(--text-secondary);line-height:1.8;">
-      ${c.certs.map(x => `· ${escHtml(x)}`).join('<br>')}
+      ${c.certs && c.certs.length ? c.certs.map(x => `· ${escHtml(x)}`).join('<br>') : '· 暂未上传证书 · 以经验 / 评价为主'}
     </div>
     <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bd-subtle);">
       <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--text-muted);margin-bottom:6px;">雪场打卡轨迹</div>
       <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);line-height:1.7;">
-        ${Object.entries(c.checkins).map(([k,v]) => `${escHtml(k)} ${v} 次`).join(' · ')}
+        ${Object.entries(c.checkins).map(([k,v]) => `${escHtml(k)} ${v} 次`).join(' · ') || '—'}
       </div>
     </div>
+    ${verifyDisclaimer()}
   </div>
 
   <div class="mp-info-card">
@@ -12563,9 +12568,10 @@ function renderWebCoachProfile() {
         <div class="web-detail-meta">${escHtml(c.sport)} 教练 · ${escHtml(c.city)} · ${c.langs.join(' / ')}</div>
         <div style="font-family:var(--font-mono);font-size:16px;color:var(--text-primary);margin-top:8px;">${escHtml(c.rate)}</div>
         <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-secondary);margin-top:6px;">★ ${c.rating} (${c.reviewCount} 评价) · 已上 ${c.lessons} 节课 · ${c.replyRate}% 24h 回复</div>
-        <div style="display:flex;gap:6px;margin-top:10px;">
+        <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
           ${c.tags.map(coachTagHtml).join('')}
         </div>
+        <div style="font-family:var(--font-zh);font-size:11px;color:var(--text-faint);line-height:1.6;margin-top:10px;max-width:520px;">「已核验」仅表示 Funwild 确认了对方身份 / 资质文件真实存在,不构成对其教学水平、服务质量或安全结果的担保。</div>
       </div>
     </div>
 
@@ -13468,7 +13474,7 @@ function renderWebOutfitterDetail() {
   <div class="web-detail-content">
     <div class="web-detail-hero" style="background:linear-gradient(135deg, var(--acc-300), var(--acc-700));position:relative;">
       ${o.org.includes('N47') ? '<span class="web-list-card-chip" style="position:absolute;top:14px;left:14px;background:var(--warning-solid);color:white;font-weight:700;letter-spacing:1px;">N47 合作</span>' : ''}
-      ${o.funwildVerified ? `<span class="web-list-card-chip" style="position:absolute;top:14px;left:14px;background:var(--success-solid);color:white;font-weight:700;letter-spacing:1px;">✓ Funwild 认证${o.certified ? ' · 持证' : ''}</span>` : ''}
+      ${o.funwildVerified ? `<span class="web-list-card-chip" style="position:absolute;top:14px;left:14px;background:var(--success-solid);color:white;font-weight:700;letter-spacing:1px;">✓ 身份已核验${o.certified ? ' · 资质已核验' : ''}</span>` : ''}
       <div class="web-detail-hero-meta">${escHtml(o.days)} · ${escHtml(o.dest)} · 适合 ${escHtml(o.audience)}</div>
     </div>
     <h1 class="web-detail-h1">${escHtml(o.name)}</h1>
@@ -16895,11 +16901,11 @@ function partnerApplyApprove() {
   } else {
     var cslug = _partnerSlug(p.name, p.type);
     var genLangs = _partnerLangs(p);
-    // 双层信任标：人人获「Funwild 认证」；上传了证书再加「持证」
+    // 双层信任标（事实陈述）：通过审核 = 「身份已核验」；上传证书 = 「资质已核验」
     var genTags = [];
     if (p.type === 'guide') genTags.push('向导');
-    genTags.push('✓ Funwild 认证');
-    if (p.uploaded) genTags.push('✓ 持证');
+    genTags.push('✓ 身份已核验');
+    if (p.uploaded) genTags.push('✓ 资质已核验');
     genTags.push('新入驻');
     COACHES.push({
       slug: cslug, name: p.name, avatar: firstChar, initial: firstChar,
@@ -17070,8 +17076,8 @@ function renderPartnerApplyModal() {
       : (p.type === 'guide' ? ['IFMGA', 'UIMLA', 'First Aid', 'Avalanche Pro', '当地向导证'] : ['DSLV', 'BASI', 'Swiss Ski Federation', 'First Aid', 'Avalanche L1']);
     var uploadLabel = isOut ? '上传营业执照（选填）' : '上传资质证书（选填）';
     var reassure = isOut
-      ? '资质是加分项,不是门槛。有营业执照会标「持证」,没有也能上架。'
-      : '资质是加分项,不是门槛 —— 有就填,没有也没关系。所有通过审核的伙伴都会获得「Funwild 认证」标;上传了证书的再加「持证」标。';
+      ? '资质是加分项,不是门槛。通过审核标「身份已核验」,上传营业执照再标「资质已核验」,没有也能上架。'
+      : '资质是加分项,不是门槛 —— 有就填,没有也没关系。通过审核获「身份已核验」标;上传证书再加「资质已核验」标。两者均为事实核验,不代表平台对你水平的担保。';
     body = head('入驻 · ' + T.noun, isOut ? '团含什么 + 资质' : '资质 + 简介', reassure) +
       field(isOut ? '团费包含（多选）' : '持有资质 / 证书（选填 · 加分项）', chips(isOut ? 'includes' : 'certs', credChips)) +
       field(uploadLabel,
