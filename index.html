@@ -1966,9 +1966,16 @@ body.embed #demo-player-host { display: none !important; }
 body.embed .section { padding: 0 !important; min-height: 0 !important; }
 body.embed .container { padding: 0 !important; max-width: none !important; margin: 0 !important; }
 body.embed .section-h, body.embed .section-sub { display: none !important; }   /* hide intro headers */
-/* mini: only the phone, centered, no side page-list */
+/* mini: only the phone, fill the iframe height (812px frame would otherwise clip in a short iframe) */
 body.embed-mini .phone-side-panel { display: none !important; }
-body.embed-mini .phone-stage { display: flex !important; justify-content: center !important; padding: 14px !important; gap: 0 !important; }
+body.embed-mini .phone-stage { display: block !important; padding: 0 !important; gap: 0 !important; height: 100vh; }
+body.embed-mini .phone-container { width: 100% !important; height: 100vh !important; }
+body.embed-mini .phone-frame {
+  width: 100% !important; max-width: 420px !important; height: 100vh !important;
+  margin: 0 auto !important; border-radius: 0 !important; border: none !important; border-left: 1px solid var(--bd-subtle) !important; border-right: 1px solid var(--bd-subtle) !important; box-shadow: none !important;
+}
+body.embed-mini .phone-notch { display: none !important; }   /* no bezel in embed → notch looks odd */
+body.embed-mini .phone-content { height: calc(100vh - 44px - 34px) !important; }  /* fill minus statusbar + home bar */
 /* web: only the browser frame */
 body.embed-web .web-frame { margin: 0 auto !important; }
 
