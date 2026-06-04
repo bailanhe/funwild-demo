@@ -16821,6 +16821,7 @@ function partnerApplyOpen(type) {
     currency: '€', rateMin: '', rateMax: '', // 收费：币种 + 数字
     certs: [], uploaded: '',
     orgName: '', dest: '', destCountries: [], days: '', price: '', includes: [],
+    insSource: '', insScope: [], insUploaded: '',   // 保险：覆盖来源 + 覆盖范围 + 保单
     status: 'draft', generated: null
   };
   state.showPartnerApply = true;
@@ -16856,6 +16857,11 @@ function partnerApplyToggle(f, v) {
 function partnerApplyUpload() {
   var p = state.partnerApply;
   p.uploaded = (p.type === 'outfitter') ? '营业执照.pdf' : '资质证书.pdf';
+  render();
+}
+function partnerApplyInsUpload() {
+  var p = state.partnerApply;
+  p.insUploaded = (p.insSource === '学校') ? 'Skischule_Betriebshaftpflicht.pdf' : '职业责任险保单.pdf';
   render();
 }
 function partnerApplyNext() {
@@ -17078,21 +17084,51 @@ function renderPartnerApplyModal() {
     var reassure = isOut
       ? '资质是加分项,不是门槛。通过审核标「身份已核验」,上传营业执照再标「资质已核验」,没有也能上架。'
       : '资质是加分项,不是门槛 —— 有就填,没有也没关系。通过审核获「身份已核验」标;上传证书再加「资质已核验」标。两者均为事实核验,不代表平台对你水平的担保。';
-    body = head('入驻 · ' + T.noun, isOut ? '团含什么 + 资质' : '资质 + 简介', reassure) +
+    // 保险块（按 provider 类型分类）
+    var insScopeOpts = isOut ? ['人身伤害', '团队责任', '破产保障'] : (p.type === 'guide' ? ['人身伤害', '接课国家', '野雪 / 山地'] : ['人身伤害', '接课国家', '野雪（如适用）']);
+    var insBlock;
+    if (isOut) {
+      insBlock = field('保险与保障',
+        '<div class="fw-pa-chips">' + ['旅游经营责任险', '破产保障(已投保)'].map(function(o){ return '<button class="fw-pa-chip ' + (p.insScope.indexOf(o)>=0?'on':'') + '" onclick="partnerApplyToggle(\'insScope\',\'' + o + '\')">' + escHtml(o) + '</button>'; }).join('') + '</div>' +
+        '<div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.6;">地接团需自证旅游经营责任险 + 破产保障(对应欧盟一揽子旅游指令)。审核时人工核验保单。</div>');
+    } else {
+      var srcBtn = function(v, label, hint) {
+        var on = p.insSource === v;
+        return '<button class="fw-pa-typecard ' + (on?'on':'') + '" style="padding:12px 14px;" onclick="partnerApplySet(\'insSource\',\'' + v + '\')"><div style="flex:1;text-align:left;"><div style="font-family:var(--font-zh);font-size:13px;font-weight:600;">' + label + '</div><div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:2px;">' + hint + '</div></div>' + (on?'<span style="color:var(--acc-700);font-weight:700;">✓</span>':'') + '</button>';
+      };
+      insBlock = field('职业责任险 · 覆盖来源',
+        '<div style="display:flex;flex-direction:column;gap:8px;">' +
+        srcBtn('学校', '已被滑雪学校 Betriebshaftpflicht 覆盖', '挂靠 Skischule · 多数已含自由教练 · 大概率 0 成本') +
+        srcBtn('自购', '自购 Berufshaftpflicht 职业责任险', '未挂靠 / 学校未覆盖 · 个人滑雪教练险通常不贵') +
+        '</div>' +
+        (p.insSource ? (
+          '<div style="font-family:var(--font-zh);font-size:12px;font-weight:600;color:var(--text-secondary);margin:12px 0 6px;">保单覆盖范围（核验项 · 多选）</div>' +
+          '<div class="fw-pa-chips">' + insScopeOpts.map(function(o){ return '<button class="fw-pa-chip ' + (p.insScope.indexOf(o)>=0?'on':'') + '" onclick="partnerApplyToggle(\'insScope\',\'' + o + '\')">' + escHtml(o) + '</button>'; }).join('') + '</div>' +
+          '<div style="margin-top:10px;">' + (p.insUploaded
+            ? '<div style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--success-bg);border-radius:8px;font-family:var(--font-zh);font-size:12px;color:var(--success-fg);">✓ ' + escHtml(p.insUploaded) + ' <button onclick="state.partnerApply.insUploaded=\'\';render()" style="margin-left:auto;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:11px;">移除</button></div>'
+            : '<button class="fw-pa-upload" style="padding:12px;" onclick="partnerApplyInsUpload()">＋ 上传保单 / 学校覆盖证明</button>') + '</div>'
+        ) : '') +
+        '<div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.6;">💡 先问你挂靠的 Skischule:「我作为自由教练是否已被学校责任险覆盖?」—— 多数学校已覆盖,大概率 0 成本达标。⚠️ 私人责任险(Privathaftpflicht)不算,它排除商业教学。野雪 / 跨国授课须确认对应覆盖。</div>');
+    }
+    body = head('入驻 · ' + T.noun, isOut ? '团含什么 + 资质 + 保险' : '资质 + 保险 + 简介', reassure) +
       field(isOut ? '团费包含（多选）' : '持有资质 / 证书（选填 · 加分项）', chips(isOut ? 'includes' : 'certs', credChips)) +
       field(uploadLabel,
         p.uploaded
           ? '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--success-bg);border-radius:8px;font-family:var(--font-zh);font-size:13px;color:var(--success-fg);">✓ 已上传 · ' + escHtml(p.uploaded) + ' <button onclick="state.partnerApply.uploaded=\'\';render()" style="margin-left:auto;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;">移除</button></div>'
           : '<button class="fw-pa-upload" onclick="partnerApplyUpload()">＋ 选择文件上传</button>' +
             '<div style="font-family:var(--font-zh);font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5;">' + (isOut ? '暂无营业执照?可先上架,后续补充。' : '暂无证书?没关系 —— 可以靠真实评价、雪场打卡、学员口碑建立信任。') + '</div>') +
+      insBlock +
       field(isOut ? '团介绍' : '自我介绍',
         '<textarea class="fw-pa-input" rows="3" placeholder="' + (isOut ? '一句话讲清你的团特色' : '教学经验 / 风格 / 适合的学员') + '" oninput="state.partnerApply.bio=this.value" style="resize:vertical;">' + escHtml(p.bio) + '</textarea>');
     footer = '<button class="web-cta-ghost" onclick="partnerApplyBack()">← 上一步</button>' +
       '<button class="web-cta-primary" onclick="partnerApplyNext()">下一步 →</button>';
   } else {  // step 4 — confirm
+    var insText = isOut
+      ? (p.insScope.join('、') || '待提供')
+      : (p.insSource ? (p.insSource === '学校' ? '学校 Betriebshaftpflicht 覆盖' : '自购 Berufshaftpflicht') + (p.insScope.length ? '（' + p.insScope.join('、') + '）' : '') + (p.insUploaded ? ' · 保单已上传' : ' · 保单待传') : '待提供');
     var rows = isOut
-      ? [['机构', p.orgName], ['联系人 / 微信', (p.name ? p.name + ' · ' : '') + p.wechat], ['目的地', p.destCountries.join('、') || '—'], ['天数', p.days || '—'], ['起价', p.price ? p.currency + p.price + '/人' : '—'], ['含', p.includes.join('、') || '—'], ['资质', p.uploaded || '—']]
-      : [['姓名', p.name], ['微信', p.wechat], ['常驻', _partnerCity(p)], ['主项', p.sport || '—'], ['语言', _partnerLangs(p).join('/') || '—'], ['收费', _partnerRate(p)], ['资质', (p.certs.join('、') || '—') + ' · ' + (p.uploaded || '')]];
+      ? [['机构', p.orgName], ['联系人 / 微信', (p.name ? p.name + ' · ' : '') + p.wechat], ['目的地', p.destCountries.join('、') || '—'], ['天数', p.days || '—'], ['起价', p.price ? p.currency + p.price + '/人' : '—'], ['含', p.includes.join('、') || '—'], ['资质', p.uploaded || '—'], ['保险', insText]]
+      : [['姓名', p.name], ['微信', p.wechat], ['常驻', _partnerCity(p)], ['主项', p.sport || '—'], ['语言', _partnerLangs(p).join('/') || '—'], ['收费', _partnerRate(p)], ['资质', (p.certs.join('、') || '—') + ' · ' + (p.uploaded || '')], ['保险', insText]];
     body = head('入驻 · ' + T.noun, '确认并提交', '提交后 24h 内人工审核') +
       '<div style="background:var(--surface-sunken);border-radius:10px;padding:6px 16px;">' +
       rows.map(function(r) {
