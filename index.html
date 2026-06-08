@@ -4801,6 +4801,209 @@ body.embed-web .web-frame { margin: 0 auto !important; }
   .web-detail-grid { grid-template-columns: 1fr; gap: 24px; padding: 32px; }
   .web-detail-toc { position: static; }
 }
+
+/* ============ 首页方案 Showcase (section-plan) · 全部作用域隔离 ============ */
+#section-plan{padding:0 !important}
+#section-plan .sc-bar{position:sticky;top:60px;z-index:40;background:rgba(255,255,255,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd-default);padding:14px 28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+#section-plan .sc-grp{display:flex;align-items:center;gap:6px}
+#section-plan .sc-grp-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-faint);margin-right:2px}
+#section-plan .sc-tabs{display:flex;background:var(--surface-sunken);border-radius:9px;padding:3px;gap:2px}
+#section-plan .sc-tab{font-family:var(--font-zh);font-size:13px;font-weight:500;color:var(--text-muted);padding:7px 13px;border-radius:7px;cursor:pointer;border:none;background:none;transition:all .12s}
+#section-plan .sc-tab:hover{color:var(--text-primary)}
+#section-plan .sc-tab.active{background:var(--surface-raised);color:var(--acc-700);font-weight:600;box-shadow:var(--sh-sm)}
+#section-plan .sc-seg{display:flex;border:1px solid var(--bd-strong);border-radius:8px;overflow:hidden}
+#section-plan .sc-seg button{font-family:var(--font-zh);font-size:12.5px;font-weight:600;padding:7px 13px;border:none;background:var(--surface-raised);color:var(--text-muted);cursor:pointer;transition:all .12s}
+#section-plan .sc-seg button+button{border-left:1px solid var(--bd-default)}
+#section-plan .sc-seg button.active{background:var(--acc-600);color:#fff}
+#section-plan .sc-phasehint{font-family:var(--font-zh);font-size:11.5px;color:var(--text-muted);max-width:280px;line-height:1.5}
+#section-plan .sc-phasehint b{color:var(--acc-700)}
+#section-plan .sc-stage{padding:34px 28px 90px;max-width:1180px;margin:0 auto}
+#section-plan .sc-view{display:none}
+#section-plan .sc-view.active{display:block}
+#section-plan .sc-viewhead{margin:0 auto 26px;max-width:780px;text-align:center}
+#section-plan .sc-viewhead h2{font-family:var(--font-display);font-size:25px;font-weight:600;letter-spacing:-.6px;margin:0 0 8px}
+#section-plan .sc-viewhead p{font-family:var(--font-zh);font-size:14px;color:var(--text-muted);margin:0;line-height:1.6}
+#section-plan .sc-pair{display:flex;gap:44px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+#section-plan .sc-col{display:flex;flex-direction:column;align-items:center;gap:12px}
+#section-plan .sc-coltag{font-family:var(--font-zh);font-size:13px;font-weight:600;padding:5px 14px;border-radius:20px}
+#section-plan .sc-coltag.t1{background:var(--acc-50);color:var(--acc-700)}
+#section-plan .sc-coltag.t2{background:var(--info-bg);color:var(--info-fg)}
+#section-plan .sc-coltag small{display:block;font-weight:400;font-size:10.5px;color:var(--text-faint);text-align:center;margin-top:1px}
+/* phone */
+#section-plan .phone{width:336px;height:710px;background:var(--surface-page);border-radius:42px;border:2px solid var(--n-300);position:relative;overflow:hidden;box-shadow:var(--sh-xl)}
+#section-plan .ph-status{height:38px;padding:0 22px;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:13px;font-weight:600;position:relative;z-index:5}
+#section-plan .ph-notch{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:96px;height:24px;background:#0A0907;border-radius:12px;z-index:6}
+#section-plan .ph-content{height:638px;overflow-y:auto;position:relative;scrollbar-width:none}
+#section-plan .ph-content::-webkit-scrollbar{width:0}
+#section-plan .ph-homebar{height:34px;display:flex;align-items:center;justify-content:center}
+#section-plan .ph-homebar::after{content:'';width:118px;height:5px;background:var(--text-primary);border-radius:3px;opacity:.8}
+/* mp screen */
+#section-plan .mp{background:var(--surface-page);min-height:100%;padding-bottom:8px}
+#section-plan .mp-head{background:var(--surface-raised);padding:8px 16px 12px;border-bottom:1px solid var(--bd-subtle);display:flex;justify-content:space-between;align-items:center}
+#section-plan .mp-loc{display:flex;align-items:center;gap:4px;font-family:var(--font-zh);font-size:14px;font-weight:600}
+#section-plan .mp-acts{display:flex;gap:14px;align-items:center;color:var(--text-secondary);font-size:15px}
+#section-plan .mp-sec{padding:14px 16px 0}
+#section-plan .pf-eyebrow{font-family:var(--font-mono);font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-muted);font-weight:600;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#section-plan .pf-eyebrow a{color:var(--acc-600);text-decoration:none;font-weight:600;letter-spacing:.3px}
+#section-plan .mp-chip{margin:10px 16px 0;background:var(--acc-50);border:1px solid var(--acc-100);color:var(--acc-700);font-family:var(--font-zh);font-size:12px;font-weight:500;padding:7px 12px;border-radius:9px;display:flex;align-items:center;justify-content:space-between}
+#section-plan .mp-chip .edit{font-weight:600;cursor:pointer}
+#section-plan .t2theme .mp-chip{background:var(--info-bg);border-color:#cfe0ee;color:var(--info-fg)}
+/* feed */
+#section-plan .feed-card{background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:14px;padding:12px 13px;margin-bottom:9px;box-shadow:var(--sh-sm)}
+#section-plan .feed-pin{border:1.5px solid var(--acc-300);background:linear-gradient(180deg,var(--acc-50),var(--surface-raised))}
+#section-plan .feed-pin-tag{font-family:var(--font-mono);font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:var(--acc-700);font-weight:700;display:flex;align-items:center;gap:4px;margin-bottom:6px}
+#section-plan .feed-pin-tag::before{content:'★'}
+#section-plan .feed-title{font-family:var(--font-zh);font-size:14.5px;font-weight:600;line-height:1.35;margin-bottom:4px}
+#section-plan .feed-sub{font-family:var(--font-zh);font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#section-plan .feed-snow{font-family:var(--font-mono);font-size:10.5px;color:var(--info-fg);background:var(--info-bg);padding:1px 6px;border-radius:5px}
+#section-plan .feed-cta{margin-top:9px;display:inline-flex;align-items:center;gap:5px;font-family:var(--font-zh);font-size:12.5px;font-weight:600;color:#fff;background:var(--acc-600);padding:7px 13px;border-radius:8px;cursor:pointer}
+#section-plan .feed-row{display:flex;align-items:center;gap:9px;padding:9px 2px;border-bottom:1px solid var(--bd-subtle);font-family:var(--font-zh);font-size:13px}
+#section-plan .feed-row:last-child{border-bottom:none}
+#section-plan .feed-row .ico{width:30px;height:30px;border-radius:8px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+#section-plan .feed-row .tx{flex:1;min-width:0}
+#section-plan .feed-row .tx b{font-weight:600}
+#section-plan .feed-row .tx small{display:block;color:var(--text-muted);font-size:11px}
+#section-plan .feed-row .go{color:var(--acc-600);font-weight:700}
+#section-plan .feed-demand{border:1px dashed var(--acc-300);background:var(--acc-50);color:var(--acc-700);text-align:center;border-radius:10px;padding:9px;font-family:var(--font-zh);font-size:12.5px;font-weight:600;margin-top:2px;cursor:pointer}
+#section-plan .avwall{display:flex;align-items:center;gap:7px;margin-top:9px}
+#section-plan .avs{display:flex}
+#section-plan .avs span{width:24px;height:24px;border-radius:50%;border:2px solid var(--surface-raised);margin-left:-7px;background:linear-gradient(135deg,var(--acc-200),var(--acc-500));display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600}
+#section-plan .avs span:first-child{margin-left:0}
+#section-plan .avwall .cnt{font-family:var(--font-zh);font-size:11.5px;color:var(--text-muted)}
+#section-plan .mp-snowslim{margin:12px 16px 0;background:var(--n-900);color:#fff;border-radius:12px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center}
+#section-plan .mp-snowslim .l{font-family:var(--font-zh);font-size:12px}
+#section-plan .mp-snowslim .l b{font-family:var(--font-mono);color:var(--acc-200);font-weight:600}
+#section-plan .mp-snowslim .more{font-family:var(--font-zh);font-size:11px;color:var(--acc-200);font-weight:600}
+#section-plan .mp-snowslim .ts{display:block;font-family:var(--font-mono);font-size:8.5px;color:var(--n-400);margin-top:2px}
+#section-plan .mp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 16px;margin-top:14px}
+#section-plan .mp-gi{background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:12px;padding:11px 4px 8px;text-align:center;box-shadow:var(--sh-sm)}
+#section-plan .mp-gi .ic{font-size:19px;margin-bottom:3px}
+#section-plan .mp-gi .nm{font-family:var(--font-zh);font-size:12px;font-weight:600}
+#section-plan .mp-gi .ds{font-family:var(--font-zh);font-size:8.5px;color:var(--text-faint);line-height:1.25;margin-top:1px}
+#section-plan .rcard{display:flex;gap:11px;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:14px;padding:10px;margin-bottom:9px;box-shadow:var(--sh-sm)}
+#section-plan .rcard .img{width:84px;height:74px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,var(--acc-200),var(--acc-600));position:relative;overflow:hidden}
+#section-plan .rcard .img .fit{position:absolute;top:6px;left:6px;font-family:var(--font-zh);font-size:8.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.32);padding:1px 6px;border-radius:5px}
+#section-plan .rcard .bd{flex:1;min-width:0}
+#section-plan .rcard .nm{font-family:var(--font-zh);font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:6px}
+#section-plan .rcard .rate{font-family:var(--font-mono);font-size:10.5px;color:var(--warning-fg);background:var(--warning-bg);padding:1px 6px;border-radius:5px;font-weight:600}
+#section-plan .rcard .meta{font-family:var(--font-zh);font-size:11.5px;color:var(--text-muted);margin-top:3px;line-height:1.5}
+#section-plan .rcard .meta .price{color:var(--acc-700);font-weight:700}
+#section-plan .rcard .tags{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+#section-plan .rcard .tg{font-family:var(--font-zh);font-size:9.5px;padding:1px 7px;border-radius:5px;background:var(--surface-sunken);color:var(--text-secondary)}
+#section-plan .rcard .tg.b{background:rgba(34,163,92,.12);color:var(--diff-beginner)}
+#section-plan .rcard .pop{font-family:var(--font-zh);font-size:10px;color:var(--info-fg);margin-top:4px}
+#section-plan .mp-block{margin:14px 16px 0;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:14px;padding:12px 13px;box-shadow:var(--sh-sm)}
+#section-plan .mp-block .bt{font-family:var(--font-zh);font-size:13.5px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+#section-plan .mp-block .bt a{color:var(--acc-600);font-size:11.5px;text-decoration:none}
+#section-plan .mp-block .coachrow{display:flex;gap:8px;margin-top:9px}
+#section-plan .mp-block .coach{flex:1;text-align:center}
+#section-plan .mp-block .coach .av{width:42px;height:42px;border-radius:50%;margin:0 auto 4px;background:linear-gradient(135deg,var(--acc-300),var(--acc-600))}
+#section-plan .mp-block .coach .cn{font-family:var(--font-zh);font-size:10.5px;font-weight:600}
+#section-plan .mp-block .coach .cm{font-family:var(--font-zh);font-size:9px;color:var(--text-faint)}
+#section-plan .rank-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bd-subtle);font-family:var(--font-zh);font-size:13px}
+#section-plan .rank-row:last-child{border-bottom:none}
+#section-plan .rank-row .no{font-family:var(--font-mono);font-weight:700;color:var(--acc-600);width:16px}
+#section-plan .rank-row .nm{flex:1;font-weight:600}
+#section-plan .rank-row .ct{font-size:11px;color:var(--text-muted)}
+#section-plan .mp-sticky{position:sticky;bottom:0;padding:10px 16px 0;background:linear-gradient(180deg,transparent,var(--surface-page) 26%)}
+#section-plan .mp-sticky .btn{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--acc-600);color:#fff;font-family:var(--font-zh);font-size:14px;font-weight:600;padding:12px;border-radius:12px;box-shadow:var(--sh-md);cursor:pointer}
+#section-plan .mp-tabs{display:flex;border-top:1px solid var(--bd-default);background:rgba(255,255,255,.96);backdrop-filter:blur(18px);padding:7px 0 4px;margin-top:10px;position:sticky;bottom:0}
+#section-plan .mp-tabs .tb{flex:1;text-align:center;font-family:var(--font-zh);font-size:9.5px;color:var(--text-muted)}
+#section-plan .mp-tabs .tb .i{font-size:17px;display:block;line-height:1.3}
+#section-plan .mp-tabs .tb.on{color:var(--text-primary);font-weight:600}
+/* phase visibility (scoped to section, not body) */
+#section-plan .phase2{display:none}
+#section-plan.p2 .phase2{display:block}
+#section-plan.p2 .phase2.inline{display:inline-flex}
+#section-plan.p2 .phase2.flex{display:flex}
+#section-plan .phase2-tag{font-family:var(--font-mono);font-size:8px;letter-spacing:.5px;color:var(--success-solid);border:1px solid var(--success-solid);border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:middle;font-weight:600}
+/* user-maturity progressive disclosure */
+#section-plan .mature-only{display:none}
+#section-plan.mature .mature-only{display:block}
+#section-plan.mature .mature-only.flex{display:flex}
+#section-plan .mat-tag{font-family:var(--font-mono);font-size:8px;letter-spacing:.5px;color:var(--info-fg);border:1px solid var(--info-fg);border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:middle;font-weight:600}
+/* hint bubble */
+#section-plan .hint{position:absolute;z-index:30;max-width:200px;background:var(--n-900);color:#fff;font-family:var(--font-zh);font-size:11.5px;line-height:1.5;padding:9px 11px;border-radius:11px;box-shadow:var(--sh-lg)}
+#section-plan .hint b{color:var(--acc-200)}
+#section-plan .hint .dismiss{display:inline-block;margin-top:6px;font-size:11px;color:var(--acc-200);font-weight:700;cursor:pointer}
+/* onboarding compare */
+#section-plan .ob-pair{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+#section-plan .ob-side{display:flex;flex-direction:column;align-items:center;gap:12px;max-width:360px}
+#section-plan .ob-verdict{font-family:var(--font-zh);font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px}
+#section-plan .ob-bad{background:var(--danger-bg);color:var(--danger-fg)}
+#section-plan .ob-good{background:var(--success-bg);color:var(--success-fg)}
+#section-plan .ob-note{font-family:var(--font-zh);font-size:12px;color:var(--text-muted);line-height:1.6;text-align:left;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:12px;padding:12px 14px}
+#section-plan .ob-note b{color:var(--text-primary)}
+#section-plan .ob-modal{background:var(--surface-raised);border-radius:16px;box-shadow:var(--sh-xl);padding:20px 18px;width:290px}
+#section-plan .ob-modal h4{font-family:var(--font-zh);font-size:16px;margin:0 0 4px}
+#section-plan .ob-modal .q{font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin-bottom:12px}
+#section-plan .ob-modal .lbl{font-family:var(--font-zh);font-size:12px;font-weight:600;margin:10px 0 6px}
+#section-plan .ob-modal .chips{display:flex;flex-wrap:wrap;gap:6px}
+#section-plan .ob-modal .chips span{font-family:var(--font-zh);font-size:11.5px;border:1px solid var(--bd-strong);border-radius:16px;padding:5px 11px;color:var(--text-secondary)}
+#section-plan .ob-modal .city{margin-top:6px;border:1px solid var(--bd-strong);border-radius:9px;padding:9px 11px;font-family:var(--font-zh);font-size:12px;color:var(--text-faint)}
+#section-plan .ob-modal .sub{margin-top:14px;background:var(--acc-600);color:#fff;text-align:center;border-radius:9px;padding:10px;font-family:var(--font-zh);font-size:13px;font-weight:600}
+#section-plan .ob-modal .skip{text-align:center;margin-top:8px;font-family:var(--font-zh);font-size:11px;color:var(--text-faint)}
+/* guide */
+#section-plan .guide-grid{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+#section-plan .guide-note{max-width:330px;font-family:var(--font-zh);font-size:13px;line-height:1.7;color:var(--text-secondary)}
+#section-plan .guide-note h3{font-family:var(--font-display);font-size:17px;margin:0 0 10px}
+#section-plan .guide-note ul{padding-left:18px;margin:8px 0}
+#section-plan .guide-note li{margin-bottom:7px}
+#section-plan .guide-bad{margin-top:16px;background:var(--danger-bg);border:1px solid #f0cfc7;border-radius:12px;padding:12px 14px;color:var(--danger-fg);font-size:12.5px}
+#section-plan .guide-bad b{display:block;margin-bottom:4px}
+#section-plan .guide-good{margin-top:10px;background:var(--success-bg);border:1px solid #cfe3d4;border-radius:12px;padding:12px 14px;color:var(--success-fg);font-size:12.5px}
+#section-plan .guide-good b{display:block;margin-bottom:4px}
+#section-plan .optcard{margin:14px 16px 0;border:1px dashed var(--acc-300);background:var(--acc-50);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+#section-plan .optcard .ic{font-size:20px}
+#section-plan .optcard .tx{flex:1;font-family:var(--font-zh);font-size:12.5px}
+#section-plan .optcard .tx b{font-weight:600}
+#section-plan .optcard .tx small{display:block;color:var(--text-muted);font-size:10.5px}
+#section-plan .optcard .go{color:var(--acc-600);font-weight:700;font-size:12px}
+/* journey timeline */
+#section-plan .jrny-rail{display:flex;align-items:stretch;justify-content:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:8px 4px 16px}
+#section-plan .jrny-step{display:flex;flex-direction:column;align-items:center;gap:10px;flex:0 0 auto;width:300px}
+#section-plan .jrny-stage{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:#fff;background:var(--n-800);padding:3px 10px;border-radius:20px}
+#section-plan .jrny-stage b{color:var(--acc-200)}
+#section-plan .jrny-cap{font-family:var(--font-zh);font-size:11.5px;color:var(--text-muted);text-align:center;max-width:270px;line-height:1.5}
+#section-plan .jrny-arrow{flex:0 0 auto;width:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 6px;align-self:center}
+#section-plan .jrny-arrow .lab{font-family:var(--font-zh);font-size:11px;font-weight:600;color:var(--acc-700);background:var(--acc-50);border:1px solid var(--acc-100);border-radius:8px;padding:6px 8px;text-align:center;line-height:1.4}
+#section-plan .jrny-arrow .ln{font-size:20px;color:var(--acc-400);margin-top:6px}
+#section-plan .jrny-phone{transform:scale(.86);transform-origin:top center;margin-bottom:-96px}
+/* register wall (bottom sheet) */
+#section-plan .regwall-dim{position:absolute;inset:0;background:rgba(10,9,7,.34);z-index:14;border-radius:0}
+#section-plan .regwall{position:absolute;left:0;right:0;bottom:0;z-index:15;background:var(--surface-raised);border-radius:20px 20px 0 0;padding:14px 18px 22px;box-shadow:0 -8px 30px rgba(10,9,7,.18)}
+#section-plan .regwall .grab{width:38px;height:4px;border-radius:3px;background:var(--bd-strong);margin:0 auto 12px}
+#section-plan .regwall .rt{font-family:var(--font-zh);font-size:15px;font-weight:700;text-align:center}
+#section-plan .regwall .rs{font-family:var(--font-zh);font-size:11.5px;color:var(--text-muted);text-align:center;margin:6px 0 14px;line-height:1.5}
+#section-plan .regwall .rbtn{background:#07C160;color:#fff;font-family:var(--font-zh);font-size:14px;font-weight:600;text-align:center;padding:11px;border-radius:10px}
+#section-plan .regwall .rskip{text-align:center;font-family:var(--font-zh);font-size:11.5px;color:var(--text-faint);margin-top:10px}
+/* behavior-driven spotlight demo */
+#section-plan .beh-ctrl{display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;margin:-10px auto 22px;font-family:var(--font-zh);font-size:12px;color:var(--text-muted)}
+#section-plan .beh-ctrl .bl{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-faint)}
+#section-plan .beh-ctrl button{font-family:var(--font-zh);font-size:12px;border:1px solid var(--bd-strong);background:var(--surface-raised);color:var(--text-secondary);padding:5px 12px;border-radius:16px;cursor:pointer}
+#section-plan .beh-ctrl button.active{background:var(--acc-600);color:#fff;border-color:var(--acc-600)}
+#section-plan .beh-ctrl .note{color:var(--text-faint)}
+#section-plan .spot-beh{display:none}
+#section-plan.beh .spot-default{display:none}
+#section-plan.beh .spot-beh{display:block}
+/* optional NUX overlay (新手必看, pull) */
+#section-plan .nux{display:none;position:absolute;inset:0;z-index:20}
+#section-plan .nux.on{display:block}
+#section-plan .nux-dim{position:absolute;inset:0;background:rgba(10,9,7,.55)}
+#section-plan .nux-card{position:absolute;left:14px;right:14px;bottom:16px;background:var(--surface-raised);border-radius:16px;padding:18px 16px 14px;box-shadow:var(--sh-xl);text-align:center}
+#section-plan .nux-prog{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--text-faint)}
+#section-plan .nux-ic{font-size:32px;margin:6px 0 2px}
+#section-plan .nux-t{font-family:var(--font-zh);font-size:16px;font-weight:700}
+#section-plan .nux-d{font-family:var(--font-zh);font-size:12.5px;color:var(--text-muted);line-height:1.6;margin:6px 0 14px}
+#section-plan .nux-actions{display:flex;align-items:center;justify-content:space-between}
+#section-plan .nux-skip{font-family:var(--font-zh);font-size:12px;color:var(--text-faint);cursor:pointer}
+#section-plan .nux-next{font-family:var(--font-zh);font-size:13px;font-weight:600;color:#fff;background:var(--acc-600);padding:8px 18px;border-radius:9px;cursor:pointer}
+#section-plan .nux-dots{display:flex;gap:4px;justify-content:center;margin-top:10px}
+#section-plan .nux-dots i{width:5px;height:5px;border-radius:50%;background:var(--bd-strong)}
+#section-plan .nux-dots i.on{background:var(--acc-500)}
+#section-plan .optcard{cursor:pointer}
+#section-plan .footnote{max-width:780px;margin:40px auto 0;font-family:var(--font-zh);font-size:11.5px;color:var(--text-faint);text-align:center;line-height:1.7;border-top:1px solid var(--bd-default);padding-top:18px}
+@media(max-width:760px){#section-plan .sc-pair,#section-plan .ob-pair,#section-plan .guide-grid{gap:28px}}
 </style>
 </head>
 <body>
@@ -4842,6 +5045,7 @@ body.embed-web .web-frame { margin: 0 auto !important; }
     <button class="topnav-tab" data-section="web" onclick="goSection('web')"><span class="topnav-tab-num">02</span>Website</button>
     <button class="topnav-tab" data-section="brand" onclick="goSection('brand')"><span class="topnav-tab-num">03</span>品牌</button>
     <button class="topnav-tab" data-section="journey" onclick="goSection('journey')"><span class="topnav-tab-num">04</span>旅程</button>
+    <button class="topnav-tab" data-section="plan" onclick="goSection('plan')"><span class="topnav-tab-num">05</span>首页方案</button>
   </div>
   <div class="topnav-actions">
     <span class="theme-pill" id="theme-pill">SUNSET · 雪场夕阳</span>
@@ -4853,6 +5057,363 @@ body.embed-web .web-frame { margin: 0 auto !important; }
 <section id="section-web" class="section"></section>
 <section id="section-brand" class="section"></section>
 <section id="section-journey" class="section"></section>
+<section id="section-plan" class="section">
+  <div class="sc-bar">
+    <div class="sc-grp">
+      <span class="sc-grp-label">页面</span>
+      <div class="sc-tabs" id="pfTabs">
+        <button class="sc-tab active" data-pview="home">首页对比</button>
+        <button class="sc-tab" data-pview="resort">雪场详情</button>
+        <button class="sc-tab" data-pview="journey">用户旅程</button>
+        <button class="sc-tab" data-pview="onboard">Onboarding</button>
+        <button class="sc-tab" data-pview="guide">引导演示</button>
+      </div>
+    </div>
+    <div class="sc-grp">
+      <span class="sc-grp-label">用户成熟度</span>
+      <div class="sc-seg" id="pfMat">
+        <button class="active" data-mat="0">新用户</button>
+        <button data-mat="1">老用户</button>
+      </div>
+    </div>
+    <div class="sc-grp">
+      <span class="sc-grp-label">数据门控</span>
+      <div class="sc-seg" id="pfPhase">
+        <button class="active" data-phase="1">空数据</button>
+        <button data-phase="2">有数据</button>
+      </div>
+    </div>
+    <div class="sc-phasehint" id="pfPhaseHint"><b>两条独立轴：</b>「用户成熟度」按<b>这个用户</b>的熟练度渐进披露二级模块（用户有感·简→丰）；「数据门控」按<b>真实数据</b>点亮社交证明/排行/天气（后台·用户几乎无感）。</div>
+  </div>
+
+  <div class="sc-stage">
+    <!-- HOME -->
+    <div class="sc-view active" data-pview="home">
+      <div class="sc-viewhead"><h2>两套首屏 · 同组件按推断类型组装</h2><p>没有共用脊柱 → 左右直接对比。Type 1 重社区脉搏+雪况织卡；Type 2 重种草+找服务、不放今日雪况。拨"平台轴"看界面从简洁到全。</p></div>
+      <div class="beh-ctrl">
+        <span class="bl">行为驱动聚焦位</span>
+        <button data-beh="0" class="active">默认</button>
+        <button data-beh="1">模拟：看了 3 个雪场 · 没拼车</button>
+        <span class="note">← 不问用户，聚焦位按行为自动变（固定规则·非算法）。看左侧 Type 1 顶部卡</span>
+      </div>
+      <div class="sc-pair">
+        <div class="sc-col">
+          <div class="sc-coltag t1">Type 1 · 在欧华人（会滑）<small>关注：本周末去哪 / 找谁拼车</small></div>
+          <div class="phone t1theme">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">📍 慕尼黑 ▾</div><div class="mp-acts">🔍 🔔</div></div>
+              <div class="mp-chip"><span>为你显示 · 在欧洲雪友</span><span class="edit">改 ▸</span></div>
+              <div class="mp-sec">
+                <div class="pf-eyebrow"><span>最新动态 · N47</span><a>更多 →</a></div>
+                <div class="feed-card feed-pin spot-default">
+                  <div class="feed-pin-tag">为你聚焦</div>
+                  <div class="feed-title">本周六 · Stubai 冰川一日</div>
+                  <div class="feed-sub"><span>欧根 发起</span><span class="feed-snow">雪深 120cm · 3场开板</span></div>
+                  <div class="avwall phase2 flex"><div class="avs"><span>A</span><span>L</span><span>W</span><span>+</span></div><span class="cnt">12 人计划前往 · 还差 2 个拼车位 <span class="phase2-tag">有数据·头像墙</span></span></div>
+                  <span class="feed-cta">一起拼车 →</span>
+                </div>
+                <div class="feed-card feed-pin spot-beh">
+                  <div class="feed-pin-tag">为你聚焦 · 按你最近的浏览</div>
+                  <div class="feed-title">看了 3 个雪场还没定？找人一起去</div>
+                  <div class="feed-sub"><span>本周末有 4 个拼车局，对得上你看过的雪场</span></div>
+                  <span class="feed-cta">看本周末拼车 →</span>
+                </div>
+                <div class="feed-row"><div class="ico">🏁</div><div class="tx"><b>FIS 积分赛 · 周日报名</b><small>Kitzbühel · 截止周五</small></div><div class="go">报名 →</div></div>
+                <div class="feed-row"><div class="ico">🎿</div><div class="tx"><b>N47 周末团 · Sölden</b><small>大巴 + 教练 · 6 个名额</small></div><div class="go">看 →</div></div>
+                <div class="feed-row"><div class="ico">🚗</div><div class="tx"><b>求拼车去 Zermatt · 周六</b><small>@小林 · 求 1 个座</small></div><div class="go">响应 →</div></div>
+                <div class="feed-demand">没有合适的局？想去哪？发起求拼车 →</div>
+              </div>
+              <div class="mp-snowslim"><div class="l">今日雪况 · 你关注的雪场<b> Tirol 120cm</b><span class="phase2 inline phase2-tag" style="margin-left:6px">有数据 +风速/能见度</span><span class="ts">更新于今早 8:10</span></div><div class="more">按雪深看 ▸</div></div>
+              <div class="mp-grid">
+                <div class="mp-gi"><div class="ic">🏔️</div><div class="nm">雪场</div><div class="ds">雪况·开放·谁去</div></div>
+                <div class="mp-gi"><div class="ic">🚗</div><div class="nm">拼车</div><div class="ds">同行分摊油费</div></div>
+                <div class="mp-gi"><div class="ic">📅</div><div class="nm">活动</div><div class="ds">N47 团/比赛</div></div>
+                <div class="mp-gi"><div class="ic">🛒</div><div class="nm">二手</div><div class="ds">装备转让</div></div>
+              </div>
+              <div class="mp-block mature-only">
+                <div class="bt"><span>你的成就 · 徽章 <span class="mat-tag">老用户才显示</span></span><a>全部 →</a></div>
+                <div style="display:flex;gap:12px;margin-top:10px">
+                  <div style="text-align:center"><div style="width:38px;height:38px;border-radius:10px;margin:0 auto;background:linear-gradient(135deg,var(--acc-300),var(--acc-600));display:flex;align-items:center;justify-content:center;font-size:18px">🥇</div><div style="font-family:var(--font-zh);font-size:9px;color:var(--text-muted);margin-top:3px">首滑</div></div>
+                  <div style="text-align:center"><div style="width:38px;height:38px;border-radius:10px;margin:0 auto;background:linear-gradient(135deg,#7aa4c0,#2f4f7e);display:flex;align-items:center;justify-content:center;font-size:18px">🏔️</div><div style="font-family:var(--font-zh);font-size:9px;color:var(--text-muted);margin-top:3px">10 场</div></div>
+                  <div style="text-align:center"><div style="width:38px;height:38px;border-radius:10px;margin:0 auto;background:linear-gradient(135deg,#9bbf9e,#2f6849);display:flex;align-items:center;justify-content:center;font-size:18px">🤝</div><div style="font-family:var(--font-zh);font-size:9px;color:var(--text-muted);margin-top:3px">拼车王</div></div>
+                </div>
+              </div>
+              <div class="mp-block mature-only">
+                <div class="bt"><span>关注的人 · 动态 <span class="mat-tag">老用户才显示</span></span></div>
+                <div class="feed-row" style="padding-top:8px"><div class="ico">📍</div><div class="tx"><b>@欧根 打卡了 Stubai</b><small>2 小时前</small></div><div class="go">看 →</div></div>
+              </div>
+              <div class="mp-block phase2">
+                <div class="bt"><span>本周最热门雪场 <span class="phase2-tag">有数据·排行榜</span></span><a>全部 →</a></div>
+                <div class="rank-row"><span class="no">1</span><span class="nm">Stubai 冰川</span><span class="ct">本周末 12 人</span></div>
+                <div class="rank-row"><span class="no">2</span><span class="nm">Sölden</span><span class="ct">9 人</span></div>
+                <div class="rank-row"><span class="no">3</span><span class="nm">Zermatt</span><span class="ct">6 人</span></div>
+              </div>
+              <div class="mp-tabs"><div class="tb on"><span class="i">🏠</span>首页</div><div class="tb"><span class="i">🚗</span>出行</div><div class="tb"><span class="i">🧭</span>探索</div><div class="tb"><span class="i">💬</span>消息</div><div class="tb"><span class="i">👤</span>我的</div></div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+        </div>
+        <div class="sc-col">
+          <div class="sc-coltag t2">Type 2 · 国内游客（计划来）<small>关注：能不能来 / 找谁带 / 靠不靠谱</small></div>
+          <div class="phone t2theme">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">✈️ 计划前往 · 欧洲 ▾</div><div class="mp-acts">🔍 🔔</div></div>
+              <div class="mp-chip"><span>为你显示 · 计划来欧洲滑雪</span><span class="edit">改 ▸</span></div>
+              <div class="mp-sec">
+                <div class="feed-card feed-pin"><div class="feed-pin-tag">新手必看</div><div class="feed-title">第一次来欧洲滑雪？3 步帮你搞定</div><div class="feed-sub"><span>选雪场 · 配教练 · 安排落地</span></div><span class="feed-cta">开始规划 →</span></div>
+                <div class="pf-eyebrow" style="margin-top:14px"><span>热门雪场 · 适合中国雪友</span><a>筛选 ⚲</a></div>
+                <div class="rcard"><div class="img"><span class="fit">★ 初级友好</span></div><div class="bd"><div class="nm">圣安东 <span class="rate">★4.8 · 124 打卡</span></div><div class="meta">奥地利 · 雪道 305km · <span class="price">人均 €2.8k</span></div><div class="tags"><span class="tg b">初级友好</span><span class="tg">12 月最佳</span><span class="tg">中文教练</span></div><div class="pop phase2">本周 8 人计划前往 <span class="phase2-tag">有数据</span></div></div></div>
+                <div class="rcard"><div class="img" style="background:linear-gradient(135deg,#7aa4c0,#2f4f7e)"><span class="fit">★ 风景</span></div><div class="bd"><div class="nm">采尔马特 <span class="rate">★4.9 · 89 打卡</span></div><div class="meta">瑞士 · 马特洪峰 · <span class="price">人均 €3.5k</span></div><div class="tags"><span class="tg">家庭友好</span><span class="tg">雪景一流</span><span class="tg">缆车直达</span></div><div class="pop phase2">本周 5 人计划前往 <span class="phase2-tag">有数据</span></div></div></div>
+                <div class="rcard"><div class="img" style="background:linear-gradient(135deg,#9bbf9e,#2f6849)"><span class="fit">★ 进阶</span></div><div class="bd"><div class="nm">沙木尼 <span class="rate">★4.7 · 67 打卡</span></div><div class="meta">法国 · 勃朗峰 · <span class="price">人均 €3.2k</span></div><div class="tags"><span class="tg">野雪</span><span class="tg">进阶</span><span class="tg">向导制</span></div></div></div>
+              </div>
+              <div class="mp-block"><div class="bt"><span>找教练带练</span><a>精选 →</a></div><div class="coachrow"><div class="coach"><div class="av"></div><div class="cn">Marco</div><div class="cm">双板·中文</div></div><div class="coach"><div class="av" style="background:linear-gradient(135deg,#7aa4c0,#2f4f7e)"></div><div class="cn">小雪</div><div class="cm">单板·初学</div></div><div class="coach"><div class="av" style="background:linear-gradient(135deg,#9bbf9e,#2f6849)"></div><div class="cn">Lena</div><div class="cm">家庭·亲子</div></div></div></div>
+              <div class="mp-block"><div class="bt"><span>精编攻略 · 10 篇</span><a>全部 →</a></div><div class="feed-row" style="border:none;padding-top:8px"><div class="ico">📖</div><div class="tx"><b>欧洲滑雪第一次该带什么</b><small>运营精编 · 8 分钟</small></div><div class="go">读 →</div></div></div>
+              <div class="mp-sticky"><div class="btn">🎯 我要定制服务 →</div></div>
+              <div class="mp-tabs"><div class="tb on"><span class="i">🏠</span>首页</div><div class="tb"><span class="i">🏔️</span>探索</div><div class="tb"><span class="i">📖</span>攻略</div><div class="tb"><span class="i">💬</span>消息</div><div class="tb"><span class="i">👤</span>我的</div></div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESORT -->
+    <div class="sc-view" data-pview="resort">
+      <div class="sc-viewhead"><h2>雪场详情页 · 两类视角同页</h2><p>同一页，按类型微调重点排序。下方手机演示完整内容；左侧列出该补什么、为谁服务。</p></div>
+      <div class="sc-pair">
+        <div class="guide-note">
+          <h3>补什么 · 按停留/回访影响排序</h3>
+          <ul><li><b>实拍轮播</b>（替换渐变 hero）—两类都要，优先</li><li><b>一句话「适合谁」</b>—降 Type 2 选择成本</li><li><b>多日雪况预报</b>—Type 1 回访（Open-Meteo 顺带）</li><li><b>精编攻略接入</b>—Type 2 种草+信任</li><li><b>信任织进卡</b>（评分/打卡/游记）—不做空 band</li><li><b>价格区间 + 教练入口</b>—Type 2 找服务</li></ul>
+          <div class="guide-good"><b>冷启动</b>实拍/攻略/适合谁/多日预报都运营或 API 可填非空；"谁去"头像墙走阈值门控（有数据）。</div>
+        </div>
+        <div class="sc-col">
+          <div class="sc-coltag t1" style="background:linear-gradient(90deg,var(--acc-50),var(--info-bg));color:var(--text-secondary)">同页 · 两类视角</div>
+          <div class="phone">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">‹ 圣安东</div><div class="mp-acts">♡ ⤴</div></div>
+              <div style="height:170px;background:linear-gradient(135deg,var(--acc-300),var(--acc-700));position:relative">
+                <div style="position:absolute;left:14px;bottom:12px;color:#fff"><div style="font-family:var(--font-zh);font-size:20px;font-weight:700">圣安东 St. Anton</div><div style="font-family:var(--font-zh);font-size:11px;opacity:.9">奥地利 · 海拔 2811m · 雪道 305km</div></div>
+                <div style="position:absolute;right:12px;top:12px;font-family:var(--font-zh);font-size:9px;color:#fff;background:rgba(0,0,0,.3);padding:3px 8px;border-radius:6px">📷 实拍 1/8 · 滑动看</div>
+                <div style="position:absolute;right:12px;bottom:12px;font-family:var(--font-mono);font-size:10px;color:#fff;background:rgba(0,0,0,.34);padding:2px 7px;border-radius:5px">★4.8 · 124 打卡</div>
+              </div>
+              <div style="margin:12px 16px 0"><span style="font-family:var(--font-zh);font-size:11px;padding:4px 10px;border-radius:7px;background:rgba(34,163,92,.12);color:var(--diff-beginner);font-weight:600">适合谁：初/中级 · 家庭友好 · 单双板皆宜</span></div>
+              <div class="mp-snowslim" style="margin-top:12px"><div class="l">雪深 <b>120cm</b> · 开放雪道 <b>78%</b> · 缆车 <b>34/41</b><span class="ts">更新于今早 8:10 · 来源 雪场官网</span></div></div>
+              <div class="mp-sec">
+                <div class="pf-eyebrow"><span>未来 5 天 · 哪天去</span><span style="color:var(--text-faint);font-weight:400">Open-Meteo</span></div>
+                <div style="display:flex;gap:6px">
+                  <div style="flex:1;text-align:center;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:9px;padding:7px 2px;font-family:var(--font-zh);font-size:10px"><div>六</div><div style="font-size:15px">❄️</div><div style="font-family:var(--font-mono);color:var(--info-fg)">+15cm</div><div style="color:var(--text-faint)">-6°</div></div>
+                  <div style="flex:1;text-align:center;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:9px;padding:7px 2px;font-family:var(--font-zh);font-size:10px"><div>日</div><div style="font-size:15px">🌤️</div><div style="font-family:var(--font-mono);color:var(--text-faint)">—</div><div style="color:var(--text-faint)">-4°</div></div>
+                  <div style="flex:1;text-align:center;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:9px;padding:7px 2px;font-family:var(--font-zh);font-size:10px"><div>一</div><div style="font-size:15px">☀️</div><div style="font-family:var(--font-mono);color:var(--text-faint)">—</div><div style="color:var(--text-faint)">-2°</div></div>
+                  <div style="flex:1;text-align:center;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:9px;padding:7px 2px;font-family:var(--font-zh);font-size:10px"><div>二</div><div style="font-size:15px">🌨️</div><div style="font-family:var(--font-mono);color:var(--info-fg)">+8cm</div><div style="color:var(--text-faint)">-7°</div></div>
+                  <div style="flex:1;text-align:center;background:var(--surface-raised);border:1px solid var(--bd-subtle);border-radius:9px;padding:7px 2px;font-family:var(--font-zh);font-size:10px"><div>三</div><div style="font-size:15px">☀️</div><div style="font-family:var(--font-mono);color:var(--text-faint)">—</div><div style="color:var(--text-faint)">-3°</div></div>
+                </div>
+              </div>
+              <div class="mp-block"><div class="bt"><span>这周末谁去 St. Anton</span></div><div style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin-top:8px">本周末 <b style="color:var(--text-primary)">8 人</b> 计划前往 · <span style="color:var(--acc-600);font-weight:600">发起拼车 →</span></div><div class="avwall phase2 flex" style="margin-top:10px"><div class="avs"><span>A</span><span>K</span><span>M</span><span>Y</span><span>+</span></div><span class="cnt">+8 人 · 点头像看主页 <span class="phase2-tag">有数据·头像墙</span></span></div></div>
+              <div class="mp-block"><div class="bt"><span>攻略 & 玩家游记</span><a>更多 →</a></div><div class="feed-row" style="border-bottom:1px solid var(--bd-subtle);padding-top:8px"><div class="ico">📖</div><div class="tx"><b>圣安东新手一日动线</b><small>运营精编</small></div><div class="go">读 →</div></div><div class="feed-row"><div class="ico">📸</div><div class="tx"><b>「带娃滑了 4 天」</b><small>@安祺 · 真实游记</small></div><div class="go">看 →</div></div></div>
+              <div class="mp-block"><div class="bt"><span>价格 & 服务</span></div><div style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.9">日票 €67 · 雪具租赁 €35/天<br>参考人均（一周）<b style="color:var(--acc-700)">€2.8k</b> · 含教练/接送可定制</div><div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;text-align:center;background:var(--acc-600);color:#fff;font-family:var(--font-zh);font-size:12px;font-weight:600;padding:9px;border-radius:9px">找教练带练</div><div style="flex:1;text-align:center;border:1px solid var(--acc-600);color:var(--acc-700);font-family:var(--font-zh);font-size:12px;font-weight:600;padding:9px;border-radius:9px">我要定制</div></div></div>
+              <div class="mp-tabs"><div class="tb"><span class="i">🏠</span>首页</div><div class="tb on"><span class="i">🏔️</span>探索</div><div class="tb"><span class="i">📖</span>攻略</div><div class="tb"><span class="i">💬</span>消息</div><div class="tb"><span class="i">👤</span>我的</div></div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNEY -->
+    <div class="sc-view" data-pview="journey">
+      <div class="sc-viewhead"><h2>用户旅程 · 从匿名到注册（行为驱动）</h2><p>这是「用户轴」：单个用户从头到尾，由<b>自己的行为</b>推进——不是平台轴那种后台数据点亮。注册只在「动作真的需要身份」时触发，登录后无缝继续原动作。</p></div>
+      <div class="jrny-rail">
+        <!-- T0 -->
+        <div class="jrny-step">
+          <div class="jrny-stage"><b>T0</b> · 首次（匿名）</div>
+          <div class="phone jrny-phone">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">📍 慕尼黑 ▾</div><div class="mp-acts">🔍 🔔</div></div>
+              <div class="mp-chip"><span>为你显示 · 在欧洲雪友（推断）</span><span class="edit">改 ▸</span></div>
+              <div class="mp-sec">
+                <div class="pf-eyebrow"><span>最新动态 · N47</span></div>
+                <div class="feed-card feed-pin"><div class="feed-pin-tag">为你聚焦</div><div class="feed-title">本周六 · Stubai 冰川一日</div><div class="feed-sub"><span class="feed-snow">雪深 120cm</span></div></div>
+                <div class="feed-row"><div class="ico">🚗</div><div class="tx"><b>求拼车去 Zermatt · 周六</b><small>@小林</small></div><div class="go">看 →</div></div>
+              </div>
+              <div class="mp-grid"><div class="mp-gi"><div class="ic">🏔️</div><div class="nm">雪场</div></div><div class="mp-gi"><div class="ic">🚗</div><div class="nm">拼车</div></div><div class="mp-gi"><div class="ic">📅</div><div class="nm">活动</div></div><div class="mp-gi"><div class="ic">🛒</div><div class="nm">二手</div></div></div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="jrny-cap">进门即首页，类型靠 IP/渠道<b>推断</b>，零表单。雪场/攻略/活动/动态全可浏览。</div>
+        </div>
+        <div class="jrny-arrow"><div class="lab">浏览 · 收藏<br>（无需注册）</div><div class="ln">→</div></div>
+        <!-- T1 -->
+        <div class="jrny-step">
+          <div class="jrny-stage"><b>T1</b> · 轻互动（仍匿名）</div>
+          <div class="phone jrny-phone">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">‹ 周六 · Stubai 拼车</div><div class="mp-acts">♡</div></div>
+              <div class="mp-sec">
+                <div class="feed-card"><div class="feed-title">Stubai 冰川一日 · 拼车</div><div class="feed-sub"><span>欧根 发起</span><span class="feed-snow">还差 2 座</span></div><div style="font-family:var(--font-zh);font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.7">周六 6:30 慕尼黑出发 · 油费 AA<br>车型 途观 · 已 2 人</div></div>
+                <div class="mp-block" style="margin:14px 0 0"><div class="bt"><span>集合点</span></div><div style="font-family:var(--font-zh);font-size:12px;color:var(--text-faint);margin-top:6px">详细地点双方确认后可见</div></div>
+              </div>
+              <div class="mp-sticky"><div class="btn" style="outline:3px solid var(--acc-200);outline-offset:2px">加入拼车 →</div></div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="jrny-cap">看详情、收藏（本地存）。点「加入拼车」这种<b>需要身份/联系方式</b>的动作——</div>
+        </div>
+        <div class="jrny-arrow"><div class="lab">点「加入拼车」<br>触发注册墙</div><div class="ln">→</div></div>
+        <!-- T2 -->
+        <div class="jrny-step">
+          <div class="jrny-stage"><b>T2</b> · 注册（被动作触发）</div>
+          <div class="phone jrny-phone">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content" style="position:relative">
+              <div class="mp">
+                <div class="mp-head"><div class="mp-loc">‹ 周六 · Stubai 拼车</div><div class="mp-acts">♡</div></div>
+                <div class="mp-sec"><div class="feed-card"><div class="feed-title">Stubai 冰川一日 · 拼车</div><div class="feed-sub"><span class="feed-snow">还差 2 座</span></div></div></div>
+              </div>
+              <div class="regwall-dim"></div>
+              <div class="regwall">
+                <div class="grab"></div>
+                <div class="rt">登录后即可加入这个拼车</div>
+                <div class="rs">浏览无需登录；加入拼车要让发起人能联系到你 —— 所以这一步才需要身份。</div>
+                <div class="rbtn">微信一键登录</div>
+                <div class="rskip">以后再说</div>
+              </div>
+            </div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="jrny-cap">底部弹注册墙 · 一键微信登录 · 登录后<b>无缝继续刚才的拼车</b>，不丢回首页。</div>
+        </div>
+      </div>
+      <div class="guide-note" style="max-width:760px;margin:8px auto 0;text-align:center">
+        <div class="guide-good" style="margin-top:0"><b>T3 渐进补全：</b>加入拼车 → 才要微信；要个性化推荐 → 才选常驻城市；Type 2 点「我要定制」→ 才分步问行程/水平/预算。<b>用数据换价值，绝不在进门收税。</b></div>
+      </div>
+    </div>
+
+    <!-- ONBOARDING -->
+    <div class="sc-view" data-pview="onboard">
+      <div class="sc-viewhead"><h2>Onboarding · 别在门口收表</h2><p>左：现状的强制表单（用户没看到价值先付出 → 关掉）。右：进门即首页，类型靠 IP/渠道推断，一个非阻塞 chip 一键纠正，信息渐进式收集。</p></div>
+      <div class="ob-pair">
+        <div class="ob-side">
+          <div class="ob-verdict ob-bad">✗ 旧：强制表单</div>
+          <div class="phone" style="height:520px">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content" style="height:auto;display:flex;align-items:center;justify-content:center;background:rgba(10,9,7,.28);padding:16px 0">
+              <div class="ob-modal"><h4>欢迎来到趣野 👋</h4><div class="q">完善资料，为你推荐</div><div class="lbl">你玩什么？（多选）</div><div class="chips"><span>双板</span><span>单板</span><span>越野滑雪</span><span>滑雪登山</span><span>徒步</span><span>攀冰</span></div><div class="lbl">常驻城市？</div><div class="city">请选择国家 / 城市 ▾</div><div class="sub">完成，开始使用</div><div class="skip">先逛逛</div></div>
+            </div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="ob-note"><b>问题：</b>用户还没看到任何价值，先被要求多选 + 选城市。同事原话："一打开让填的，直接关掉。" 这是激活杀手。</div>
+        </div>
+        <div class="ob-side">
+          <div class="ob-verdict ob-good">✓ 新：推断 + 一键纠正</div>
+          <div class="phone" style="height:520px">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content" style="height:auto"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">📍 慕尼黑 ▾</div><div class="mp-acts">🔍 🔔</div></div>
+              <div class="mp-chip"><span>为你显示 · 在欧洲雪友</span><span class="edit">改 ▸</span></div>
+              <div class="hint" style="position:relative;margin:8px 16px 0;max-width:none">推断你在欧洲（IP/来源渠道）。<b>不对？点"改"一键切换</b>，不用填表。<span class="dismiss">知道了</span></div>
+              <div class="mp-sec" style="opacity:.85"><div class="pf-eyebrow"><span>最新动态 · N47</span></div><div class="feed-card feed-pin"><div class="feed-pin-tag">为你聚焦</div><div class="feed-title">本周六 · Stubai 冰川一日</div><div class="feed-sub"><span class="feed-snow">雪深 120cm</span></div><span class="feed-cta">一起拼车 →</span></div></div>
+              <div class="mp-grid" style="opacity:.85"><div class="mp-gi"><div class="ic">🏔️</div><div class="nm">雪场</div></div><div class="mp-gi"><div class="ic">🚗</div><div class="nm">拼车</div></div><div class="mp-gi"><div class="ic">📅</div><div class="nm">活动</div></div><div class="mp-gi"><div class="ic">🛒</div><div class="nm">二手</div></div></div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="ob-note"><b>渐进式收集：</b>要拼车才要联系方式、要个性化才选城市 —— 用数据换价值，不在进门收税。贯彻已决议 15-U1（浏览全开、动作才注册）。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUIDE -->
+    <div class="sc-view" data-pview="guide">
+      <div class="sc-viewhead"><h2>动态引导 · 一个一个按需出现，首开是干净的</h2><p>引导不是一帧砸全部。真实顺序：<b>首开零引导（自明 UI）→ 用户动作触发单个提示 →（可选）主动看新手必看</b>。下面三帧就是它随时间展开的样子。</p></div>
+      <div class="jrny-rail">
+        <!-- A 首开干净 -->
+        <div class="jrny-step">
+          <div class="jrny-stage"><b>首开</b> · 零引导</div>
+          <div class="phone jrny-phone">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">📍 慕尼黑 ▾</div><div class="mp-acts">🔍 🔔</div></div>
+              <div class="mp-chip"><span>为你显示 · 在欧洲雪友</span><span class="edit">改 ▸</span></div>
+              <div class="mp-sec">
+                <div class="pf-eyebrow"><span>最新动态 · N47</span></div>
+                <div class="feed-card feed-pin"><div class="feed-pin-tag">为你聚焦</div><div class="feed-title">本周六 · Stubai 冰川一日</div><div class="feed-sub"><span class="feed-snow">雪深 120cm</span></div><span class="feed-cta">一起拼车 →</span></div>
+                <div class="feed-row"><div class="ico">🚗</div><div class="tx"><b>求拼车去 Zermatt · 周六</b><small>@小林</small></div><div class="go">看 →</div></div>
+              </div>
+              <div class="mp-grid"><div class="mp-gi"><div class="ic">🏔️</div><div class="nm">雪场</div><div class="ds">雪况·开放·谁去</div></div><div class="mp-gi"><div class="ic">🚗</div><div class="nm">拼车</div><div class="ds">同行分摊油费</div></div><div class="mp-gi"><div class="ic">📅</div><div class="nm">活动</div><div class="ds">N47 团/比赛</div></div><div class="mp-gi"><div class="ic">🛒</div><div class="nm">二手</div><div class="ds">装备转让</div></div></div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="jrny-cap">刚进来：<b>干净</b>。零气泡、零蒙层。功能发现靠<b>宫格一句话小字 + 自明 UI</b>，被动完成。</div>
+        </div>
+        <div class="jrny-arrow"><div class="lab">首次下滑到宫格<br>（被动触发）</div><div class="ln">→</div></div>
+        <!-- B 情境提示 -->
+        <div class="jrny-step">
+          <div class="jrny-stage"><b>就地提示</b> · just-in-time</div>
+          <div class="phone jrny-phone">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">📍 慕尼黑 ▾</div><div class="mp-acts">🔍 🔔</div></div>
+              <div class="mp-sec" style="opacity:.5"><div class="pf-eyebrow"><span>最新动态 · N47</span></div><div class="feed-card feed-pin"><div class="feed-pin-tag">为你聚焦</div><div class="feed-title">本周六 · Stubai 冰川一日</div><div class="feed-sub"><span class="feed-snow">雪深 120cm</span></div></div></div>
+              <div style="position:relative">
+                <div class="mp-grid"><div class="mp-gi"><div class="ic">🏔️</div><div class="nm">雪场</div><div class="ds">雪况·开放</div></div><div class="mp-gi" style="outline:2px solid var(--acc-400);outline-offset:-1px;border-radius:12px"><div class="ic">🚗</div><div class="nm">拼车</div><div class="ds">同行分摊</div></div><div class="mp-gi"><div class="ic">📅</div><div class="nm">活动</div><div class="ds">团/比赛</div></div><div class="mp-gi"><div class="ic">🛒</div><div class="nm">二手</div><div class="ds">装备转让</div></div></div>
+                <div class="hint" style="top:10px;left:90px">第一次到这？<b>拼车</b>=和雪友同行、分摊油费、路上有伴。<span class="dismiss">知道了</span></div>
+              </div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="jrny-cap">首次下滑到宫格，才冒<b>一个</b>情境气泡（指最值得用的那个）。可关、关了不再来。</div>
+        </div>
+        <div class="jrny-arrow"><div class="lab">另一条路：主动点<br>「新手必看」</div><div class="ln">→</div></div>
+        <!-- C 可选新手必看 -->
+        <div class="jrny-step">
+          <div class="jrny-stage"><b>新手必看</b> · 可选 pull</div>
+          <div class="phone jrny-phone">
+            <div class="ph-notch"></div><div class="ph-status"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="ph-content" style="position:relative"><div class="mp">
+              <div class="mp-head"><div class="mp-loc">📍 慕尼黑 ▾</div><div class="mp-acts">🔍 🔔</div></div>
+              <div class="mp-chip"><span>为你显示 · 在欧洲雪友</span><span class="edit">改 ▸</span></div>
+              <div class="optcard"><div class="ic">🧭</div><div class="tx"><b>新手必看 · 1 分钟逛懂趣野</b><small>可选 · 想看才看，不打断</small></div><div class="go">看 →</div></div>
+              <div class="mp-sec"><div class="pf-eyebrow"><span>最新动态 · N47</span></div><div class="feed-card feed-pin"><div class="feed-pin-tag">为你聚焦</div><div class="feed-title">本周六 · Stubai 冰川一日</div><div class="feed-sub"><span class="feed-snow">雪深 120cm</span></div></div></div>
+              <div class="mp-grid"><div class="mp-gi"><div class="ic">🏔️</div><div class="nm">雪场</div></div><div class="mp-gi"><div class="ic">🚗</div><div class="nm">拼车</div></div><div class="mp-gi"><div class="ic">📅</div><div class="nm">活动</div></div><div class="mp-gi"><div class="ic">🛒</div><div class="nm">二手</div></div></div>
+              <div class="nux on">
+                <div class="nux-dim"></div>
+                <div class="nux-card">
+                  <div class="nux-prog">1 / 5</div><div class="nux-ic">🏔️</div><div class="nux-t">雪场</div>
+                  <div class="nux-d">看实时雪况、开放雪道、这周末谁去。</div>
+                  <div class="nux-actions"><span class="nux-skip">跳过</span><span class="nux-next">下一步 →</span></div>
+                  <div class="nux-dots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+                </div>
+              </div>
+            </div></div>
+            <div class="ph-homebar"></div>
+          </div>
+          <div class="jrny-cap">想系统了解的人，<b>主动点</b>才出 1 分钟分步浮层（可点下一步/跳过）。不想看就忽略。</div>
+        </div>
+      </div>
+      <div class="guide-note" style="max-width:840px;margin:6px auto 0">
+        <div style="display:flex;gap:24px;flex-wrap:wrap">
+          <div style="flex:1;min-width:250px">
+            <h3 style="margin-top:0">为什么这样</h3>
+            <ul><li><b>渐进披露</b>：首开只给该给的，复杂度随动作展开。</li><li><b>just-in-time</b>：提示在"用户正好到那"时出现，记得住。</li><li><b>pull 不 push</b>：新手必看想看才看，不拦路。</li><li><b>空状态即引导</b>："发起求拼车"既是空态也是 CTA。</li></ul>
+          </div>
+          <div style="flex:1;min-width:250px">
+            <div class="guide-bad" style="margin-top:0"><b>✗ 不做：首开把引导一帧砸全</b>chip+新手必看+气泡+蒙层全堆首屏——又乱又吓人，正是该避免的。</div>
+            <div class="guide-good"><b>✓ 原则</b>最好的引导是自明的 UI（Don't make me think）；一次只出一个、按需、可关。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      Funwild 首页方案 · 评审落地原型（HTML 设计原型，非产品代码；真产品走 uni-app/Taro 跨端，框架待锁）。<br>
+      两条轴：平台轴（第一批→有数据，后台数据点亮）× 用户轴（T0匿名→T2注册，行为驱动）。详见 plan 文件第八节。
+    </div>
+  </div>
+</section>
 <div id="qr-modal-host"></div>
 <div id="web-modal-host"></div>
 <div id="demo-player-host"></div>
@@ -17952,6 +18513,81 @@ window.addEventListener('hashchange', applyHash);
   document.body.classList.add('embed', 'embed-' + em);
   state.section = em;
   goSection(em);
+})();
+</script>
+<script>
+/* ===== 首页方案 (section-plan) 交互 · 作用域隔离 ===== */
+(function(){
+  var root=document.getElementById('section-plan');
+  if(!root) return;
+  // sub-tab 切换
+  root.querySelectorAll('#pfTabs .sc-tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      root.querySelectorAll('#pfTabs .sc-tab').forEach(function(x){x.classList.remove('active')});
+      t.classList.add('active');
+      root.querySelectorAll('.sc-view').forEach(function(v){v.classList.toggle('active', v.dataset.pview===t.dataset.pview)});
+    });
+  });
+  // 数据门控（空/有数据）
+  root.querySelectorAll('#pfPhase button').forEach(function(b){
+    b.addEventListener('click',function(){
+      root.querySelectorAll('#pfPhase button').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      root.classList.toggle('p2', b.dataset.phase==='2');
+    });
+  });
+  // 用户成熟度（新/老用户·渐进披露）
+  root.querySelectorAll('#pfMat button').forEach(function(b){
+    b.addEventListener('click',function(){
+      root.querySelectorAll('#pfMat button').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      root.classList.toggle('mature', b.dataset.mat==='1');
+    });
+  });
+  // 提示关闭
+  root.querySelectorAll('.hint .dismiss').forEach(function(d){
+    d.addEventListener('click',function(){ var h=d.closest('.hint'); if(h) h.style.display='none'; });
+  });
+  // 行为驱动聚焦位切换
+  root.querySelectorAll('.beh-ctrl button').forEach(function(b){
+    b.addEventListener('click',function(){
+      root.querySelectorAll('.beh-ctrl button').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      root.classList.toggle('beh', b.dataset.beh==='1');
+    });
+  });
+  // 可选「新手必看」分步浮层
+  var nux=root.querySelector('.nux');
+  if(nux){
+    var steps=[
+      {ic:'🏔️',t:'雪场',d:'看实时雪况、开放雪道、这周末谁去。'},
+      {ic:'🚗',t:'拼车',d:'和雪友同行、分摊油费、路上有伴。'},
+      {ic:'📅',t:'活动',d:'N47 周末团、比赛报名，随时看随时加入。'},
+      {ic:'🛒',t:'二手',d:'装备转让，雪友之间买卖更放心。'},
+      {ic:'🎯',t:'就这些',d:'跟着兴趣点开就行——需要时再注册，不用先填表。'}
+    ];
+    var i=0;
+    var card=nux.querySelector('.nux-card');
+    function paint(){
+      var s=steps[i];
+      card.querySelector('.nux-prog').textContent=(i+1)+' / '+steps.length;
+      card.querySelector('.nux-ic').textContent=s.ic;
+      card.querySelector('.nux-t').textContent=s.t;
+      card.querySelector('.nux-d').textContent=s.d;
+      card.querySelector('.nux-next').textContent=(i===steps.length-1)?'完成':'下一步 →';
+      var dots=card.querySelectorAll('.nux-dots i');
+      dots.forEach(function(dt,k){dt.classList.toggle('on',k===i)});
+    }
+    function open(){ i=0; paint(); nux.classList.add('on'); }
+    function close(){ nux.classList.remove('on'); }
+    var opt=root.querySelector('.optcard');
+    if(opt) opt.addEventListener('click',open);
+    card.querySelector('.nux-skip').addEventListener('click',close);
+    card.querySelector('.nux-next').addEventListener('click',function(){
+      if(i>=steps.length-1){ close(); } else { i++; paint(); }
+    });
+    nux.querySelector('.nux-dim').addEventListener('click',close);
+  }
 })();
 </script>
 </body>

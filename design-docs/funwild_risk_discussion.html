@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Funwild · 法律风险讨论（内部）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#F7F4EF; --card:#FFFFFF; --ink:#1F1A14; --ink2:#5C5347; --faint:#9C9286;
+    --acc:#B5651D; --acc-bg:#FBEFE4; --line:#E7E0D5;
+    --green:#2F7D4F; --green-bg:#E7F2EA; --amber:#B5841D; --amber-bg:#FBF1DC;
+    --red:#C0392B; --red-bg:#FBE9E7;
+    --mono:'SF Mono',ui-monospace,Menlo,monospace; --sans:'PingFang SC','Noto Sans SC',-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 28px 100px}
+  .banner{background:#2A2018;color:#F0E7DA;border-radius:12px;padding:18px 22px;font-size:13px;line-height:1.7;margin-bottom:40px}
+  .banner b{color:#fff}
+  h1{font-size:34px;font-weight:800;letter-spacing:-1px;margin:0 0 6px}
+  .sub{color:var(--ink2);font-size:15px;margin-bottom:8px}
+  .meta{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.5px;margin-bottom:40px}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:2px;color:var(--acc);text-transform:uppercase;font-weight:700;margin:48px 0 4px}
+  h2 .t{display:block;font-family:var(--sans);font-size:24px;letter-spacing:-.5px;color:var(--ink);text-transform:none;font-weight:700;margin-top:4px}
+  p{margin:14px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:18px 0}
+  .spectrum{position:relative;height:70px;background:linear-gradient(90deg,var(--green-bg),var(--amber-bg) 55%,var(--red-bg));border-radius:10px;margin:24px 0 8px;border:1px solid var(--line)}
+  .spectrum .lab{position:absolute;top:10px;font-family:var(--mono);font-size:11px;color:var(--ink2)}
+  .spectrum .l{left:14px}.spectrum .r{right:14px;text-align:right}
+  .spectrum .pin{position:absolute;left:30%;top:38px;transform:translateX(-50%);background:var(--green);color:#fff;font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .spectrum .pin:after{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-bottom-color:var(--green)}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.5px;color:var(--faint);font-weight:600}
+  .lv{font-family:var(--mono);font-size:12px;font-weight:700;white-space:nowrap}
+  .r-hi{color:var(--red)}.r-mid{color:var(--amber)}.r-lo{color:var(--green)}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:5px;margin:1px 2px}
+  .pill.g{background:var(--green-bg);color:var(--green)}.pill.a{background:var(--amber-bg);color:var(--amber)}.pill.r{background:var(--red-bg);color:var(--red)}
+  .qa{border-left:3px solid var(--acc);padding:4px 0 4px 18px;margin:18px 0}
+  .qa .q{font-weight:700}
+  .ba{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0}
+  .ba > div{flex:1;min-width:240px;border-radius:10px;padding:16px 18px;border:1px solid var(--line)}
+  .ba .bad{background:var(--red-bg)}.ba .good{background:var(--green-bg)}
+  .ba h4{margin:0 0 8px;font-size:13px;font-family:var(--mono);letter-spacing:1px}
+  .tag{display:inline-block;font-size:12px;padding:3px 9px;border-radius:6px;font-weight:600}
+  .tag.bad{background:#fff;color:var(--red);border:1px solid var(--red)}
+  .tag.good{background:#fff;color:var(--green);border:1px solid var(--green)}
+  ul{margin:12px 0;padding-left:22px}li{margin:6px 0}
+  .chk{list-style:none;padding-left:0}.chk li{padding-left:26px;position:relative}
+  .chk li:before{content:"☐";position:absolute;left:0;color:var(--acc);font-size:15px}
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}
+  strong{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="banner">
+    ⚠️ <b>内部讨论文件 · 请勿外传。</b> 本页是 Funwild 创始团队内部讨论平台法律责任的工作稿,<b>不是法律意见,作者非执业律师。</b>所有结论须经 DACH(德奥瑞)当地律师 + 中国律师正式确认。<b>本文件不在公开 demo 仓库中。</b>
+  </div>
+
+  <h1>平台法律责任 · 我们怎么设计</h1>
+  <div class="sub">客户出事,责任在谁?平台、provider,还是用户自己?——以及我们如何把敞口降到最低。</div>
+  <div class="meta">FUNWILD · LIABILITY BY DESIGN · YEAR-1 草案</div>
+
+  <h2>核心定位<span class="t">把自己钉在「信息中介」一侧</span></h2>
+  <p>整个法律策略只有一句话:<strong>尽量留在「信息中介」一侧,远离「组织者 / 背书者 / 安排者」。</strong>每个产品和商业决策都用这把标尺量——它在把我们往左推(责任低)还是往右推(责任高)。</p>
+  <div class="spectrum">
+    <span class="lab l">纯信息中介<br>责任低</span>
+    <span class="lab r">组织者 / 背书者 / 安排者<br>责任高</span>
+    <span class="pin">Funwild 目标位置</span>
+  </div>
+
+  <h2>先拆一个误区<span class="t">「不向用户收费 ≠ 用户自负」</span></h2>
+  <p>最危险的直觉是:"我们没收用户的钱,所以他们自己约、自己出事。"<strong>这个抗辩基本无效。</strong></p>
+  <ul>
+    <li><strong>侵权责任不需要合同,也不需要付费。</strong>用户告平台走的是侵权,只要有"过错+因果",免费照样担责。</li>
+    <li><strong>我们不是慈善。</strong>向 provider 收年费 = 营利经营,法院不会当公益论坛看。</li>
+    <li>免费平台担责的例子到处都是。"免费"不是护身符。</li>
+  </ul>
+
+  <h2>直接回答三个问题</h2>
+  <div class="qa"><div class="q">Q1 · 出事能甩给 provider 吗?</div>能甩<strong>一部分</strong>——前提是我们真是中介、协议写清用户与 provider 直接缔约。但<strong>只要做了背书/认证/推荐,就甩不干净</strong>,会和 provider 各担其责。</div>
+  <div class="qa"><div class="q">Q2 · 不收费所以是用户自己的事?</div><strong>否。</strong>见上面的误区。别依赖这个抗辩。</div>
+  <div class="qa"><div class="q">Q3 · 认证教练会让平台担责吗?</div><strong>会,而且这是最大的自找风险。</strong>打"认证"标 = 向用户做了"我把关过"的陈述 → 用户信赖 → 出事 → 可能构成过失虚假陈述 / 自愿承担的注意义务(德 Garantenstellung)/ 触发中国《电商法》第38条对生命健康类服务的资质审核+安全保障义务(可达连带)。</div>
+
+  <h2>三个结构性决策<span class="t">已定,且互相加固</span></h2>
+  <table>
+    <tr><th>决策</th><th>选择</th><th>法律作用</th></tr>
+    <tr><td><strong>实体</strong></td><td>中国实体(小程序备案/国内)+ 德国 GmbH(欧洲经营)</td><td>责任隔离;出事被告的是有限责任+投保的德国壳</td></tr>
+    <tr><td><strong>资金</strong></td><td>完全不碰交易资金;仅收 provider 年费</td><td>强化中介地位;避开支付牌照、反洗钱、托管担保责任</td></tr>
+    <tr><td><strong>地接</strong></td><td>Year-1 仅引流,provider 自己成交,不在平台打包下单</td><td>避开欧盟一揽子旅游指令的"组织者严格责任 + 强制破产保障金"</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink2)">三者是同一个哲学:轻中介。做完这三个,Year-1 法律上最大的、且是自找的敞口,就只剩"认证"标这一个产品问题——而它已经改掉了(见下)。</p>
+
+  <h2>认证标的重构<span class="t">从「背书」收窄为「事实陈述」</span></h2>
+  <p>这是唯一一个我们自己往"背书者"方向拉的产品决策,已修复:</p>
+  <div class="ba">
+    <div class="bad">
+      <h4>✗ 改之前</h4>
+      <span class="tag bad">✓ Funwild 认证</span>
+      <p style="font-size:13px;margin:10px 0 0">含义模糊,像在担保"这个人靠谱/安全"。一旦出事,等于平台为其能力背书。</p>
+    </div>
+    <div class="good">
+      <h4>✓ 改之后</h4>
+      <span class="tag good">✓ 身份已核验</span> <span class="tag good">✓ 资质已核验</span>
+      <p style="font-size:13px;margin:10px 0 0">只陈述客观事实:"我们核对了身份/资质文件真实存在"。可证明、可辩护,不担保水平与安全结果。配免责说明。</p>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--ink2)">关键区别:"我们查验过他持有 X 证书"(事实)vs "Funwild 认证教练"(隐含能力/安全担保)。法律上天差地别。</p>
+
+  <h2>风险矩阵<span class="t">按业务线,差别巨大</span></h2>
+  <table>
+    <tr><th>业务</th><th>风险</th><th>等级</th><th>关键缓解</th></tr>
+    <tr><td>野雪/登山教练</td><td>雪崩致死 + 平台背书</td><td class="lv r-hi">🔴 最高</td><td>强制资质+保险 · 强制安全确认(留时间戳) · 自甘风险条款</td></tr>
+    <tr><td>地接/深度团</td><td>欧盟一揽子旅游严格责任</td><td class="lv r-hi">🔴 高</td><td>仅引流,禁止平台内打包成交</td></tr>
+    <tr><td>道内教练</td><td>教学受伤 + 认证放大</td><td class="lv r-mid">🟠 中高</td><td>核验≠担保 + provider 保险 + 免责</td></tr>
+    <tr><td>拼车</td><td>车祸 + 非法营运(PBefG)</td><td class="lv r-mid">🟠 中</td><td>锁死"仅成本分摊,非营运" · 禁超额收费</td></tr>
+    <tr><td>装备出租</td><td>装备缺陷致伤(产品责任)</td><td class="lv r-mid">🟡 中</td><td>P2P 免检 · 固定器须专业调试 · 平台不担保</td></tr>
+    <tr><td>二手市集</td><td>旧货责任/欺诈</td><td class="lv r-lo">🟢 低-中</td><td>平台不介入 · credit/举报 · 自行验货</td></tr>
+  </table>
+
+  <h2>安全功能 = 法律资产</h2>
+  <p>我们做的<strong>安全确认清单</strong>不只是 UX——它是少数"产品功能直接降低法律风险"的例子:它记录了"用户被告知风险并确认知情"。建议野雪/高风险场景的勾选<strong>带时间戳留存</strong>,作为知情同意(informed consent)的抗辩证据。安全知识内容也一样:框定为"教育科普、非专业指导、以官方公告为准",则利大于弊。</p>
+
+  <h2>缓解清单<span class="t">跨业务的通用动作</span></h2>
+  <ul class="chk">
+    <li>德国 GmbH 作欧洲经营/担责主体 + 中国实体管小程序备案</li>
+    <li>平台层保险(一般责任/D&O/内容) + <strong>强制 provider 职业责任险</strong>(入驻校验)</li>
+    <li>维持"完全不碰钱";慎加任何担保交易/托管功能</li>
+    <li>用户协议 + provider 入驻协议(中介定位/责任划分/赔偿/适用法)</li>
+    <li>信任标只做事实陈述(已做) + 全程避免"推荐/担保"措辞</li>
+    <li>安全确认勾选带时间戳存档</li>
+    <li>DSA(通知-移除/举报) + PIPL/GDPR 双合规(跨境数据)</li>
+    <li>安全/攻略内容统一免责声明</li>
+  </ul>
+
+  <h2>待律师拍板</h2>
+  <ul>
+    <li>德国 GmbH 是否足够,还是需要旅游/中介牌照?</li>
+    <li>"撮合野雪私教"在中国电商法38条下是否仍触发连带?如何最小化?</li>
+    <li>"仅引流"地接的页面措辞/跳转,如何稳稳落在"非组织者/非 LTA"?</li>
+    <li>拼车"成本分摊"在德/奥/瑞的安全边界(每公里上限?)</li>
+    <li>"已核验"措辞在 UWG/消费者法下是否仍有误导风险?</li>
+    <li>中国用户在何情形能在中国起诉德国 GmbH?管辖与执行?</li>
+    <li>平台层 + provider 层的最低保额与险种组合</li>
+  </ul>
+
+  <div class="foot">
+    Funwild 内部讨论稿 · 配套文件:<code>legal/risk-matrix.md</code>(律师输入)· <code>legal/agreements-outline.md</code>(协议骨架)。<br>
+    本文件随产品/商业模式更新。涉及"碰钱 / 平台内成交 / 推荐算法 / 新业务线"的改动,都要回到核心标尺重新评估。
+  </div>
+
+</div>
+</body>
+</html>
