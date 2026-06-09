@@ -1324,6 +1324,7 @@ function renderQCard(pageId, q, kind) {
     </div>
     ${q.a ? `<div class="q-answer${/拍板/.test(q.a) ? ' pin' : ''}"><span class="q-answer-label">建议答案</span>${escHtml(q.a)}<button class="q-jump" onclick="jumpDemo('${pageId}')" title="左侧 Demo 跳到本页对应屏（小程序 + Website）">🔗 看对应页面</button></div>` : ''}
     <textarea class="decision-input" placeholder="${kind === 'arch' ? '决议：第一版做不做、数据谁维护、流程图、负责人…' : '决议：做/砍/延后、负责人、目标版本…'}" oninput="setDecision('${pageId}','${q.id}',this.value)">${d.note || ''}</textarea>
+    <div class="q-comments" data-thread="${k}"></div>
   </div>`;
 }
 
@@ -1637,6 +1638,108 @@ renderDeliverablesStats();
 updateDemoGateUI();
 if (isDemoUnlocked()) setDemoFrame();
 parseLocationHash();
+</script>
+
+<style>
+/* ===== 按题评论（Cloudflare Worker + D1 后端）===== */
+.q-comments { margin-top:8px; border-top:1px dashed var(--bd-default,#e7e1d7); padding-top:6px; }
+.qc-toggle { font-size:12px; font-weight:600; color:var(--acc-700,#8c3d1a); background:transparent; border:none; cursor:pointer; padding:2px 0; }
+.qc-toggle:hover { text-decoration:underline; }
+.qc-box { margin-top:8px; }
+.qc-item { font-size:12.5px; line-height:1.5; padding:6px 8px; border-radius:8px; background:var(--surface-sunken,#f4f0ea); margin-bottom:6px; }
+.qc-item .who { font-weight:600; color:var(--text-primary,#0a0907); }
+.qc-item .when { color:var(--text-faint,#a39b8c); font-size:10.5px; margin-left:6px; }
+.qc-item .body { margin-top:2px; white-space:pre-wrap; word-break:break-word; }
+.qc-empty { font-size:12px; color:var(--text-faint,#a39b8c); padding:2px 0 6px; }
+.qc-form { display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+.qc-form input, .qc-form textarea { font:inherit; font-size:12.5px; border:1px solid var(--bd-strong,#d2cabc); border-radius:8px; padding:6px 8px; width:100%; box-sizing:border-box; }
+.qc-form textarea { min-height:48px; resize:vertical; }
+.qc-form-row { display:flex; gap:8px; align-items:center; }
+.qc-form-row input { flex:1; }
+.qc-send { font-size:12.5px; font-weight:600; color:#fff; background:var(--acc-600,#b34e22); border:none; border-radius:8px; padding:6px 14px; cursor:pointer; white-space:nowrap; }
+.qc-send:hover { filter:brightness(1.05); }
+.qc-err { font-size:11.5px; color:var(--danger-fg,#8c3019); }
+.qc-off { font-size:11px; color:var(--text-faint,#a39b8c); }
+</style>
+<script>
+/* ===== 按题评论前端 ===== */
+/* 部署后把下面 URL 改成你的 Worker 地址（如 https://funwild-comments.<子域>.workers.dev）。本地 dev: http://localhost:8787 */
+const COMMENTS_API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:8787'
+  : 'https://funwild-comments.bailan-he-de.workers.dev';
+
+function qcAuthor(){ try { return localStorage.getItem('fw_c_author') || ''; } catch(e){ return ''; } }
+function qcSetAuthor(v){ try { localStorage.setItem('fw_c_author', v); } catch(e){} }
+function qcPass(){ try { return sessionStorage.getItem('fw_c_pass') || ''; } catch(e){ return ''; } }
+function qcSetPass(v){ try { sessionStorage.setItem('fw_c_pass', v); } catch(e){} }
+
+async function mountComments(root){
+  root = root || document;
+  const nodes = Array.from(root.querySelectorAll('.q-comments[data-thread]'));
+  if (!nodes.length) return;
+  const threads = nodes.map(n => n.dataset.thread);
+  let counts = {};
+  try {
+    const r = await fetch(COMMENTS_API + '/api/comments/counts?threads=' + encodeURIComponent(threads.join(',')));
+    counts = await r.json();
+  } catch(e){
+    nodes.forEach(n => { n.innerHTML = '<span class="qc-off">💬 评论需后端在线（见 funwild-comments 部署）</span>'; });
+    return;
+  }
+  nodes.forEach(n => {
+    const t = n.dataset.thread, c = counts[t] || 0;
+    n.innerHTML = '<button class="qc-toggle" onclick="qcExpand(this)">💬 ' + (c ? c + ' 条评论' : '评论') + '</button><div class="qc-box" style="display:none"></div>';
+  });
+}
+
+async function qcExpand(btn){
+  const wrap = btn.parentElement, box = wrap.querySelector('.qc-box');
+  if (box.style.display !== 'none'){ box.style.display='none'; return; }
+  box.style.display='';
+  const thread = wrap.dataset.thread;
+  box.innerHTML = '<div class="qc-empty">加载中…</div>';
+  let list = [];
+  try { list = await (await fetch(COMMENTS_API + '/api/comments?thread=' + encodeURIComponent(thread))).json(); } catch(e){ box.innerHTML='<div class="qc-err">加载失败</div>'; return; }
+  const items = list.map(c =>
+    '<div class="qc-item"><span class="who">' + escHtml(c.author) + '</span><span class="when">' + new Date(c.created_at).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) + '</span><div class="body">' + escHtml(c.body) + '</div></div>'
+  ).join('') || '<div class="qc-empty">还没有评论，来留第一条。</div>';
+  box.innerHTML = items +
+    '<div class="qc-form">' +
+      '<div class="qc-form-row"><input class="qc-author" placeholder="你的名字" value="' + escHtml(qcAuthor()) + '"></div>' +
+      '<textarea class="qc-body" placeholder="围绕这道题留言…"></textarea>' +
+      '<div class="qc-form-row"><input class="qc-pass" type="password" placeholder="发帖口令" value="' + escHtml(qcPass()) + '"><button class="qc-send" onclick="qcPost(this)">发表</button></div>' +
+      '<div class="qc-err" style="display:none"></div>' +
+    '</div>';
+}
+
+async function qcPost(btn){
+  const form = btn.closest('.qc-form'), box = form.parentElement, wrap = box.parentElement;
+  const thread = wrap.dataset.thread;
+  const author = form.querySelector('.qc-author').value.trim();
+  const body = form.querySelector('.qc-body').value.trim();
+  const passcode = form.querySelector('.qc-pass').value.trim();
+  const err = form.querySelector('.qc-err');
+  err.style.display='none';
+  if (!author || !body){ err.textContent='填一下名字和内容'; err.style.display=''; return; }
+  qcSetAuthor(author); qcSetPass(passcode);
+  btn.disabled = true; btn.textContent='发表中…';
+  try {
+    const r = await fetch(COMMENTS_API + '/api/comments', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({thread, author, body, passcode}) });
+    const data = await r.json();
+    if (!r.ok){ err.textContent = data.error || '发表失败'; err.style.display=''; btn.disabled=false; btn.textContent='发表'; return; }
+    await qcExpand(wrap.querySelector('.qc-toggle')); // collapse
+    await qcExpand(wrap.querySelector('.qc-toggle')); // reopen fresh
+    const tog = wrap.querySelector('.qc-toggle');
+  } catch(e){ err.textContent='网络错误'; err.style.display=''; btn.disabled=false; btn.textContent='发表'; }
+}
+
+/* 包裹 renderQA：每次渲染问题后挂载评论 */
+if (typeof renderQA === 'function'){
+  const _origRenderQA = renderQA;
+  renderQA = function(){ _origRenderQA.apply(this, arguments); try { mountComments(document.getElementById('qa-panel')); } catch(e){} };
+}
+/* 首次也挂一次（若已在评审页）*/
+setTimeout(function(){ try { mountComments(document.getElementById('qa-panel')); } catch(e){} }, 300);
 </script>
 </body>
 </html>
