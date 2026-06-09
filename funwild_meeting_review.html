@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>Funwild · 产品会议 · 页面评审</title>
+<title>趣野 · 逐页评审 + 反馈</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -377,57 +377,67 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
 .dm-page-table th { background:var(--n-100); }
 .dm-page-card { border:1px solid var(--bd-default); border-radius:8px; padding:12px; margin-bottom:12px; background:var(--surface-raised); }
 .dm-page-card h4 { margin:0 0 8px; font-size:14px; }
-/* ===== 主持台 Host Cockpit ===== */
-.host-shell { display:grid; grid-template-columns:minmax(360px,1fr) minmax(380px,1.1fr); gap:20px; max-width:1180px; margin:0 auto; padding:24px; }
-@media (max-width:900px){ .host-shell{ grid-template-columns:1fr; } }
-.host-card { background:var(--surface-raised); border:1px solid var(--bd-default); border-radius:12px; padding:18px 20px; margin-bottom:20px; box-shadow:var(--sh-md); }
-.host-card h3 { margin:0 0 14px; font-size:14px; font-weight:600; }
-.host-timer { text-align:center; padding:8px 0 16px; border-bottom:1px solid var(--bd-default); margin-bottom:14px; }
-.host-timer-seg { font-size:13px; color:var(--text-muted); font-family:var(--font-mono); letter-spacing:1px; }
-.host-timer-clock { font-family:var(--font-mono); font-size:64px; font-weight:600; line-height:1.1; margin:6px 0 4px; color:var(--n-900); font-variant-numeric:tabular-nums; }
-.host-timer-clock.warn { color:var(--warning-fg); }
-.host-timer-clock.over { color:var(--danger-fg); }
-.host-total { font-size:12px; color:var(--text-faint); font-family:var(--font-mono); }
-.host-timer-ctrl { display:flex; gap:8px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
-.host-timer-ctrl button { font-family:inherit; font-size:13px; padding:8px 14px; border-radius:8px; border:1px solid var(--bd-default); background:var(--surface-raised); cursor:pointer; }
-.host-timer-ctrl button:hover { background:var(--surface-sunken); }
-.host-timer-ctrl .primary { background:var(--acc-600); color:#fff; border-color:var(--acc-600); }
-.host-seglist { list-style:none; margin:0; padding:0; counter-reset:seg; }
-.host-seg { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:8px; font-size:13px; border:1px solid transparent; }
-.host-seg.cur { background:var(--acc-50); border-color:var(--acc-100); font-weight:600; }
-.host-seg.done { opacity:.5; }
-.host-seg .seg-min { font-family:var(--font-mono); font-size:12px; color:var(--text-muted); min-width:46px; }
-.host-seg .seg-title { flex:1; }
-.host-seg .seg-do { font-size:11px; color:var(--text-faint); }
-.host-must-item { border:1px solid var(--bd-default); border-radius:8px; padding:10px 12px; margin-bottom:8px; }
-.host-must-item.done { background:var(--success-bg); border-color:#9fd4ad; }
-.host-must-head { display:flex; gap:8px; align-items:baseline; }
-.host-must-head input { margin-top:2px; accent-color:var(--acc-600); }
-.host-must-id { font-family:var(--font-mono); font-size:11px; color:var(--acc-700); font-weight:600; min-width:26px; }
-.host-must-q { font-size:12.5px; line-height:1.45; flex:1; }
-.host-must-a { font-size:12px; color:var(--text-muted); line-height:1.45; margin:6px 0 6px 34px; padding:6px 10px; background:var(--surface-sunken); border-radius:6px; }
-.host-must-dec { width:calc(100% - 34px); margin-left:34px; font-family:inherit; font-size:12px; padding:6px 8px; border:1px solid var(--bd-default); border-radius:6px; min-height:34px; resize:vertical; }
-.host-task-table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:12px; }
-.host-task-table th { text-align:left; font-size:11px; color:var(--text-faint); font-weight:600; padding:4px 6px; text-transform:uppercase; letter-spacing:.04em; }
-.host-task-table td { padding:3px 4px; vertical-align:top; }
-.host-task-table input, .host-task-table textarea { width:100%; font-family:inherit; font-size:12.5px; padding:6px 8px; border:1px solid var(--bd-default); border-radius:6px; box-sizing:border-box; }
-.host-task-table textarea { min-height:34px; resize:vertical; }
-.host-task-del { border:none; background:none; color:var(--text-faint); cursor:pointer; font-size:15px; padding:4px 6px; }
-.host-task-del:hover { color:var(--danger-fg); }
-.host-task-actions { display:flex; gap:8px; flex-wrap:wrap; }
-.host-task-actions button { font-family:inherit; font-size:12px; padding:8px 14px; border-radius:8px; border:1px solid var(--bd-default); background:var(--surface-raised); cursor:pointer; }
-.host-task-actions .primary { background:var(--acc-600); color:#fff; border-color:var(--acc-600); }
-.host-hint { font-size:12px; color:var(--text-muted); line-height:1.5; margin:0 0 14px; }
+/* ===== 入口门（访问密码 + 名字 + 发帖口令，一次填齐）===== */
+.entry-gate { position:fixed; inset:0; z-index:9999; background:rgba(20,16,12,.55); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:24px; }
+.entry-gate.hidden { display:none; }
+.entry-card { background:var(--surface-raised); border:1px solid var(--bd-default); border-radius:16px; box-shadow:var(--sh-lg,0 20px 60px rgba(0,0,0,.25)); width:100%; max-width:420px; padding:28px 28px 24px; }
+.entry-card h2 { margin:0 0 4px; font-size:19px; font-weight:700; }
+.entry-card .entry-sub { margin:0 0 18px; font-size:13px; color:var(--text-muted); line-height:1.55; }
+.entry-field { margin-bottom:14px; }
+.entry-field label { display:block; font-size:12px; font-weight:600; color:var(--text-primary); margin-bottom:5px; }
+.entry-field .hint { font-weight:400; color:var(--text-faint); }
+.entry-field input { width:100%; box-sizing:border-box; font:inherit; font-size:14px; padding:10px 12px; border:1px solid var(--bd-strong,#d2cabc); border-radius:10px; }
+.entry-field input:focus { outline:none; border-color:var(--acc-600); }
+.entry-btn { width:100%; font:inherit; font-size:15px; font-weight:600; color:#fff; background:var(--acc-600); border:none; border-radius:10px; padding:12px; cursor:pointer; margin-top:4px; }
+.entry-btn:hover { filter:brightness(1.05); }
+.entry-err { font-size:12.5px; color:var(--danger-fg,#8c3019); min-height:16px; margin:8px 0 0; }
+.entry-note { font-size:11.5px; color:var(--text-faint); line-height:1.5; margin:14px 0 0; }
+/* ===== 分工 / 主审标识 ===== */
+.owner-table { width:100%; border-collapse:collapse; font-size:13px; text-align:left; max-width:840px; margin:0 auto; }
+.owner-table th { font-size:11px; color:var(--text-faint); font-weight:600; padding:8px 10px; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--bd-default); }
+.owner-table td { padding:10px; vertical-align:top; border-bottom:1px solid var(--bd-default); }
+.owner-table .ot-name { font-weight:700; white-space:nowrap; }
+.owner-table .ot-role { font-size:12px; color:var(--text-muted); }
+.owner-table .ot-pages { font-size:12.5px; }
+.owner-table .ot-note { font-size:12px; color:var(--text-muted); }
+.owner-chip { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:var(--acc-700,#8c3d1a); background:var(--acc-50,#fbeee6); border:1px solid var(--acc-100,#f3d9c7); border-radius:999px; padding:3px 10px; }
+.owner-chip::before { content:'★ 主审'; font-size:10px; font-weight:600; color:var(--acc-600); }
+.nav-owner { font-size:10.5px; color:var(--text-faint); margin-left:auto; padding-left:6px; white-space:nowrap; }
+.nav-item.mine { background:var(--acc-50,#fbeee6); }
+.nav-item.mine .nav-owner { color:var(--acc-700,#8c3d1a); font-weight:600; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+<div class="entry-gate" id="entry-gate">
+  <div class="entry-card">
+    <h2>趣野 · 逐页评审</h2>
+    <p class="entry-sub">填一次就好，浏览器会记住。之后看 demo、发评论都不再问。</p>
+    <div class="entry-field">
+      <label>访问密码 <span class="hint">（解锁左侧原型 demo）</span></label>
+      <input type="password" id="eg-access" placeholder="访问密码" autocomplete="off"
+        onkeydown="if(event.key==='Enter')entrySubmit()">
+    </div>
+    <div class="entry-field">
+      <label>你的名字 <span class="hint">（评论会署这个名）</span></label>
+      <input type="text" id="eg-name" placeholder="如：欧根" autocomplete="off"
+        onkeydown="if(event.key==='Enter')entrySubmit()">
+    </div>
+    <div class="entry-field">
+      <label>发帖口令 <span class="hint">（发评论用，团队群里有）</span></label>
+      <input type="password" id="eg-pass" placeholder="发帖口令" autocomplete="off"
+        onkeydown="if(event.key==='Enter')entrySubmit()">
+    </div>
+    <button class="entry-btn" onclick="entrySubmit()">进入评审</button>
+    <p class="entry-err" id="eg-err"></p>
+    <p class="entry-note">访问密码错了进不去；发帖口令填错可进、但发评论时会被拒，届时点评论框旁「改身份」重填即可。</p>
+  </div>
+</div>
 <nav class="topnav">
-  <div class="topnav-logo" onclick="goSection('cover')">趣野 · 会议评审</div>
+  <div class="topnav-logo" onclick="goSection('cover')">趣野 · 逐页评审</div>
   <div class="topnav-tabs">
-    <button class="topnav-tab" data-sec="host" onclick="goSection('host')">主持台</button>
-    <button class="topnav-tab active" data-sec="cover" onclick="goSection('cover')">议程</button>
+    <button class="topnav-tab active" data-sec="cover" onclick="goSection('cover')">总览 · 分工</button>
     <button class="topnav-tab" data-sec="diagrams" onclick="goSection('diagrams')">流程图</button>
     <button class="topnav-tab" data-sec="dataops" onclick="goSection('dataops')">数据运营</button>
     <button class="topnav-tab" data-sec="review" onclick="goSection('review')">逐页评审</button>
@@ -441,71 +451,37 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
   </div>
 </nav>
 
-<section id="section-host" class="section">
-  <div class="host-shell">
-    <div class="host-col-main">
-      <div class="host-card">
-        <div class="host-timer">
-          <div class="host-timer-seg" id="host-seg-label">— 点「开始」启动计时 —</div>
-          <div class="host-timer-clock" id="host-clock">05:00</div>
-          <div class="host-total" id="host-total"></div>
-          <div class="host-timer-ctrl">
-            <button class="primary" onclick="hostStart()">▶ 开始/继续</button>
-            <button onclick="hostPause()">⏸ 暂停</button>
-            <button onclick="hostNextSeg()">⏭ 下一段</button>
-            <button onclick="hostResetTimer()">↺ 重置</button>
-          </div>
-        </div>
-        <ol class="host-seglist" id="host-seglist"></ol>
-      </div>
-    </div>
-    <div class="host-col-side">
-      <div class="host-card">
-        <h3>📌 今天必须定 · §0 全局十条</h3>
-        <p class="host-hint">这十条是地基，定了它们，其余 167 题大部分自动锁定。逐条看建议答案 → 采纳就勾「已定」，要改就在框里写一句。</p>
-        <div id="host-must"></div>
-      </div>
-      <div class="host-card">
-        <h3>✅ 任务分配</h3>
-        <p class="host-hint">每项写明 谁负责 + 哪天截止。会后随决议一起导出 JSON 同步飞书。</p>
-        <table class="host-task-table">
-          <thead><tr><th style="width:50%">任务</th><th style="width:22%">负责人</th><th style="width:22%">截止</th><th></th></tr></thead>
-          <tbody id="host-tasks"></tbody>
-        </table>
-        <div class="host-task-actions">
-          <button onclick="hostAddTask()">+ 加一行</button>
-          <button class="primary" onclick="exportDecisions()">导出决议 + 任务 JSON</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="section-cover" class="section active">
   <div class="cover">
-    <p class="qa-eyebrow">PRODUCT REVIEW · PART 06</p>
-    <h1>17 页 UX <span>会议流程</span></h1>
-    <p><strong>本 HTML 为会议唯一交付物</strong>：议程、<strong>流程图</strong>、<strong>数据运营</strong>（全局方案 + 逐页维护清单）、<strong>逐页评审</strong>、<strong>资料库</strong>。可互相跳转。</p>
+    <p class="qa-eyebrow">会议已结束 · 进入分工评审</p>
+    <h1>17 页 UX <span>逐页评审 + 反馈</span></h1>
+    <p>会议结论已沉淀进本文件。现在请<strong>各自负责的板块逐页过一遍</strong>：看左侧 demo（小程序 + Website）对应页面 + 右侧问题与建议答案，有意见就在每道题下面<strong>留评论</strong>。评论全员可见、按题归档。</p>
     <div class="deliverables-box" id="deliverables-stats"></div>
-    <p style="font-size:12px;color:var(--warning-fg);background:var(--warning-bg);padding:10px 14px;border-radius:8px;max-width:560px;margin:16px auto 0;">
-      原型有访问密码。请在「逐页评审」Demo 区<strong>输入一次密码</strong>解锁；两个 iframe 共用 session，不再出现「手机套手机」或双重密码门。
-    </p>
-    <p style="font-size:12px;color:var(--text-faint)">须用本地服务器打开（<code>python3 -m http.server</code> 在 <code>02-my-projects</code>），勿用 file://，否则无法共用解锁状态。</p>
-    <div class="cover-flows">
+
+    <div class="cover-flow-block" style="margin-top:28px">
+      <h2>分工 · 每人重点负责的页面</h2>
+      <p>下面是你<strong>必须重点过</strong>的页面；其余页面欢迎随手补充意见。点页名直接进入评审。</p>
+      <table class="owner-table" id="owner-table"></table>
+      <p style="font-size:12px;color:var(--text-muted);max-width:840px;margin:14px auto 0;text-align:left">
+        <strong>横切（每页都欢迎补充）</strong>：杜蕊珈 — 各页技术可行性；陆洲 — 数据运营 / 数据门控阈值；乔宇辰 — 国内 Type 2 用户视角（首页 / 雪场 / 市集）；何柏岚 — 范围·排期·隐私终审。
+      </p>
+    </div>
+
+    <div class="cover-flows" style="margin-top:28px">
       <div class="cover-flow-block">
-        <h2>流程图议程</h2>
-        <p>UX 路径与系统边界 · 大图评审</p>
-        <div class="agenda-grid" id="diagram-agenda-grid"></div>
+        <h2>按页进入评审</h2>
+        <p>左侧 demo + 右侧问题/建议答案 + 按题评论</p>
+        <div class="agenda-grid" id="agenda-grid"></div>
       </div>
       <div class="cover-flow-block">
-        <h2>逐页评审议程</h2>
-        <p>原型 Demo + 产品/架构问题 + 决议</p>
-        <div class="agenda-grid" id="agenda-grid"></div>
+        <h2>流程图</h2>
+        <p>UX 路径与系统边界 · 大图</p>
+        <div class="agenda-grid" id="diagram-agenda-grid"></div>
       </div>
       <div class="cover-flow-block dataops-highlight">
         <h2>数据运营</h2>
-        <p>全局维护方案 + §0–16 逐页数据清单（同一 Tab）</p>
-        <p style="margin-top:12px"><button class="btn btn-primary" onclick="goSection('dataops')">进入数据运营讨论 →</button></p>
+        <p>全局维护方案 + §0–16 逐页数据清单</p>
+        <p style="margin-top:12px"><button class="btn btn-primary" onclick="goSection('dataops')">进入数据运营 →</button></p>
       </div>
     </div>
   </div>
@@ -625,7 +601,7 @@ function fwHash(s) {
 }
 
 function isDemoUnlocked() {
-  try { return sessionStorage.getItem(GATE_KEY) === '1'; } catch (e) { return false; }
+  try { return localStorage.getItem(GATE_KEY) === '1'; } catch (e) { return false; }
 }
 
 function updateDemoGateUI() {
@@ -645,13 +621,59 @@ function unlockDemo() {
     if (input) { input.value = ''; input.focus(); }
     return;
   }
-  try { sessionStorage.setItem(GATE_KEY, '1'); } catch (e) {
-    if (err) err.textContent = '无法写入 sessionStorage，请用 http:// 本地服务打开本页';
+  try { localStorage.setItem(GATE_KEY, '1'); } catch (e) {
+    if (err) err.textContent = '无法写入 localStorage，请用 http:// 本地服务打开本页';
     return;
   }
   if (err) err.textContent = '';
   updateDemoGateUI();
   setDemoFrame();
+}
+
+/* ===== 入口门：一次填齐 访问密码 + 名字 + 发帖口令 ===== */
+function entryGateNeeded() {
+  // 已解锁 demo 且填过名字 → 不再拦
+  return !(isDemoUnlocked() && myName());
+}
+function showEntryGate() {
+  const g = document.getElementById('entry-gate');
+  if (!g) return;
+  if (entryGateNeeded()) {
+    g.classList.remove('hidden');
+    // 预填已存的值，方便只补缺项
+    const n = document.getElementById('eg-name'); if (n) n.value = myName();
+    try { const p = document.getElementById('eg-pass'); if (p) p.value = localStorage.getItem('fw_c_pass') || ''; } catch(e){}
+    const focus = isDemoUnlocked() ? 'eg-name' : 'eg-access';
+    setTimeout(() => { const f = document.getElementById(focus); if (f) f.focus(); }, 50);
+  } else {
+    g.classList.add('hidden');
+  }
+}
+function entrySubmit() {
+  const err = document.getElementById('eg-err');
+  const name = (document.getElementById('eg-name').value || '').trim();
+  const pass = (document.getElementById('eg-pass').value || '').trim();
+  const access = (document.getElementById('eg-access').value || '');
+  if (err) err.textContent = '';
+  // 已解锁过 demo 的话，访问密码可不再填
+  if (!isDemoUnlocked()) {
+    if (fwHash(access) !== GATE_HASH) { if (err) err.textContent = '访问密码不对，问负责人要一下'; return; }
+  }
+  if (!name) { if (err) err.textContent = '填一下你的名字（评论会署名）'; return; }
+  try {
+    localStorage.setItem(GATE_KEY, '1');
+    localStorage.setItem('fw_c_author', name);
+    localStorage.setItem('fw_c_pass', pass);
+  } catch (e) { if (err) err.textContent = '无法写入浏览器存储，请用 http:// 打开（勿用 file://）'; return; }
+  document.getElementById('entry-gate').classList.add('hidden');
+  updateDemoGateUI();
+  if (isDemoUnlocked()) setDemoFrame();
+  renderOwnerTable();
+}
+/* 评论框旁「改身份」：清掉名字/口令，重新弹门 */
+function entryReset() {
+  try { localStorage.removeItem('fw_c_author'); localStorage.removeItem('fw_c_pass'); } catch(e){}
+  showEntryGate();
 }
 
 function demoHash(side, spec) {
@@ -747,78 +769,38 @@ function jumpDemo(pageId) {
   if (host) host.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-/* ===== 主持台 Host Cockpit ===== */
-const HOST_AGENDA = [
-  { t:'开场 · 目标对齐', min:5,  do:'说清 3 个目标：①对齐 V1 完整上线 ②定 §0 十条 ③分活；177 题不现场过' },
-  { t:'过 Prototype',   min:20, do:'带走一条主旅程：onboarding→首页→雪场打卡→拼车→徽章→教练 Wave→安全卡' },
-  { t:'过 §0 全局十条',  min:20, do:'逐条 建议答案→采纳/改一句，右侧勾「已定」' },
-  { t:'分活',           min:10, do:'按职能把 P0 题打包给 DRI，每项带截止日期' },
-  { t:'收尾 · 导出',     min:5,  do:'导出决议+任务 JSON，指定一人 24h 内同步飞书' },
+/* ===== 分工：每页主审 + 全员花名册 ===== */
+const PAGE_OWNERS = {
+  'global':'何柏岚', '00':'洪玮瑢', '01':'欧根', '02':'欧根', '03':'詹敏杰', '04':'詹敏杰',
+  '05':'贺安祺', '06':'贺安祺', '07':'磊子', '08':'磊子', '09':'贺安祺', '10':'乔宇辰',
+  '11':'杜蕊珈', '12':'何柏岚', '13':'洪玮瑢', '14':'陆洲', '15':'杜蕊珈', '16':'杜蕊珈'
+};
+const ROSTER = [
+  { name:'何柏岚', role:'产品 / 技术 / 总负责', pages:'§0 全局 · 12 公开主页', note:'范围·排期·隐私终审；争议项拍板' },
+  { name:'洪玮瑢', role:'设计', pages:'00 首页 · 13 徽章墙', note:'信息架构 / 视觉 / 引导体验' },
+  { name:'欧根', role:'内容 / 雪场专家', pages:'01 雪场列表 · 02 雪场详情', note:'雪况数据口径 + 攻略内容' },
+  { name:'詹敏杰', role:'商务 / 资源', pages:'03 教练列表 · 04 教练详情', note:'教练 BD 视角' },
+  { name:'磊子', role:'商务总负责', pages:'07 地接列表 · 08 地接详情', note:'地接对接 + 佣金/结算口径' },
+  { name:'贺安祺', role:'用户运营 / 社区', pages:'05 活动列表 · 06 活动详情 · 09 拼车/出行', note:'社区 / 安全 / 拼车留痕' },
+  { name:'杜蕊珈', role:'主开发', pages:'11 我的 · 15 Onboarding · 16 消息中心', note:'+ 各页技术可行性横切' },
+  { name:'陆洲', role:'技术运营 / AI', pages:'14 全局搜索', note:'+ 数据运营 / 数据门控阈值横切' },
+  { name:'乔宇辰', role:'B-kuh / 国内渠道', pages:'10 市集', note:'+ 国内 Type 2 用户视角（00 / 02 / 10）' }
 ];
-const HOST_DEFAULT_TASKS = [
-  { task:'攻略 10 篇精编 + 各雪场安全卡文案', owner:'欧根',   due:'' },
-  { task:'provider 准入三件套 / 品牌位 / 地接对接', owner:'磊子', due:'' },
-  { task:'feature_flags + V1 范围表落地 + 双端统一接口', owner:'杜蕊珈', due:'' },
-  { task:'市集限量放量规则 + UGC 审核队列 + 雪崩自测题', owner:'贺安祺', due:'' },
-  { task:'§0 兜底拍板 / 争议项终审', owner:'柏岚', due:'' },
-];
-let hostTimer = { segIdx:0, remaining:HOST_AGENDA[0].min*60, running:false, iv:null };
-
-function fmtClock(s){ const m=Math.floor(Math.abs(s)/60), ss=Math.abs(s)%60; return (s<0?'-':'')+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0'); }
-function hostTick(){
-  hostTimer.remaining--;
-  if (hostTimer.remaining === 0 && navigator.vibrate) navigator.vibrate(200);
-  renderHostClock();
+function myName(){ try { return (localStorage.getItem('fw_c_author')||'').trim(); } catch(e){ return ''; } }
+function renderOwnerTable(){
+  const host = document.getElementById('owner-table'); if(!host) return;
+  const me = myName();
+  host.innerHTML = '<thead><tr><th>成员</th><th>角色</th><th>重点负责</th><th>说明</th></tr></thead><tbody>' +
+    ROSTER.map(r => {
+      const mine = me && r.name === me;
+      return `<tr${mine?' style="background:var(--acc-50,#fbeee6)"':''}>
+        <td class="ot-name">${escHtml(r.name)}${mine?' 👈 你':''}</td>
+        <td class="ot-role">${escHtml(r.role)}</td>
+        <td class="ot-pages">${escHtml(r.pages)}</td>
+        <td class="ot-note">${escHtml(r.note)}</td>
+      </tr>`;
+    }).join('') + '</tbody>';
 }
-function hostStart(){ if(hostTimer.running) return; hostTimer.running=true; hostTimer.iv=setInterval(hostTick,1000); renderHostClock(); }
-function hostPause(){ hostTimer.running=false; clearInterval(hostTimer.iv); renderHostClock(); }
-function hostNextSeg(){
-  if (hostTimer.segIdx < HOST_AGENDA.length-1){ hostTimer.segIdx++; hostTimer.remaining=HOST_AGENDA[hostTimer.segIdx].min*60; renderHost(); }
-}
-function hostResetTimer(){ hostPause(); hostTimer.segIdx=0; hostTimer.remaining=HOST_AGENDA[0].min*60; renderHost(); }
-function renderHostClock(){
-  const seg = HOST_AGENDA[hostTimer.segIdx];
-  const clk = document.getElementById('host-clock'); if(!clk) return;
-  clk.textContent = fmtClock(hostTimer.remaining);
-  clk.className = 'host-timer-clock' + (hostTimer.remaining<0?' over':(hostTimer.remaining<=60?' warn':''));
-  document.getElementById('host-seg-label').textContent = (hostTimer.running?'▶ ':'⏸ ')+`第 ${hostTimer.segIdx+1}/${HOST_AGENDA.length} 段 · ${seg.t}`;
-  const total = HOST_AGENDA.reduce((a,s)=>a+s.min,0);
-  document.getElementById('host-total').textContent = `全程约 ${total} 分钟`;
-}
-function renderHostSegs(){
-  document.getElementById('host-seglist').innerHTML = HOST_AGENDA.map((s,i)=>{
-    const cls = i===hostTimer.segIdx?'cur':(i<hostTimer.segIdx?'done':'');
-    return `<li class="host-seg ${cls}"><span class="seg-min">${s.min}′</span><span class="seg-title">${escHtml(s.t)}<div class="seg-do">${escHtml(s.do)}</div></span></li>`;
-  }).join('');
-}
-function renderHostMust(){
-  const page = PAGES.find(p=>p.id==='global');
-  document.getElementById('host-must').innerHTML = (page.questions||[]).map(q=>{
-    const d = state.decisions[qKey('global',q.id)] || {};
-    return `<div class="host-must-item ${d.done?'done':''}">
-      <div class="host-must-head">
-        <input type="checkbox" ${d.done?'checked':''} onchange="toggleQ('global','${q.id}',this.checked);renderHostMust()">
-        <span class="host-must-id">${q.id}</span>
-        <span class="host-must-q">${escHtml(q.q)}</span>
-      </div>
-      ${q.a?`<div class="host-must-a"><b>建议：</b>${escHtml(q.a)}</div>`:''}
-      <textarea class="host-must-dec" placeholder="结论（采纳则留空 / 要改写一句）…" oninput="setDecision('global','${q.id}',this.value)">${d.note||''}</textarea>
-    </div>`;
-  }).join('');
-}
-function hostTasks(){ if(!Array.isArray(state.decisions.tasks)) state.decisions.tasks = HOST_DEFAULT_TASKS.map(t=>({...t})); return state.decisions.tasks; }
-function hostSetTask(i,f,v){ hostTasks()[i][f]=v; saveDecisions(); }
-function hostAddTask(){ hostTasks().push({task:'',owner:'',due:''}); saveDecisions(); renderHostTasks(); }
-function hostDelTask(i){ hostTasks().splice(i,1); saveDecisions(); renderHostTasks(); }
-function renderHostTasks(){
-  document.getElementById('host-tasks').innerHTML = hostTasks().map((t,i)=>`<tr>
-    <td><textarea oninput="hostSetTask(${i},'task',this.value)">${escHtml(t.task||'')}</textarea></td>
-    <td><input value="${escHtml(t.owner||'')}" oninput="hostSetTask(${i},'owner',this.value)"></td>
-    <td><input type="date" value="${escHtml(t.due||'')}" oninput="hostSetTask(${i},'due',this.value)"></td>
-    <td><button class="host-task-del" title="删除" onclick="hostDelTask(${i})">×</button></td>
-  </tr>`).join('');
-}
-function renderHost(){ renderHostClock(); renderHostSegs(); renderHostMust(); renderHostTasks(); }
 
 function goSection(sec) {
   state.section = sec;
@@ -828,7 +810,7 @@ function goSection(sec) {
   document.querySelectorAll('.topnav-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.sec === sec);
   });
-  if (sec === 'host') renderHost();
+  if (sec === 'cover') renderOwnerTable();
   if (sec === 'review') renderReview();
   if (sec === 'diagrams') renderDiagramFlow();
   if (sec === 'dataops') renderDataOps();
@@ -1364,10 +1346,13 @@ function renderDiagramAgenda() {
 
 function renderNav() {
   const host = document.getElementById('page-nav');
-  let html = '<h3>会议流程</h3>';
+  const me = myName();
+  let html = '<h3>逐页评审</h3>';
   PAGES.forEach(p => {
-    html += `<div class="nav-item ${p.star?'star':''} ${p.id===state.pageId?'active':''}" onclick="selectPage('${p.id}')">
-      <span class="nav-num">${p.num}</span><span>${p.label}</span>
+    const owner = PAGE_OWNERS[p.id] || '';
+    const mine = me && owner === me;
+    html += `<div class="nav-item ${p.star?'star':''} ${mine?'mine':''} ${p.id===state.pageId?'active':''}" onclick="selectPage('${p.id}')">
+      <span class="nav-num">${p.num}</span><span>${p.label}</span>${owner?`<span class="nav-owner">${escHtml(owner)}</span>`:''}
     </div>`;
   });
   host.innerHTML = html;
@@ -1439,7 +1424,7 @@ function renderQA() {
   host.innerHTML = `
     <div class="qa-header">
       <div class="qa-eyebrow">PAGE ${p.num} · 待确认问题</div>
-      <h2 class="qa-title">${p.label}</h2>
+      <h2 class="qa-title">${p.label}${PAGE_OWNERS[p.id]?` <span class="owner-chip">${escHtml(PAGE_OWNERS[p.id])}</span>`:''}</h2>
       <div class="qa-role">${p.role || ''}</div>
       <div class="qa-links">
         <a href="#" onclick="goLibraryForPage('${p.id}');return false">📚 资料库</a>
@@ -1635,9 +1620,11 @@ function parseLocationHash() {
 renderAgenda();
 renderDiagramAgenda();
 renderDeliverablesStats();
+renderOwnerTable();
 updateDemoGateUI();
 if (isDemoUnlocked()) setDemoFrame();
 parseLocationHash();
+showEntryGate();
 </script>
 
 <style>
@@ -1660,6 +1647,10 @@ parseLocationHash();
 .qc-send:hover { filter:brightness(1.05); }
 .qc-err { font-size:11.5px; color:var(--danger-fg,#8c3019); }
 .qc-off { font-size:11px; color:var(--text-faint,#a39b8c); }
+.qc-ident { justify-content:space-between; }
+.qc-as { font-size:12px; color:var(--text-muted,#6b6357); }
+.qc-as b { color:var(--text-primary,#0a0907); }
+.qc-reset { font-size:11.5px; color:var(--acc-700,#8c3d1a); background:transparent; border:none; cursor:pointer; padding:0; text-decoration:underline; }
 </style>
 <script>
 /* ===== 按题评论前端 ===== */
@@ -1670,8 +1661,8 @@ const COMMENTS_API = (location.hostname === 'localhost' || location.hostname ===
 
 function qcAuthor(){ try { return localStorage.getItem('fw_c_author') || ''; } catch(e){ return ''; } }
 function qcSetAuthor(v){ try { localStorage.setItem('fw_c_author', v); } catch(e){} }
-function qcPass(){ try { return sessionStorage.getItem('fw_c_pass') || ''; } catch(e){ return ''; } }
-function qcSetPass(v){ try { sessionStorage.setItem('fw_c_pass', v); } catch(e){} }
+function qcPass(){ try { return localStorage.getItem('fw_c_pass') || ''; } catch(e){ return ''; } }
+function qcSetPass(v){ try { localStorage.setItem('fw_c_pass', v); } catch(e){} }
 
 async function mountComments(root){
   root = root || document;
@@ -1705,9 +1696,9 @@ async function qcExpand(btn){
   ).join('') || '<div class="qc-empty">还没有评论，来留第一条。</div>';
   box.innerHTML = items +
     '<div class="qc-form">' +
-      '<div class="qc-form-row"><input class="qc-author" placeholder="你的名字" value="' + escHtml(qcAuthor()) + '"></div>' +
+      '<div class="qc-form-row qc-ident"><span class="qc-as">以 <b>' + escHtml(qcAuthor() || '匿名') + '</b> 发表</span><button type="button" class="qc-reset" onclick="entryReset()">改身份</button></div>' +
       '<textarea class="qc-body" placeholder="围绕这道题留言…"></textarea>' +
-      '<div class="qc-form-row"><input class="qc-pass" type="password" placeholder="发帖口令" value="' + escHtml(qcPass()) + '"><button class="qc-send" onclick="qcPost(this)">发表</button></div>' +
+      '<div class="qc-form-row"><button class="qc-send" onclick="qcPost(this)">发表</button></div>' +
       '<div class="qc-err" style="display:none"></div>' +
     '</div>';
 }
@@ -1715,21 +1706,23 @@ async function qcExpand(btn){
 async function qcPost(btn){
   const form = btn.closest('.qc-form'), box = form.parentElement, wrap = box.parentElement;
   const thread = wrap.dataset.thread;
-  const author = form.querySelector('.qc-author').value.trim();
+  const author = qcAuthor().trim();
   const body = form.querySelector('.qc-body').value.trim();
-  const passcode = form.querySelector('.qc-pass').value.trim();
+  const passcode = qcPass().trim();
   const err = form.querySelector('.qc-err');
   err.style.display='none';
-  if (!author || !body){ err.textContent='填一下名字和内容'; err.style.display=''; return; }
-  qcSetAuthor(author); qcSetPass(passcode);
+  if (!author){ err.textContent='没有名字，点「改身份」填一下'; err.style.display=''; return; }
+  if (!body){ err.textContent='写点内容再发'; err.style.display=''; return; }
   btn.disabled = true; btn.textContent='发表中…';
   try {
     const r = await fetch(COMMENTS_API + '/api/comments', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({thread, author, body, passcode}) });
     const data = await r.json();
-    if (!r.ok){ err.textContent = data.error || '发表失败'; err.style.display=''; btn.disabled=false; btn.textContent='发表'; return; }
+    if (!r.ok){
+      err.textContent = (data.error || '发表失败') + (r.status===403 ? '（点「改身份」重填发帖口令）' : '');
+      err.style.display=''; btn.disabled=false; btn.textContent='发表'; return;
+    }
     await qcExpand(wrap.querySelector('.qc-toggle')); // collapse
     await qcExpand(wrap.querySelector('.qc-toggle')); // reopen fresh
-    const tog = wrap.querySelector('.qc-toggle');
   } catch(e){ err.textContent='网络错误'; err.style.display=''; btn.disabled=false; btn.textContent='发表'; }
 }
 
