@@ -458,7 +458,7 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
     <p>会议结论已沉淀进本文件。现在请<strong>各自负责的板块逐页过一遍</strong>：看左侧 demo（小程序 + Website）对应页面 + 右侧问题与建议答案，有意见就在每道题下面<strong>留评论</strong>。评论全员可见、按题归档。</p>
     <div style="max-width:840px;margin:18px auto 0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
       <span style="font-size:13px;font-weight:600;background:var(--acc-50,#fbeee6);color:var(--acc-700,#8c3d1a);border:1px solid var(--acc-100,#f3d9c7);border-radius:999px;padding:7px 16px">📅 下次开会：6月21日（周日）10:00 · 磊子家</span>
-      <span style="font-size:13px;font-weight:600;background:var(--surface-sunken,#f4f0ea);color:var(--text-primary,#0a0907);border:1px solid var(--bd-default,#e7e1d7);border-radius:999px;padding:7px 16px">⏰ 评审 &amp; 新名字反馈截止：6/12（周五）EOD</span>
+      <span style="font-size:13px;font-weight:600;background:var(--surface-sunken,#f4f0ea);color:var(--text-primary,#0a0907);border:1px solid var(--bd-default,#e7e1d7);border-radius:999px;padding:7px 16px">⏰ 评审 &amp; 新名字反馈截止：6/21（周日）开会前</span>
     </div>
     <div class="deliverables-box" id="deliverables-stats"></div>
 
@@ -782,15 +782,15 @@ function jumpDemo(pageId) {
 
 /* ===== 分工：每页主审 + 全员花名册 ===== */
 const PAGE_OWNERS = {
-  'global':'何柏岚', '00':'张鹏', '01':'欧根', '02':'欧根', '03':'詹敏杰', '04':'詹敏杰',
+  'global':'何柏岚', '00':'全员', '01':'欧根', '02':'欧根', '03':'詹敏杰/张鹏', '04':'詹敏杰/张鹏',
   '05':'贺安祺', '06':'贺安祺', '07':'磊子', '08':'磊子', '09':'贺安祺', '10':'磊子',
-  '11':'何柏岚', '12':'何柏岚', '13':'张鹏', '14':'陆洲', '15':'陆洲', '16':'陆洲'
+  '11':'何柏岚', '12':'何柏岚', '13':'何柏岚', '14':'陆洲', '15':'陆洲', '16':'陆洲'
 };
 const ROSTER = [
-  { name:'何柏岚', role:'产品 / 技术 / 总负责', pages:'§0 全局 · 11 我的 · 12 公开主页', note:'范围·排期·隐私终审；争议项拍板' },
-  { name:'张鹏', role:'（职责待补）', pages:'00 首页 · 13 徽章墙', note:'先按通用产品视角分页，按实际职责调整' },
+  { name:'全员（每个人都看）', role:'—', pages:'00 首页', note:'首页影响所有人，每人都过一遍、有意见就评论' },
+  { name:'何柏岚', role:'产品 / 技术 / 总负责', pages:'§0 全局 · 11 我的 · 12 公开主页 · 13 徽章墙', note:'范围·排期·隐私终审；争议项拍板' },
   { name:'欧根', role:'内容 / 雪场专家', pages:'01 雪场列表 · 02 雪场详情', note:'雪况数据口径 + 攻略内容' },
-  { name:'詹敏杰', role:'商务 / 资源', pages:'03 教练列表 · 04 教练详情', note:'教练 BD 视角' },
+  { name:'詹敏杰 + 张鹏', role:'商务 / 资源', pages:'03 教练列表 · 04 教练详情（共管）', note:'教练 BD 视角' },
   { name:'磊子', role:'商务总负责', pages:'07 地接列表 · 08 地接详情 · 10 市集', note:'地接对接 + 佣金/结算 + 二手放量' },
   { name:'贺安祺', role:'用户运营 / 社区', pages:'05 活动列表 · 06 活动详情 · 09 拼车/出行', note:'社区 / 安全 / 拼车留痕' },
   { name:'陆洲', role:'技术运营 / AI', pages:'14 全局搜索 · 15 Onboarding · 16 消息中心', note:'+ 数据运营 / 数据门控阈值 + 技术可行性横切' }
@@ -801,7 +801,7 @@ function renderOwnerTable(){
   const me = myName();
   host.innerHTML = '<thead><tr><th>成员</th><th>角色</th><th>重点负责</th><th>说明</th></tr></thead><tbody>' +
     ROSTER.map(r => {
-      const mine = me && r.name === me;
+      const mine = me && (r.name.indexOf('全员') === 0 || r.name.indexOf(me) !== -1);
       return `<tr${mine?' style="background:var(--acc-50,#fbeee6)"':''}>
         <td class="ot-name">${escHtml(r.name)}${mine?' 👈 你':''}</td>
         <td class="ot-role">${escHtml(r.role)}</td>
@@ -1359,7 +1359,7 @@ function renderNav() {
   let html = '<h3>逐页评审</h3>';
   PAGES.forEach(p => {
     const owner = PAGE_OWNERS[p.id] || '';
-    const mine = me && owner === me;
+    const mine = me && (owner === '全员' || owner.indexOf(me) !== -1);
     html += `<div class="nav-item ${p.star?'star':''} ${mine?'mine':''} ${p.id===state.pageId?'active':''}" onclick="selectPage('${p.id}')">
       <span class="nav-num">${p.num}</span><span>${p.label}</span>${owner?`<span class="nav-owner">${escHtml(owner)}</span>`:''}
     </div>`;
