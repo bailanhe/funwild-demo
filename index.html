@@ -5008,34 +5008,8 @@ body.embed-web .web-frame { margin: 0 auto !important; }
 </head>
 <body>
 
-<div id="fw-gate">
-  <div class="fw-gate-card">
-    <div class="fw-gate-brand">趣野 Funwild</div>
-    <div class="fw-gate-sub">原型预览 · 请输入访问密码</div>
-    <input id="fw-gate-input" type="password" placeholder="访问密码" autocomplete="off" spellcheck="false"
-      onkeydown="if(event.key==='Enter')fwGateCheck();">
-    <button onclick="fwGateCheck()">进入</button>
-    <div id="fw-gate-err"></div>
-  </div>
-</div>
-<script>
-(function(){
-  var H = '5cfeb628';
-  function fwHash(s){ var h=5381; for(var i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))>>>0; } return h.toString(16); }
-  if (sessionStorage.getItem('fw_gate_ok') === '1') { var g=document.getElementById('fw-gate'); if(g) g.style.display='none'; }
-  window.fwGateCheck = function(){
-    var el = document.getElementById('fw-gate-input');
-    if (fwHash(el.value || '') === H) {
-      sessionStorage.setItem('fw_gate_ok','1');
-      document.getElementById('fw-gate').style.display='none';
-    } else {
-      document.getElementById('fw-gate-err').textContent = '密码不对，再试试';
-      el.value=''; el.focus();
-    }
-  };
-  var i=document.getElementById('fw-gate-input'); if(i && document.getElementById('fw-gate').style.display!=='none') i.focus();
-})();
-</script>
+<!-- 访问密码门已取消：原型对团队开放，无需密码即可预览 -->
+<script>window.fwGateCheck = function(){};</script>
 
 <nav class="topnav">
   <div class="topnav-logo" onclick="goSection('cover')">Funwild</div>

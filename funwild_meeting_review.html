@@ -59,13 +59,15 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
 .agenda-card:hover { box-shadow:var(--sh-md); }
 .agenda-time { font-family:var(--font-mono); font-size:11px; color:var(--acc-600); letter-spacing:1px; }
 .agenda-title { font-weight:600; margin-top:4px; }
-.review-shell { display:grid; grid-template-columns:220px minmax(520px,1.15fr) minmax(300px,0.85fr); gap:0; min-height:calc(100vh - 56px); }
+/* 固定一屏高 → 三栏各自内部滚动，demo 不随问题滚走 */
+.review-shell { display:grid; grid-template-columns:220px minmax(520px,1.15fr) minmax(300px,0.85fr); gap:0; height:calc(100vh - 56px); overflow:hidden; }
+.review-side, .review-demo, .review-qa { min-height:0; }
 @media (max-width:1200px) {
-  .review-shell { grid-template-columns:200px 1fr; }
+  .review-shell { grid-template-columns:200px 1fr; height:auto; overflow:visible; }
   .review-demo { grid-column:1 / -1; border-right:none; border-bottom:1px solid var(--bd-default); }
 }
 @media (max-width:900px) {
-  .review-shell { grid-template-columns:1fr; }
+  .review-shell { grid-template-columns:1fr; height:auto; overflow:visible; }
   .review-side, .review-demo { max-height:none; }
 }
 .review-side {
@@ -86,31 +88,31 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
 .nav-item.star .nav-num { color:var(--acc-600); }
 .review-demo {
   background:var(--n-100); border-right:1px solid var(--bd-default);
-  display:flex; flex-direction:column; padding:16px 18px 20px;
-  overflow-y:auto; min-width:0; min-height:0;
+  display:flex; flex-direction:column; padding:14px 18px 16px;
+  overflow:hidden; min-width:0; min-height:0;
 }
-.demo-head { width:100%; max-width:720px; margin:0 auto 12px; }
-.demo-label { font-family:var(--font-mono); font-size:10px; letter-spacing:1.5px; color:var(--text-muted); margin:0 0 8px; }
+.demo-head { width:100%; max-width:720px; margin:0 auto 12px; flex:0 0 auto; }
+/* 小程序 / 网站 切换 tab —— 顶在常驻 demo 栏的顶部，始终可见 */
+.demo-tabs { display:inline-flex; gap:4px; background:var(--surface-sunken,#f4f0ea); border:1px solid var(--bd-default); border-radius:99px; padding:3px; }
+.demo-tab { font:inherit; font-size:13px; font-weight:600; color:var(--text-muted); background:transparent; border:none; border-radius:99px; padding:6px 18px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+.demo-tab:hover { color:var(--text-primary); }
+.demo-tab.active { background:var(--surface-raised,#fff); color:var(--text-primary); box-shadow:0 1px 3px rgba(0,0,40,.10); }
+.demo-tab[disabled] { opacity:.4; cursor:not-allowed; }
+.demo-tab .dot { width:7px; height:7px; border-radius:50%; }
+.demo-tab .dot.mini { background:var(--acc-600,#b34e22); }
+.demo-tab .dot.web { background:#2d6a4f; }
 .demo-split {
-  display:grid; grid-template-columns:minmax(200px,42%) minmax(260px,58%);
-  gap:14px; width:100%; max-width:720px; margin:0 auto;
-  flex:1; min-height:380px;
+  display:block; width:100%; max-width:720px; margin:0 auto;
+  flex:1 1 auto; min-height:0;
 }
-@media (max-width:700px) { .demo-split { grid-template-columns:1fr; } }
-.demo-pane { display:flex; flex-direction:column; min-height:0; min-width:0; }
-.demo-pane-tag {
-  font-family:var(--font-mono); font-size:10px; letter-spacing:1px; font-weight:600;
-  margin-bottom:8px; display:flex; align-items:center; gap:6px;
-}
-.demo-pane-tag.mini { color:var(--acc-700); }
-.demo-pane-tag.web { color:#2d6a4f; }
-.demo-pane-tag .dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+.demo-pane { display:flex; flex-direction:column; height:100%; min-height:0; min-width:0; }
+/* 一次只显示一个；另一个隐藏（不占位、不压扁） */
+.review-demo.view-mini .web-pane,
+.review-demo.view-web  .mini-pane { display:none; }
 .demo-embed {
-  flex:1; min-height:320px; border:1px solid var(--bd-default); border-radius:8px;
+  flex:1 1 auto; min-height:0; border:1px solid var(--bd-default); border-radius:10px;
   background:var(--surface-raised); overflow:hidden; position:relative;
 }
-.demo-embed.mini { max-height:520px; }
-.demo-embed.web { min-height:360px; }
 .demo-embed iframe { width:100%; height:100%; border:none; display:block; background:#fff; }
 .demo-embed.empty {
   display:flex; align-items:center; justify-content:center; padding:20px;
@@ -410,28 +412,23 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-<div class="entry-gate" id="entry-gate">
+<div class="entry-gate hidden" id="entry-gate">
   <div class="entry-card">
-    <h2>趣野 · 逐页评审</h2>
-    <p class="entry-sub">填一次就好，浏览器会记住。之后看 demo、发评论都不再问。</p>
-    <div class="entry-field">
-      <label>访问密码 <span class="hint">（解锁左侧原型 demo）</span></label>
-      <input type="password" id="eg-access" placeholder="访问密码" autocomplete="off"
-        onkeydown="if(event.key==='Enter')entrySubmit()">
-    </div>
+    <h2>留个名字就能评论</h2>
+    <p class="entry-sub">浏览不用密码。只有发评论时填一次，浏览器会记住，之后不再问。</p>
     <div class="entry-field">
       <label>你的名字 <span class="hint">（评论会署这个名）</span></label>
       <input type="text" id="eg-name" placeholder="如：欧根" autocomplete="off"
         onkeydown="if(event.key==='Enter')entrySubmit()">
     </div>
     <div class="entry-field">
-      <label>发帖口令 <span class="hint">（发评论用，团队群里有）</span></label>
+      <label>发帖口令 <span class="hint">（防刷，团队群里有，= funwild2026）</span></label>
       <input type="password" id="eg-pass" placeholder="发帖口令" autocomplete="off"
         onkeydown="if(event.key==='Enter')entrySubmit()">
     </div>
-    <button class="entry-btn" onclick="entrySubmit()">进入评审</button>
+    <button class="entry-btn" onclick="entrySubmit()">开始评论</button>
     <p class="entry-err" id="eg-err"></p>
-    <p class="entry-note">访问密码错了进不去；发帖口令填错可进、但发评论时会被拒，届时点评论框旁「改身份」重填即可。</p>
+    <p class="entry-note">口令填错也能存，但发评论会被拒；届时点评论框旁「改身份」重填即可。</p>
   </div>
 </div>
 <nav class="topnav">
@@ -521,30 +518,18 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
     <aside class="review-side" id="page-nav"></aside>
     <div class="review-demo">
       <div class="demo-head">
-        <div class="demo-label">LIVE DEMO · 小程序 + Website（embed 模式）</div>
-        <div class="demo-unlock-badge hidden" id="demo-unlocked-badge">✓ 已解锁（本浏览器会话）</div>
-      </div>
-      <div class="demo-gate" id="demo-gate">
-        <div class="demo-gate-text">
-          <h4>解锁原型嵌入预览</h4>
-          <p>密码与 <code>funwild_prototype.html</code> 相同。解锁后左右 iframe 直达对应页面，无顶栏、无二次手机壳。</p>
+        <div class="demo-tabs">
+          <button class="demo-tab active" id="demo-tab-mini" onclick="setDemoView('mini')"><span class="dot mini"></span>小程序</button>
+          <button class="demo-tab" id="demo-tab-web" onclick="setDemoView('web')"><span class="dot web"></span>网站</button>
         </div>
-        <div class="demo-gate-form">
-          <input type="password" id="demo-pw-input" placeholder="访问密码" autocomplete="off"
-            onkeydown="if(event.key==='Enter')unlockDemo()">
-          <button class="btn btn-primary" onclick="unlockDemo()">解锁</button>
-        </div>
-        <div class="gate-err" id="demo-gate-err"></div>
       </div>
       <div class="demo-split">
-        <div class="demo-pane">
-          <div class="demo-pane-tag mini"><span class="dot"></span>小程序 · Sunset</div>
+        <div class="demo-pane mini-pane">
           <div class="demo-embed mini" id="embed-mini">
             <iframe id="demo-frame-mini" title="Funwild mini program demo"></iframe>
           </div>
         </div>
-        <div class="demo-pane">
-          <div class="demo-pane-tag web"><span class="dot"></span>Website · Pine</div>
+        <div class="demo-pane web-pane">
           <div class="demo-embed web" id="embed-web">
             <iframe id="demo-frame-web" title="Funwild website demo"></iframe>
           </div>
@@ -611,9 +596,7 @@ function fwHash(s) {
   return h.toString(16);
 }
 
-function isDemoUnlocked() {
-  try { return localStorage.getItem(GATE_KEY) === '1'; } catch (e) { return false; }
-}
+function isDemoUnlocked() { return true; }  // 密码门已取消：demo 对团队开放，无需密码
 
 function updateDemoGateUI() {
   const unlocked = isDemoUnlocked();
@@ -641,47 +624,31 @@ function unlockDemo() {
   setDemoFrame();
 }
 
-/* ===== 入口门：一次填齐 访问密码 + 名字 + 发帖口令 ===== */
-function entryGateNeeded() {
-  // 已解锁 demo 且填过名字 → 不再拦
-  return !(isDemoUnlocked() && myName());
-}
+/* ===== 评论身份：只在发评论时填一次（名字 + 发帖口令）。浏览无需任何密码。 ===== */
 function showEntryGate() {
   const g = document.getElementById('entry-gate');
   if (!g) return;
-  if (entryGateNeeded()) {
-    g.classList.remove('hidden');
-    // 预填已存的值，方便只补缺项
-    const n = document.getElementById('eg-name'); if (n) n.value = myName();
-    try { const p = document.getElementById('eg-pass'); if (p) p.value = localStorage.getItem('fw_c_pass') || ''; } catch(e){}
-    const focus = isDemoUnlocked() ? 'eg-name' : 'eg-access';
-    setTimeout(() => { const f = document.getElementById(focus); if (f) f.focus(); }, 50);
-  } else {
-    g.classList.add('hidden');
-  }
+  g.classList.remove('hidden');
+  const n = document.getElementById('eg-name'); if (n) n.value = myName();
+  try { const p = document.getElementById('eg-pass'); if (p) p.value = localStorage.getItem('fw_c_pass') || ''; } catch(e){}
+  setTimeout(() => { const f = document.getElementById('eg-name'); if (f) f.focus(); }, 50);
 }
 function entrySubmit() {
   const err = document.getElementById('eg-err');
   const name = (document.getElementById('eg-name').value || '').trim();
   const pass = (document.getElementById('eg-pass').value || '').trim();
-  const access = (document.getElementById('eg-access').value || '');
   if (err) err.textContent = '';
-  // 已解锁过 demo 的话，访问密码可不再填
-  if (!isDemoUnlocked()) {
-    if (fwHash(access) !== GATE_HASH) { if (err) err.textContent = '访问密码不对，问负责人要一下'; return; }
-  }
   if (!name) { if (err) err.textContent = '填一下你的名字（评论会署名）'; return; }
   try {
-    localStorage.setItem(GATE_KEY, '1');
     localStorage.setItem('fw_c_author', name);
     localStorage.setItem('fw_c_pass', pass);
   } catch (e) { if (err) err.textContent = '无法写入浏览器存储，请用 http:// 打开（勿用 file://）'; return; }
   document.getElementById('entry-gate').classList.add('hidden');
-  updateDemoGateUI();
-  if (isDemoUnlocked()) setDemoFrame();
   renderOwnerTable();
+  if (typeof _egAfter === 'function') { const f = _egAfter; _egAfter = null; try { f(); } catch(e){} }
 }
-/* 评论框旁「改身份」：清掉名字/口令，重新弹门 */
+let _egAfter = null;
+/* 评论框旁「改身份」：清掉名字/口令，重新弹身份框 */
 function entryReset() {
   try { localStorage.removeItem('fw_c_author'); localStorage.removeItem('fw_c_pass'); } catch(e){}
   showEntryGate();
@@ -723,30 +690,43 @@ function setEmbedPane(side, spec, frameId, hostId) {
   frame.src = src;
 }
 
+// 小程序 / 网站 切换（一次只显示一个；某页没网站版就只剩小程序）
+let demoView = 'mini';
+function applyDemoView(hasMini, hasWeb) {
+  const rd = document.querySelector('.review-demo');
+  const tMini = document.getElementById('demo-tab-mini');
+  const tWeb  = document.getElementById('demo-tab-web');
+  if (tWeb)  tWeb.disabled  = !hasWeb;
+  if (tMini) tMini.disabled = !hasMini && hasWeb;
+  if (demoView === 'web'  && !hasWeb)  demoView = 'mini';
+  if (demoView === 'mini' && !hasMini && hasWeb) demoView = 'web';
+  if (rd) { rd.classList.toggle('view-mini', demoView === 'mini'); rd.classList.toggle('view-web', demoView === 'web'); }
+  if (tMini) tMini.classList.toggle('active', demoView === 'mini');
+  if (tWeb)  tWeb.classList.toggle('active', demoView === 'web');
+}
+function setDemoView(side) {
+  const p = PAGES.find(x => x.id === state.pageId);
+  const demo = p && p.demo;
+  const hasMini = !!(demo && demo.mini), hasWeb = !!(demo && demo.web);
+  if (side === 'web'  && !hasWeb)  return;
+  if (side === 'mini' && !hasMini && hasWeb) return;
+  demoView = side;
+  applyDemoView(hasMini, hasWeb);
+}
 function setDemoFrame() {
   const tip = document.getElementById('demo-tip');
   const p = PAGES.find(x => x.id === state.pageId);
-  updateDemoGateUI();
   const demo = p && p.demo;
-  const miniSpec = demo && demo.mini;
-  const webSpec = demo && demo.web;
-
-  if (!p || !demo || (!miniSpec && !webSpec)) {
-    setEmbedPane('mini', null, 'demo-frame-mini', 'embed-mini');
-    setEmbedPane('web', null, 'demo-frame-web', 'embed-web');
+  const miniSpec = (demo && demo.mini) || null;
+  const webSpec = (demo && demo.web) || null;
+  setEmbedPane('mini', miniSpec, 'demo-frame-mini', 'embed-mini');
+  setEmbedPane('web', webSpec, 'demo-frame-web', 'embed-web');
+  applyDemoView(!!miniSpec, !!webSpec);
+  if (!tip) return;
+  if (!miniSpec && !webSpec) {
     tip.textContent = p ? (p.demoTip || '本段无单页 Demo，请讨论右侧问题。') : '';
     return;
   }
-  if (!isDemoUnlocked()) {
-    ['demo-frame-mini', 'demo-frame-web'].forEach(id => {
-      const f = document.getElementById(id);
-      if (f) f.removeAttribute('src');
-    });
-    tip.textContent = '请先输入原型密码并点击「解锁」。';
-    return;
-  }
-  setEmbedPane('mini', miniSpec, 'demo-frame-mini', 'embed-mini');
-  setEmbedPane('web', webSpec, 'demo-frame-web', 'embed-web');
   const parts = [];
   if (miniSpec) parts.push('小程序 ' + demoHash('mini', miniSpec));
   if (webSpec) parts.push('Web ' + demoHash('web', webSpec));
@@ -766,18 +746,10 @@ function openDemoNewWindow(side) {
 function openFullPrototype() {
   window.open(PROTOTYPE, '_blank');
 }
-// 答案上的「看对应页面」按钮：让左侧 demo 跳到该题所属页的对应屏
+// 答案上的「看对应页面」按钮：让左侧常驻 demo 切到该题所属页的对应屏
 function jumpDemo(pageId) {
   if (pageId && pageId !== state.pageId) selectPage(pageId);
-  if (!isDemoUnlocked()) {
-    const g = document.getElementById('demo-gate');
-    if (g) g.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    const i = document.getElementById('demo-pw-input'); if (i) i.focus();
-    return;
-  }
-  setDemoFrame();
-  const host = document.getElementById('embed-mini') || document.querySelector('.demo-split');
-  if (host) host.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  else setDemoFrame();
 }
 
 /* ===== 分工：每页主审 + 全员花名册 ===== */
@@ -1631,9 +1603,8 @@ renderDiagramAgenda();
 renderDeliverablesStats();
 renderOwnerTable();
 updateDemoGateUI();
-if (isDemoUnlocked()) setDemoFrame();
+setDemoFrame();
 parseLocationHash();
-showEntryGate();
 </script>
 
 <style>
@@ -1705,7 +1676,9 @@ async function qcExpand(btn){
   ).join('') || '<div class="qc-empty">还没有评论，来留第一条。</div>';
   box.innerHTML = items +
     '<div class="qc-form">' +
-      '<div class="qc-form-row qc-ident"><span class="qc-as">以 <b>' + escHtml(qcAuthor() || '匿名') + '</b> 发表</span><button type="button" class="qc-reset" onclick="entryReset()">改身份</button></div>' +
+      '<div class="qc-form-row qc-ident">' + (qcAuthor()
+        ? '<span class="qc-as">以 <b>' + escHtml(qcAuthor()) + '</b> 发表</span><button type="button" class="qc-reset" onclick="entryReset()">改身份</button>'
+        : '<span class="qc-as">发评论需填一次名字+口令（点发表即可填）</span>') + '</div>' +
       '<textarea class="qc-body" placeholder="围绕这道题留言…"></textarea>' +
       '<div class="qc-form-row"><button class="qc-send" onclick="qcPost(this)">发表</button></div>' +
       '<div class="qc-err" style="display:none"></div>' +
@@ -1720,8 +1693,8 @@ async function qcPost(btn){
   const passcode = qcPass().trim();
   const err = form.querySelector('.qc-err');
   err.style.display='none';
-  if (!author){ err.textContent='没有名字，点「改身份」填一下'; err.style.display=''; return; }
   if (!body){ err.textContent='写点内容再发'; err.style.display=''; return; }
+  if (!author || !passcode){ _egAfter = () => qcPost(btn); showEntryGate(); return; }  // 没填过身份→弹一次，填完自动继续发
   btn.disabled = true; btn.textContent='发表中…';
   try {
     const r = await fetch(COMMENTS_API + '/api/comments', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({thread, author, body, passcode}) });
