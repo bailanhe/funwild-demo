@@ -812,7 +812,17 @@ function _jumpSetDemo(side, spec) {
 function jumpDemo(pageId, qid) {
   if (pageId && pageId !== state.pageId) selectPage(pageId);
   const ov = qid && Q_DEMO[qid];
-  if (!ov) { if (!pageId || pageId === state.pageId) setDemoFrame(); return; }
+  if (!ov) {
+    // 页级：把 demo 强制拉回本页对应屏（你在 demo 里点乱了也能一键拉回）
+    const p = PAGES.find(x => x.id === state.pageId);
+    const pd = p && p.demo;
+    if (!pd) { setDemoFrame(); return; }                    // §0 等无 demo
+    let side = demoView, base = pd[side];
+    if (!base || !base.page) { side = (side === 'mini' ? 'web' : 'mini'); base = pd[side]; }  // 当前端没有就用另一端
+    if (!base || !base.page) { setDemoFrame(); return; }
+    _jumpSetDemo(side, { page: base.page, slug: base.slug || null });  // 无 modal = 干净页面（顺带关掉已开弹窗）
+    return;
+  }
   const side = ov.side || 'mini';
   let spec;
   if (ov.page) {                                          // 题指定了目标页（§0 等无自身 demo 的题）
@@ -1340,6 +1350,9 @@ function exportDecisions() {
 function renderQCard(pageId, q, kind) {
   const k = qKey(pageId, q.id);
   const d = state.decisions[k] || {};
+  const _qd = Q_DEMO[q.id];
+  const _pd = (PAGES.find(x => x.id === pageId) || {}).demo;
+  const _showJump = !!(_qd || (_pd && (_pd.mini || _pd.web)));  // 有弹窗映射 或 本页有 demo 才给跳转按钮（§0 无 demo 的题不给）
   const pClass = q.p === 'P0' ? 'tag-p0' : (q.p === 'P1' ? 'tag-p1' : 'tag-p2');
   const archClass = kind === 'arch' ? ' arch' : '';
   let inner = `<div class="q-text">${escHtml(q.q)}</div>`;
@@ -1360,7 +1373,7 @@ function renderQCard(pageId, q, kind) {
       ${catTag}
       <div style="flex:1;min-width:0">${inner}</div>
     </div>
-    ${q.a ? `<div class="q-answer${/拍板/.test(q.a) ? ' pin' : ''}"><span class="q-answer-label">建议答案</span>${escHtml(q.a)}<button class="q-jump" onclick="jumpDemo('${pageId}','${q.id}')" title="左侧 Demo 跳到本题对应屏${Q_DEMO[q.id] && Q_DEMO[q.id].modal ? '并弹出对应弹窗' : ''}">🔗 看对应${Q_DEMO[q.id] && Q_DEMO[q.id].modal ? '弹窗' : '页面'}</button></div>` : ''}
+    ${q.a ? `<div class="q-answer${/拍板/.test(q.a) ? ' pin' : ''}"><span class="q-answer-label">建议答案</span>${escHtml(q.a)}${_showJump ? `<button class="q-jump" onclick="jumpDemo('${pageId}','${q.id}')" title="左侧 Demo 拉回本题对应屏${_qd && _qd.modal ? '并弹出对应弹窗' : ''}">🔗 看对应${_qd && _qd.modal ? '弹窗' : '页面'}</button>` : ''}</div>` : ''}
     <textarea class="decision-input" placeholder="${kind === 'arch' ? '决议：第一版做不做、数据谁维护、流程图、负责人…' : '决议：做/砍/延后、负责人、目标版本…'}" oninput="setDecision('${pageId}','${q.id}',this.value)">${d.note || ''}</textarea>
     <div class="q-comments" data-thread="${k}"></div>
   </div>`;
