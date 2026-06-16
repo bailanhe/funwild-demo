@@ -1979,16 +1979,6 @@ body.embed-mini .phone-content { height: calc(100vh - 44px - 34px) !important; }
 /* web: only the browser frame */
 body.embed-web .web-frame { margin: 0 auto !important; }
 
-/* ===== Demo password gate ===== */
-#fw-gate { position:fixed; inset:0; z-index:99999; background:#1a1410; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans SC',sans-serif; }
-#fw-gate .fw-gate-card { background:#fff; border-radius:16px; padding:40px 36px; width:340px; max-width:90vw; box-shadow:0 30px 80px rgba(0,0,0,.45); text-align:center; }
-#fw-gate .fw-gate-brand { font-family:'Outfit','Noto Sans SC',sans-serif; font-size:26px; font-weight:700; color:#b5651d; margin-bottom:6px; }
-#fw-gate .fw-gate-sub { font-size:13px; color:#999; margin-bottom:24px; }
-#fw-gate #fw-gate-input { width:100%; box-sizing:border-box; padding:12px 14px; border:1px solid #ddd; border-radius:10px; font-size:15px; outline:none; margin-bottom:12px; }
-#fw-gate #fw-gate-input:focus { border-color:#b5651d; }
-#fw-gate button { width:100%; padding:12px; background:#b5651d; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; }
-#fw-gate button:hover { background:#9c5313; }
-#fw-gate #fw-gate-err { color:#c0392b; font-size:12px; margin-top:12px; min-height:14px; }
 .web-modal-header {
   display: flex; justify-content: space-between; align-items: center;
   padding: 18px 22px 14px;
@@ -18474,7 +18464,47 @@ function applyHash() {
     }
   }
   state.section = sec;
+  var _embed = /[?&]embed=/.test(location.search);
+  if (_embed && (sec === 'mini' || sec === 'web')) fwEmbedModalReset();
   goSection(sec);
+  if (params.modal && (sec === 'mini' || sec === 'web')) fwTriggerModal(sec, params.modal);
+}
+
+// 嵌入模式：父页（评审工具）用 #mini:page/slug?modal=name[:arg] 直接打开对应弹窗
+function fwEmbedModalReset() {
+  ['showWaveModal','showActivityBook','showCarpoolJoinModal','showOutfitInquiry','showCheckIn',
+   'showMarketContact','showSearch','showOnboarding','showWebWaveModal','showWebOutfitInquiry',
+   'showWebActivitySignup','showWebCarpoolJoin','showWebMarketContact','showWebOnboarding',
+   'showPartnerApply','showWebLogin'].forEach(function(k){ state[k] = false; });
+  state.showBadgeModal = null; state.showWxPay = null; state.showSafetyCheck = null;
+}
+function fwTriggerModal(sec, raw) {
+  var parts = String(raw || '').split(':');
+  var name = parts[0], arg = parts.slice(1).join(':') || null;
+  var ctx = (sec === 'web' ? state.webContext : state.miniContext) || {};
+  var slug = ctx.slug || '';
+  try {
+    if (sec === 'mini') {
+      if (name === 'wave') waveOpen();
+      else if (name === 'activity-book') activityBookOpen(arg || slug);
+      else if (name === 'carpool-join') carpoolJoinOpen(arg || 'cp1');
+      else if (name === 'outfit') outfitInquiryOpen(slug, arg || '咨询行程');
+      else if (name === 'checkin') checkInOpen(arg || slug);
+      else if (name === 'onboarding') { state.showOnboarding = true; state.onboardingStep = 1; render(); }
+      else if (name === 'badge') { state.showBadgeModal = parseInt(arg, 10) || 0; render(); }
+      else if (name === 'market-contact') marketContactOpen(arg || 'mk1');
+      else if (name === 'search') openSearch(arg || 'resort');
+    } else {
+      if (name === 'wave') webWaveOpen(arg || slug);
+      else if (name === 'activity-signup') webActivitySignupOpen(arg || slug);
+      else if (name === 'carpool-join') webCarpoolJoinOpen(arg || 'cp1');
+      else if (name === 'outfit') webOutfitInquiryOpen(slug, arg || '咨询行程');
+      else if (name === 'market-contact') webMarketContactOpen(arg || 'mk1');
+      else if (name === 'onboarding') webOnboardingOpen();
+      else if (name === 'partner-apply') partnerApplyOpen(arg || '');
+      else if (name === 'login') openWebLogin();
+    }
+  } catch (e) {}
 }
 applyHash();
 window.addEventListener('hashchange', applyHash);

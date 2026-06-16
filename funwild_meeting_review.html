@@ -658,6 +658,7 @@ function demoHash(side, spec) {
   if (!spec || !spec.page) return null;
   let h = '#' + side + ':' + spec.page;
   if (spec.slug) h += '/' + encodeURIComponent(spec.slug);
+  if (spec.modal) h += '?modal=' + encodeURIComponent(spec.modal);  // 直接打开对应弹窗
   return h;
 }
 
@@ -746,10 +747,84 @@ function openDemoNewWindow(side) {
 function openFullPrototype() {
   window.open(PROTOTYPE, '_blank');
 }
-// 答案上的「看对应页面」按钮：让左侧常驻 demo 切到该题所属页的对应屏
-function jumpDemo(pageId) {
+// 部分题点「看对应页面」时，除了切到对应页，还自动弹出该题讨论的弹窗。
+// 复用该页 demo 的 page/slug，这里只标 端 + 弹窗名（带 :参数 的给 opener 传 id/索引）。
+const Q_DEMO = {
+  // 02 雪场详情 → 打卡
+  '02-U1':{side:'mini',modal:'checkin'}, '02-A1':{side:'mini',modal:'checkin'},
+  '02-ARCH-1':{side:'mini',modal:'checkin'}, '02-ARCH-2':{side:'mini',modal:'checkin'}, '02-ARCH-5':{side:'mini',modal:'checkin'},
+  // 04 教练详情 → Wave 联系
+  '04-U1':{side:'mini',modal:'wave'}, '04-U3':{side:'mini',modal:'wave'},
+  '04-ARCH-1':{side:'mini',modal:'wave'}, '04-ARCH-5':{side:'mini',modal:'wave'},
+  // 06 活动详情 → 报名/占位
+  '06-U1':{side:'mini',modal:'activity-book'}, '06-A1':{side:'mini',modal:'activity-book'}, '06-U2':{side:'mini',modal:'activity-book'},
+  '06-ARCH-1':{side:'mini',modal:'activity-book'}, '06-ARCH-2':{side:'mini',modal:'activity-book'}, '06-ARCH-3':{side:'mini',modal:'activity-book'}, '06-ARCH-4':{side:'mini',modal:'activity-book'},
+  // 08 地接详情 → 咨询/定制
+  '08-U1':{side:'mini',modal:'outfit'}, '08-U2':{side:'mini',modal:'outfit'}, '08-ARCH-1':{side:'mini',modal:'outfit'}, '08-ARCH-2':{side:'mini',modal:'outfit'},
+  // 09 拼车 → 申请拼车
+  '09-U1':{side:'mini',modal:'carpool-join:cp1'}, '09-U2':{side:'mini',modal:'carpool-join:cp1'}, '09-U4':{side:'mini',modal:'carpool-join:cp1'},
+  '09-ARCH-1':{side:'mini',modal:'carpool-join:cp1'}, '09-ARCH-4':{side:'mini',modal:'carpool-join:cp1'},
+  // 13 徽章墙 → 徽章详情
+  '13-U1':{side:'mini',modal:'badge:0'}, '13-A1':{side:'mini',modal:'badge:0'}, '13-A3':{side:'mini',modal:'badge:0'},
+  '13-ARCH-2':{side:'mini',modal:'badge:0'}, '13-ARCH-6':{side:'mini',modal:'badge:0'},
+  // 14 全局搜索 → 搜索
+  '14-U1':{side:'mini',modal:'search:resort'}, '14-A1':{side:'mini',modal:'search:resort'}, '14-ARCH-1':{side:'mini',modal:'search:resort'},
+  // 15 Onboarding → 引导
+  '15-U1':{side:'mini',modal:'onboarding'}, '15-U2':{side:'mini',modal:'onboarding'}, '15-A2':{side:'mini',modal:'onboarding'},
+  '15-ARCH-1':{side:'mini',modal:'onboarding'}, '15-ARCH-2':{side:'mini',modal:'onboarding'},
+  // §0 全局跨页题：本身无 demo 屏 → 指到最相关的功能页（该弹窗的还弹窗）
+  'G1':{side:'mini',page:'home'},                                                   // 两类用户首页
+  'G3':{side:'mini',page:'coach-detail',slug:'marco-wang',modal:'wave'},            // Wave vs 申请拼车
+  'G4':{side:'mini',page:'coach-detail',slug:'marco-wang',modal:'wave'},            // 打开微信联系兜底
+  'G5':{side:'mini',page:'resort-detail',slug:'kitzbuehel'},                        // 评分/打卡数展示
+  'G6':{side:'mini',page:'carpool'},                                                // 未登录可见范围（拼车成员）
+  'G7':{side:'mini',page:'market'},                                                 // 探索五入口/市集
+  'G8':{side:'mini',page:'resort-detail',slug:'kitzbuehel'},                        // 雪场攻略同源
+  'G9':{side:'mini',page:'profile'},                                                // 邀请码/海报
+  'G10':{side:'mini',page:'messages'},                                              // 微信订阅消息
+  '0-ARCH-1':{side:'mini',page:'home'},
+  '0-ARCH-3':{side:'mini',page:'coach-detail',slug:'marco-wang',modal:'wave'},
+  '0-ARCH-4':{side:'mini',page:'coach-detail',slug:'marco-wang',modal:'wave'},
+  '0-ARCH-5':{side:'mini',page:'resort-detail',slug:'kitzbuehel'},
+  '0-ARCH-7':{side:'mini',page:'market'},
+  '0-ARCH-8':{side:'mini',page:'resort-detail',slug:'kitzbuehel'},
+  '0-ARCH-9':{side:'mini',page:'profile'},
+  '0-ARCH-10':{side:'mini',page:'messages'}
+};
+// 把常驻 demo 设到指定 端 + spec（覆盖式：直接设视图/tab，不依赖当前评审页的可用性）
+let _jumpN = 0;
+function _jumpSetDemo(side, spec) {
+  const rd = document.querySelector('.review-demo');
+  if (rd) { rd.classList.remove('view-mini','view-web'); rd.classList.add(side === 'web' ? 'view-web' : 'view-mini'); }
+  const tMini = document.getElementById('demo-tab-mini'), tWeb = document.getElementById('demo-tab-web');
+  if (tMini) { tMini.classList.toggle('active', side === 'mini'); if (side === 'mini') tMini.disabled = false; }
+  if (tWeb)  { tWeb.classList.toggle('active', side === 'web');  if (side === 'web')  tWeb.disabled = false; }
+  demoView = side;
+  const frameId = side === 'web' ? 'demo-frame-web' : 'demo-frame-mini';
+  const hostId  = side === 'web' ? 'embed-web' : 'embed-mini';
+  const host = document.getElementById(hostId), frame = document.getElementById(frameId);
+  if (host) { host.classList.remove('empty'); const m = host.querySelector('.empty-msg'); if (m) m.remove(); }
+  const src = embedSrc(side, spec);
+  // 唯一参数：单次加载（避开 iframe 竞态空白）、重复点也会重载触发弹窗
+  if (frame && src) frame.src = src.replace('?embed=' + side, '?embed=' + side + '&_=' + (++_jumpN));
+}
+// 答案上的「看对应页面/弹窗」按钮：让左侧常驻 demo 切到对应屏（部分题再弹出对应弹窗；§0 跨页题指到具体功能页）
+function jumpDemo(pageId, qid) {
   if (pageId && pageId !== state.pageId) selectPage(pageId);
-  else setDemoFrame();
+  const ov = qid && Q_DEMO[qid];
+  if (!ov) { if (!pageId || pageId === state.pageId) setDemoFrame(); return; }
+  const side = ov.side || 'mini';
+  let spec;
+  if (ov.page) {                                          // 题指定了目标页（§0 等无自身 demo 的题）
+    spec = { page: ov.page, slug: ov.slug || null, modal: ov.modal || null };
+  } else {                                                // 复用本页 demo + 弹窗
+    setDemoView(side);
+    const p = PAGES.find(x => x.id === state.pageId);
+    const base = p && p.demo && p.demo[side];
+    if (!base || !base.page) { setDemoFrame(); return; }  // 该页该端无 demo → 退回页级
+    spec = Object.assign({}, base, { modal: ov.modal });
+  }
+  _jumpSetDemo(side, spec);
 }
 
 /* ===== 分工：每页主审 + 全员花名册 ===== */
@@ -1285,7 +1360,7 @@ function renderQCard(pageId, q, kind) {
       ${catTag}
       <div style="flex:1;min-width:0">${inner}</div>
     </div>
-    ${q.a ? `<div class="q-answer${/拍板/.test(q.a) ? ' pin' : ''}"><span class="q-answer-label">建议答案</span>${escHtml(q.a)}<button class="q-jump" onclick="jumpDemo('${pageId}')" title="左侧 Demo 跳到本页对应屏（小程序 + Website）">🔗 看对应页面</button></div>` : ''}
+    ${q.a ? `<div class="q-answer${/拍板/.test(q.a) ? ' pin' : ''}"><span class="q-answer-label">建议答案</span>${escHtml(q.a)}<button class="q-jump" onclick="jumpDemo('${pageId}','${q.id}')" title="左侧 Demo 跳到本题对应屏${Q_DEMO[q.id] && Q_DEMO[q.id].modal ? '并弹出对应弹窗' : ''}">🔗 看对应${Q_DEMO[q.id] && Q_DEMO[q.id].modal ? '弹窗' : '页面'}</button></div>` : ''}
     <textarea class="decision-input" placeholder="${kind === 'arch' ? '决议：第一版做不做、数据谁维护、流程图、负责人…' : '决议：做/砍/延后、负责人、目标版本…'}" oninput="setDecision('${pageId}','${q.id}',this.value)">${d.note || ''}</textarea>
     <div class="q-comments" data-thread="${k}"></div>
   </div>`;
