@@ -438,6 +438,7 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
     <button class="topnav-tab" data-sec="diagrams" onclick="goSection('diagrams')">流程图</button>
     <button class="topnav-tab" data-sec="dataops" onclick="goSection('dataops')">数据运营</button>
     <button class="topnav-tab" data-sec="review" onclick="goSection('review')">逐页评审</button>
+    <button class="topnav-tab" data-sec="naming" onclick="goSection('naming')">命名提议</button>
     <button class="topnav-tab" data-sec="library" onclick="goSection('library')">资料库</button>
   </div>
   <div class="topnav-actions">
@@ -484,6 +485,11 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
         <p>全局维护方案 + §0–16 逐页数据清单</p>
         <p style="margin-top:12px"><button class="btn btn-primary" onclick="goSection('dataops')">进入数据运营 →</button></p>
       </div>
+      <div class="cover-flow-block">
+        <h2>命名提议 · 新名字</h2>
+        <p>每人交一个新名字方案，看 PDF + 在每个下面评论 / 投票</p>
+        <p style="margin-top:12px"><button class="btn btn-primary" onclick="goSection('naming')">看命名提议 →</button></p>
+      </div>
     </div>
   </div>
 </section>
@@ -510,6 +516,17 @@ body { font-family:var(--font-body); font-size:14px; color:var(--text-primary); 
     <main class="library-main" id="library-main">
       <p class="diagram-empty">从左侧选择文档，或点击顶栏「资料库」查看交付说明</p>
     </main>
+  </div>
+</section>
+
+<section id="section-naming" class="section">
+  <div class="naming-shell">
+    <div class="naming-intro">
+      <p class="qa-eyebrow">会议作业 · 新名字征集</p>
+      <h1>命名提议</h1>
+      <p>每人交一个新品牌名提议。下面是已收到的：点 <strong>PDF</strong> 看完整方案，在每个名字下面<strong>留评论 / 投票</strong>。截止 6/21（周日）开会前。</p>
+    </div>
+    <main class="naming-main" id="naming-main"></main>
   </div>
 </section>
 
@@ -881,6 +898,7 @@ function goSection(sec) {
   if (sec === 'diagrams') renderDiagramFlow();
   if (sec === 'dataops') renderDataOps();
   if (sec === 'library') renderLibrary();
+  if (sec === 'naming') renderNaming();
 }
 
 function syncHash() {
@@ -888,6 +906,7 @@ function syncHash() {
   else if (state.section === 'review') location.hash = 'review/' + state.pageId;
   else if (state.section === 'dataops') location.hash = 'dataops/' + dataOpsSection;
   else if (state.section === 'library') location.hash = 'library/' + encodeURIComponent(libraryDocPath);
+  else if (state.section === 'naming') location.hash = 'naming';
 }
 
 function dataOpsKey(qid) { return 'dataops::' + qid; }
@@ -1656,6 +1675,59 @@ function renderReview() {
   setDemoFrame();
 }
 
+/* ===== 命名提议（会议作业：新名字征集）===== */
+const NAMING = [
+  {
+    id: 'fonwai',
+    name: 'FONWAI · 峰纬',
+    by: '磊子',
+    pdf: 'naming-proposals/20260619-naming-fonwai-fengwei-leiz.pdf',
+    pitch: '面向全球中国户外人群的连接平台：连接目的地、社区、专业服务、装备品牌与每一次真实出发。「峰」给山野、目的地、高度，「纬」给坐标、全球网络、连接。',
+    points: [
+      '英文 6 字母、中文 2 字，短、好记、好做域名',
+      '域名 fonwai.com / .cn / .app 均可注册（拼音 fengwei.com 已被占用，不依赖）',
+      '公开检索未见同品类直接撞名，可扩展到四季户外',
+      'Logo：一笔签名字标 + 独立 App 符号（峰 + 纬线）+「线 + 节点」扩展系统',
+      '商标：中国初筛通过待申请（第 9 / 35 / 39 / 41 / 42 类）；英文具备 EUIPO / WIPO 复核空间',
+      '执行：今天锁三个域名 → 一周内申请商标 → 统一写法 FONWAI 峰纬（不再用「方外」）',
+    ],
+    note: '完整 6 页品牌初筛报告（定位 / Logo / 周边 / 域名 / 商标 / 执行优先级）',
+  },
+  {
+    id: 'mipin',
+    name: 'mipin · 觅拼',
+    by: '安祺',
+    pdf: 'naming-proposals/20260619-naming-mipin-anqi.pdf',
+    pitch: '寻觅拼车、拼活动、拼教练、拼团——「觅拼」点明平台「拼」的内核。',
+    points: [
+      '域名 mipin.com、mipin.cn 已被占用；mipin.eu 可注册（约 10€），.org / .tech / .info 等可注册',
+      '小程序：拼音名 mipin 可用，但中文「觅拼」已被占用',
+      '大搜索引擎无明显商标 / 品牌冲突',
+    ],
+    note: '一页速记（域名 + 小程序名 + 冲突初筛，无完整品牌报告）',
+  },
+];
+
+function renderNaming() {
+  const host = document.getElementById('naming-main');
+  if (!host) return;
+  host.innerHTML = NAMING.map(n => `
+    <div class="naming-card">
+      <div class="naming-card-head">
+        <div class="naming-name">${escHtml(n.name)}</div>
+        <span class="naming-by">提交人 · ${escHtml(n.by)}</span>
+      </div>
+      <div class="naming-pitch">${escHtml(n.pitch)}</div>
+      <ul class="naming-points">${n.points.map(p => `<li>${escHtml(p)}</li>`).join('')}</ul>
+      <div class="naming-foot">
+        <a class="btn btn-primary" href="${escHtml(n.pdf)}" target="_blank" rel="noopener">📄 看完整提议（PDF）</a>
+        <span class="naming-note">${escHtml(n.note)}</span>
+      </div>
+      <div class="q-comments" data-thread="naming::${n.id}"></div>
+    </div>`).join('');
+  try { mountComments(host); } catch (e) {}
+}
+
 function parseLocationHash() {
   const h = (location.hash || '').replace(/^#/, '');
   if (h === 'review' || h.startsWith('review/')) {
@@ -1683,7 +1755,9 @@ function parseLocationHash() {
     const rest = h.slice('library/'.length);
     if (rest) libraryDocPath = decodeURIComponent(rest);
     goSection('library');
+    return;
   }
+  if (h === 'naming') { goSection('naming'); return; }
 }
 
 renderAgenda();
@@ -1719,6 +1793,21 @@ parseLocationHash();
 .qc-as { font-size:12px; color:var(--text-muted,#6b6357); }
 .qc-as b { color:var(--text-primary,#0a0907); }
 .qc-reset { font-size:11.5px; color:var(--acc-700,#8c3d1a); background:transparent; border:none; cursor:pointer; padding:0; text-decoration:underline; }
+
+/* ===== 命名提议 ===== */
+.naming-shell { max-width:860px; margin:0 auto; padding:32px 24px 64px; }
+.naming-intro { text-align:center; margin-bottom:28px; }
+.naming-intro h1 { font-size:30px; margin:6px 0 10px; }
+.naming-intro p { color:var(--text-muted,#6b6357); max-width:680px; margin:0 auto; line-height:1.6; }
+.naming-card { background:var(--surface,#fff); border:1px solid var(--bd-default,#e7e1d7); border-radius:16px; padding:20px 22px; margin-bottom:20px; box-shadow:0 1px 2px rgba(0,0,0,.03); }
+.naming-card-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.naming-name { font-size:21px; font-weight:700; color:var(--text-primary,#0a0907); }
+.naming-by { font-size:12.5px; font-weight:600; color:var(--acc-700,#8c3d1a); background:var(--acc-50,#fbeee6); border:1px solid var(--acc-100,#f3d9c7); border-radius:999px; padding:4px 12px; white-space:nowrap; }
+.naming-pitch { margin-top:12px; font-size:14px; line-height:1.65; color:var(--text-primary,#0a0907); }
+.naming-points { margin:12px 0 0; padding-left:20px; }
+.naming-points li { font-size:13px; line-height:1.6; color:var(--text-muted,#6b6357); margin-bottom:4px; }
+.naming-foot { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:16px; }
+.naming-note { font-size:12px; color:var(--text-faint,#a39b8c); }
 </style>
 <script>
 /* ===== 按题评论前端 ===== */
@@ -1803,6 +1892,8 @@ if (typeof renderQA === 'function'){
 }
 /* 首次也挂一次（若已在评审页）*/
 setTimeout(function(){ try { mountComments(document.getElementById('qa-panel')); } catch(e){} }, 300);
+/* 命名提议页首次深链（#naming）时，等本脚本加载完再挂评论 */
+setTimeout(function(){ try { if (document.getElementById('section-naming').classList.contains('active')) mountComments(document.getElementById('naming-main')); } catch(e){} }, 300);
 </script>
 </body>
 </html>
