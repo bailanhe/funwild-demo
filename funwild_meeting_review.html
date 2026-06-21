@@ -1706,6 +1706,23 @@ const NAMING = [
     ],
     note: '一页速记（域名 + 小程序名 + 冲突初筛，无完整品牌报告）',
   },
+  {
+    id: 'peakup',
+    name: 'Peakup · 去野',
+    by: '陆洲',
+    pitch: '英文 Peakup + 中文「去野」两个候选。陆洲附的是查名材料（域名可用性 + 微信重名），未附文字定位说明。',
+    points: [
+      '英文 Peakup：主流后缀 .com / .org / .net / .io / .ai / .app / .de 均已被注册',
+      'peakup.co 约 $1,488、peakup.xyz 约 $3,888（溢价 / 二手）；.shop / .dev / .tech / .live / .info / .cloud 等仍可注册',
+      '中文「去野」：微信内已有多家在用——去野户外 club（苏州去野科技，5.0 分）、去野宿集、去野路亚、去野生存训练营 等，主体 / 品牌占用较多',
+    ],
+    images: [
+      { src: 'naming-proposals/20260620-naming-peakup-quye-luzhou-2-domains.jpg', cap: 'Peakup 域名一览' },
+      { src: 'naming-proposals/20260620-naming-peakup-quye-luzhou-1-whois.jpg', cap: 'peakup.com WHOIS' },
+      { src: 'naming-proposals/20260620-naming-peakup-quye-luzhou-3-wechat.jpg', cap: '微信「去野」重名' },
+    ],
+    note: '材料为查名截图（域名 + 重名），无完整品牌报告',
+  },
 ];
 
 function renderNaming() {
@@ -1719,8 +1736,9 @@ function renderNaming() {
       </div>
       <div class="naming-pitch">${escHtml(n.pitch)}</div>
       <ul class="naming-points">${n.points.map(p => `<li>${escHtml(p)}</li>`).join('')}</ul>
+      ${n.images ? `<div class="naming-shots">${n.images.map(im => `<a class="naming-shot" href="${escHtml(im.src)}" target="_blank" rel="noopener"><img src="${escHtml(im.src)}" alt="${escHtml(im.cap)}" loading="lazy"><span>${escHtml(im.cap)}</span></a>`).join('')}</div>` : ''}
       <div class="naming-foot">
-        <a class="btn btn-primary" href="${escHtml(n.pdf)}" target="_blank" rel="noopener">📄 看完整提议（PDF）</a>
+        ${n.pdf ? `<a class="btn btn-primary" href="${escHtml(n.pdf)}" target="_blank" rel="noopener">📄 看完整提议（PDF）</a>` : ''}
         <span class="naming-note">${escHtml(n.note)}</span>
       </div>
       <div class="q-comments" data-thread="naming::${n.id}"></div>
@@ -1808,6 +1826,11 @@ parseLocationHash();
 .naming-points li { font-size:13px; line-height:1.6; color:var(--text-muted,#6b6357); margin-bottom:4px; }
 .naming-foot { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:16px; }
 .naming-note { font-size:12px; color:var(--text-faint,#a39b8c); }
+.naming-shots { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+.naming-shot { display:flex; flex-direction:column; gap:4px; text-decoration:none; width:132px; }
+.naming-shot img { width:132px; height:96px; object-fit:cover; object-position:top; border:1px solid var(--bd-default,#e7e1d7); border-radius:8px; background:#fff; }
+.naming-shot span { font-size:11px; color:var(--text-muted,#6b6357); text-align:center; }
+.naming-shot:hover img { border-color:var(--acc-600,#b34e22); }
 </style>
 <script>
 /* ===== 按题评论前端 ===== */
