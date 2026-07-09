@@ -7870,6 +7870,23 @@ function renderMpOnboardingPlaceholder() {
 }
 
 // ============ Onboarding helpers (sports hierarchy + locations) ============
+// 运动分类手风琴：render() 会重建 innerHTML 导致滚动归零；这里保存/恢复滚动容器位置，点大栏停在原位
+function onbScroller() {
+  let el = document.querySelector('.mp-onb-sports-list');
+  while (el && el !== document.body) {
+    const cs = getComputedStyle(el);
+    if ((cs.overflowY === 'auto' || cs.overflowY === 'scroll') && el.scrollHeight > el.clientHeight + 1) return el;
+    el = el.parentElement;
+  }
+  return null;
+}
+function onbRenderKeepScroll() {
+  const before = onbScroller();
+  const top = before ? before.scrollTop : 0;
+  render();
+  const after = onbScroller();
+  if (after) after.scrollTop = top;
+}
 function onbSportToggleCategory(catId) {
   const s = state.onboardingSports[catId] || { picked:false, subs:[] };
   // Toggle: if any sub selected, clear all. If none selected, mark whole category.
@@ -7878,7 +7895,7 @@ function onbSportToggleCategory(catId) {
   } else {
     state.onboardingSports[catId] = { picked:true, subs:[] };
   }
-  render();
+  onbRenderKeepScroll();
 }
 function onbSportToggleSub(catId, subId) {
   const s = state.onboardingSports[catId] || { picked:false, subs:[] };
@@ -7887,11 +7904,11 @@ function onbSportToggleSub(catId, subId) {
   // If any sub is selected, parent's "whole-category" picked is implicitly false
   s.picked = false;
   state.onboardingSports[catId] = s;
-  render();
+  onbRenderKeepScroll();
 }
 function onbSportToggleExpand(catId) {
   state.onboardingSportsExpanded[catId] = !state.onboardingSportsExpanded[catId];
-  render();
+  onbRenderKeepScroll();
 }
 function onbSportTotal() {
   let total = 0;
