@@ -792,6 +792,43 @@
   .vote { background:#fff; border:2px solid var(--accent); border-radius:14px; padding:18px 22px; margin:36px 0 10px; font-size:14.5px; }
   footer { padding:18px 24px 56px; color:var(--faint); font-size:12.5px; }
   @media (max-width:820px) { .lower { grid-template-columns:1fr; } h1 { font-size:26px; } }
+
+/* 方案 16 · 极简 zine 海报（riso 做旧 · 参考 gc-minimal-zine-poster） */
+.mk-zine{--zi:#1f3ad0;--zp:#e8e3d4;--zk:#1b1915;color:var(--zk);background-color:var(--zp);background-image:radial-gradient(rgba(120,108,86,.07) 1px,transparent 1px),radial-gradient(rgba(120,108,86,.05) 1px,transparent 1px);background-size:3px 3px,7px 7px;background-position:0 0,2px 3px;font-family:"SFMono-Regular",ui-monospace,"DejaVu Sans Mono","Courier New",monospace;}
+.mk-zine .dsb{color:var(--zk);opacity:.55;font-size:10px;letter-spacing:.04em;}
+.znscr{flex:1;overflow:auto;padding:0 22px;scrollbar-width:none;}
+.znscr::-webkit-scrollbar{display:none;}
+.znnav{flex:none;display:flex;justify-content:space-between;padding:12px 24px 16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid rgba(27,25,21,.18);}
+.znnav span{color:rgba(27,25,21,.45);}
+.znnav span.on{color:var(--zi);border-bottom:1.5px solid var(--zi);padding-bottom:2px;}
+.zntop{display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding-top:14px;color:rgba(27,25,21,.55);}
+.znpn{font-size:10px;letter-spacing:.1em;color:var(--zi);}
+.znreg{width:11px;height:11px;position:relative;flex:none;display:inline-block;}
+.znreg::before,.znreg::after{content:"";position:absolute;background:var(--zi);}
+.znreg::before{left:5px;top:0;width:1px;height:11px;}
+.znreg::after{top:5px;left:0;height:1px;width:11px;}
+.znfig{position:relative;width:58%;margin:46px 0 0 9%;}
+.znfig::before{content:"";position:absolute;inset:0;background:var(--zi);transform:translate(5px,6px);opacity:.9;}
+.znph{position:relative;aspect-ratio:3/4;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.04) brightness(1.05);}
+.znph::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(24,22,19,.6) 21%,transparent 22%);background-size:3.2px 3.2px;mix-blend-mode:multiply;opacity:.55;}
+.znphrase{font-size:19px;font-weight:700;line-height:1.28;margin:32px 6% 0 0;letter-spacing:.01em;text-shadow:1.5px 1.5px 0 rgba(31,58,208,.38);}
+.zncap{font-size:10.5px;letter-spacing:.05em;color:rgba(27,25,21,.62);margin-top:13px;line-height:1.75;}
+.znrule{height:1px;background:var(--zk);opacity:.5;margin:18px 0;}
+.znmicro{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(27,25,21,.42);line-height:1.8;}
+.znfoot{margin:26px 0 22px;font-size:9px;letter-spacing:.1em;color:rgba(27,25,21,.42);}
+.znh{font-size:12px;letter-spacing:.22em;text-transform:uppercase;padding-top:20px;display:flex;justify-content:space-between;color:var(--zk);}
+.znli{display:flex;gap:14px;padding:19px 0;border-bottom:1px solid rgba(27,25,21,.14);align-items:flex-start;}
+.znli>div{flex:1;min-width:0;}
+.znth{width:54px;height:68px;flex:none;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.05);position:relative;}
+.znth::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(24,22,19,.55) 21%,transparent 22%);background-size:3px 3px;mix-blend-mode:multiply;opacity:.5;}
+.znname{font-size:14px;font-weight:700;letter-spacing:.01em;}
+.znsub{font-size:10px;letter-spacing:.08em;color:rgba(27,25,21,.55);text-transform:uppercase;margin-top:5px;line-height:1.6;}
+.znmeta{font-size:11px;color:rgba(27,25,21,.7);margin-top:7px;line-height:1.55;}
+.zntag{font-size:9.5px;letter-spacing:.1em;color:var(--zi);text-transform:uppercase;margin-top:8px;display:inline-block;}
+.znmark{width:34px;height:34px;flex:none;border:1px solid var(--zi);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--zi);}
+.znlink{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--zi);align-self:center;flex:none;}
+.znnote{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(27,25,21,.42);padding:14px 0 0;}
+.znsoon{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(27,25,21,.4);padding:22px 0;text-align:center;}
 </style></head>
 <body>
 <header>
@@ -1093,6 +1130,33 @@
       <div class="glph2">雪场</div><div class="glcard"><div class="glph" style="height:148px;background-image:linear-gradient(180deg,rgba(40,20,40,.15),rgba(60,25,45,.5)),var(--ph-peak)"></div><div class="glcb"><div class="glcr"><b>加米施经典区</b><span class="glrt">★ 4.8</span></div><div class="glcm">GARMISCH-CLASSIC · 40km · 慕尼黑 1h15</div><span class="glchip">新雪 15cm</span></div></div><div class="glcard"><div class="glph" style="height:148px;background-image:linear-gradient(180deg,rgba(40,20,40,.15),rgba(60,25,45,.5)),var(--ph-vista)"></div><div class="glcb"><div class="glcr"><b>楚格峰</b><span class="glrt">★ 4.7</span></div><div class="glcm">ZUGSPITZE · 德国最高峰 · 2h</div><span class="glchip">冰川全年</span></div></div><div class="glcard"><div class="glph" style="height:148px;background-image:linear-gradient(180deg,rgba(40,20,40,.15),rgba(60,25,45,.5)),var(--ph-lift)"></div><div class="glcb"><div class="glcr"><b>施平湖</b><span class="glrt">★ 4.5</span></div><div class="glcm">SPITZINGSEE · 家门口 · 45min</div><span class="glchip">新手友好</span></div></div><div class="glsoon">另有 8 座陆续上线</div></div><div class="glnav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="glscr">
       <div class="glph2">教练</div><div class="glnote">认证向导 · 资质保险已核</div><div class="glcrow"><div class="glav">L</div><div class="glci"><b>Lea<span class="glwhen">本周六 · 加米施</span></b><span>单板 · DSLV L2 · 带过 N47 第 3 期</span></div><span class="glwave">Wave</span></div><div class="glcrow"><div class="glav">M</div><div class="glci"><b>Max<span class="glwhen">本周日 · 楚格峰</span></b><span>双板 · 国家队青训 · 带过国内学员</span></div><span class="glwave">Wave</span></div><div class="glcrow"><div class="glav">雨</div><div class="glci"><b>小雨<span class="glwhen">可约时间</span></b><span>单板 · 中文教学 · 耐心细致</span></div><span class="glwave">Wave</span></div></div><div class="glnav"><span class="">首页</span><span class="">雪场</span><span class="on">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="act" hidden><div class="glscr">
       <div class="glph2">活动</div><div class="glcard"><div class="glph" style="height:132px;background-image:linear-gradient(180deg,rgba(40,20,40,.15),rgba(60,25,45,.5)),var(--ph-peak)"></div><div class="glcb"><div class="glcr"><b>N47 加米施周末团</b><span class="glprice">免费</span></div><div class="glcm">周六 06:30 · 慕尼黑出发</div><span class="glchip">剩 4 位</span></div></div><div class="glcard"><div class="glph" style="height:132px;background-image:linear-gradient(180deg,rgba(40,20,40,.15),rgba(60,25,45,.5)),var(--ph-vista)"></div><div class="glcb"><div class="glcr"><b>双板初学营 · 全天</b><span class="glprice">€39</span></div><div class="glcm">周日 · 含教学与器材</div><span class="glchip">第 4 期</span></div></div><div class="glcard"><div class="glph" style="height:132px;background-image:linear-gradient(180deg,rgba(40,20,40,.15),rgba(60,25,45,.5)),var(--ph-lift)"></div><div class="glcb"><div class="glcr"><b>女生滑雪周</b><span class="glprice">预约</span></div><div class="glcm">3 月 · 阿尔卑斯</div><span class="glchip">报名中</span></div></div></div><div class="glnav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div></div>
+
+<div class="drow" style="margin-top:26px"><div class="dcol"><div class="dtag">方案 16</div><div class="dseg" data-for="zine"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-zine" id="zine"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="znscr">
+      <div class="zntop"><span>趣野 · MÜNCHEN · 冬</span><span style="display:flex;gap:9px;align-items:center"><span class="znpn">N°01</span><span class="znreg"></span></span></div>
+      <div class="znfig"><div class="znph" style="background-image:var(--ph-peak)"></div></div>
+      <div class="znphrase">雪季来信<br>第 47 天</div>
+      <div class="zncap">加米施经典区 — 新雪 15cm<br>缆车 12/17 · 慕尼黑 1h15</div>
+      <div class="znrule"></div>
+      <div class="znmicro">23 雪友在线 · 3 拼车拼团中</div>
+      <div class="znfoot">不 SOLO · 告诉两个人 · 先训练</div>
+    </div><div class="znnav"><span class="on">首页</span><span>雪场</span><span>教练</span><span>活动</span></div></div><div class="pg" data-pg="resort" hidden><div class="znscr">
+      <div class="znh"><span>雪场 / RESORTS</span><span class="znpn">N°02</span></div>
+      <div class="znli"><div class="znth" style="background-image:var(--ph-peak)"></div><div><div class="znname">加米施经典区</div><div class="znsub">GARMISCH-CLASSIC · ★4.8</div><div class="znmeta">新雪 15cm · 40km · 慕尼黑 1h15</div></div></div>
+      <div class="znli"><div class="znth" style="background-image:var(--ph-vista)"></div><div><div class="znname">楚格峰</div><div class="znsub">ZUGSPITZE · ★4.7</div><div class="znmeta">冰川全年 · 德国最高峰 · 2h</div></div></div>
+      <div class="znli"><div class="znth" style="background-image:var(--ph-lift)"></div><div><div class="znname">施平湖</div><div class="znsub">SPITZINGSEE · ★4.5</div><div class="znmeta">新手友好 · 家门口 · 45min</div></div></div>
+      <div class="znsoon">另有 8 座 · 陆续上线</div>
+    </div><div class="znnav"><span>首页</span><span class="on">雪场</span><span>教练</span><span>活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="znscr">
+      <div class="znh"><span>教练 / GUIDES</span><span class="znpn">N°03</span></div>
+      <div class="znnote">资质保险已核 · 认证向导</div>
+      <div class="znli"><div class="znmark">L</div><div><div class="znname">Lea</div><div class="znsub">单板 · DSLV L2</div><div class="znmeta">本周六 · 加米施 · 带过 N47 第 3 期</div></div><span class="znlink">Wave</span></div>
+      <div class="znli"><div class="znmark">M</div><div><div class="znname">Max</div><div class="znsub">双板 · 国家队青训</div><div class="znmeta">本周日 · 楚格峰 · 带过国内学员</div></div><span class="znlink">Wave</span></div>
+      <div class="znli"><div class="znmark">雨</div><div><div class="znname">小雨</div><div class="znsub">单板 · 中文教学</div><div class="znmeta">可约时间 · 耐心细致</div></div><span class="znlink">Wave</span></div>
+    </div><div class="znnav"><span>首页</span><span>雪场</span><span class="on">教练</span><span>活动</span></div></div><div class="pg" data-pg="act" hidden><div class="znscr">
+      <div class="znh"><span>活动 / SESSIONS</span><span class="znpn">N°04</span></div>
+      <div class="znli"><div class="znth" style="background-image:var(--ph-peak)"></div><div><div class="znname">N47 加米施周末团</div><div class="znsub">周六 06:30 · 慕尼黑出发</div><div class="zntag">免费 · 剩 4 位</div></div></div>
+      <div class="znli"><div class="znth" style="background-image:var(--ph-vista)"></div><div><div class="znname">双板初学营 · 全天</div><div class="znsub">周日 · 含教学与器材</div><div class="zntag">€39 · 第 4 期</div></div></div>
+      <div class="znli"><div class="znth" style="background-image:var(--ph-lift)"></div><div><div class="znname">女生滑雪周</div><div class="znsub">3 月 · 阿尔卑斯</div><div class="zntag">预约 · 报名中</div></div></div>
+    </div><div class="znnav"><span>首页</span><span>雪场</span><span>教练</span><span class="on">活动</span></div></div></div></div></div></div>
 
 </main>
 <footer>趣野 Funwild · 20260714</footer>
