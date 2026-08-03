@@ -139,6 +139,31 @@
   .flcap { font-size:12px; color:var(--faint); text-align:center; max-width:520px; margin:0 auto 4px; line-height:1.6; }
 
 
+/* ---- merged stats card (组合 01 / 05) ---- */
+.mk-c1 .c1merge { margin:0 16px; padding:14px 16px 13px; }
+.mk-c1 .c1mrow { display:flex; align-items:center; }
+.mk-c1 .c1mi { flex:1; text-align:center; }
+.mk-c1 .c1mi b { font-size:18px; font-weight:700; letter-spacing:-.02em; display:block; }
+.mk-c1 .c1mi b i { font-style:normal; font-size:9.5px; color:#b7cddb; }
+.mk-c1 .c1mi span { font-size:9.5px; color:#b7cddb; }
+.mk-c1 .c1mline { height:1px; background:rgba(255,255,255,.18); margin:13px -16px; }
+.mk-c1 .c1mbot { display:flex; align-items:center; gap:14px; }
+.mk-c1 .c1mbot .c1wn { font-size:22px; font-weight:700; letter-spacing:-.02em; }
+.mk-c5 .c5merge { margin:-42px 14px 0; position:relative; z-index:2; padding:14px 16px 13px;
+  border-radius:19px; color:#fff; background:rgba(16,26,34,.55);
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.22); }
+.mk-c5 .c5mrow { display:flex; align-items:center; }
+.mk-c5 .c5mi { flex:1; text-align:center; }
+.mk-c5 .c5mi b { font-size:18px; font-weight:700; letter-spacing:-.02em; display:block; }
+.mk-c5 .c5mi b i { font-style:normal; font-size:9.5px; color:#cfdde6; }
+.mk-c5 .c5mi span { font-size:9.5px; color:#cfdde6; }
+.mk-c5 .c5mline { height:1px; background:rgba(255,255,255,.2); margin:13px -16px; }
+.mk-c5 .c5mbot { display:flex; align-items:center; gap:14px; }
+.mk-c5 .c5mbot .c5wn { font-size:22px; font-weight:700; color:#fff; letter-spacing:-.02em; }
+.mk-c5 .c5mbot .c5wt span { color:#cfdde6; }
+.mk-c5 .c5mbot .c5btn { background:rgba(255,255,255,.92); color:#17222a; }
+
 /* ---- favourite toggle (resort rows) ---- */
 .fav { flex:none; font-size:15px; line-height:1; color:#b9c3ca; }
 .fav.on { color:#c93d24; }
@@ -1274,27 +1299,28 @@
 <h2>组合方案</h2>
 <p class="secnote">把大家点名的元素组合成五种首页逻辑。差别在「首屏第一眼给什么」,不在配色。每个都能切首页 / 雪场 / 教练 / 活动四个页面。</p>
 <div class="drow">
-<div class="dcol"><div class="dtag">A · 照片优先(深色)</div><div class="dnote">整屏雪山照片,数据和入口浮在照片上。首屏第一眼是画面。<em>取自 07 的玻璃面板与大标题 · 03 的四格数据与避坑条</em></div><div class="dseg" data-for="cmb1"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c1" id="cmb1"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c1scr">
+<div class="dcol"><div class="dtag">A · 照片优先(深色)</div><div class="dnote">整屏雪山照片,一块玻璃卡承载雪况与社群数据。首屏第一眼是画面。<em>取自 07 的玻璃面板与大标题 · 03 的四格数据与避坑条</em></div><div class="dseg" data-for="cmb1"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c1" id="cmb1"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c1scr">
 <div class="c1top"><b>趣野</b><span>慕尼黑 ▾</span></div>
 <div class="c1hero"><div class="c1k">本 周 精 选</div><div class="c1hn">加米施经典区</div>
 <div class="c1hm">GARMISCH-CLASSIC · 708–2050m · 40km</div></div>
-<div class="c1tiles">
-  <div class="c1t glass"><b>15<i>cm</i></b><span>新雪</span></div>
-  <div class="c1t glass"><b>12<i>/17</i></b><span>缆车</span></div>
-  <div class="c1t glass"><b>−8<i>°</i></b><span>山顶</span></div>
-  <div class="c1t glass"><b>1<i>:15</i></b><span>车程</span></div></div>
-<div class="c1grid">
-  <div class="c1g glass">雪场</div><div class="c1g glass">教练</div>
-  <div class="c1g glass">活动</div><div class="c1g glass">攻略</div></div>
-<div class="c1wk glass"><span class="c1wn">23</span><div class="c1wt"><b>本周末雪友出行</b>
-<span>3 个拼车在拼 · 周六 6:30</span></div><span class="c1btn">看拼车</span></div>
+<div class="c1merge glass">
+  <div class="c1mrow">
+    <div class="c1mi"><b>15<i>cm</i></b><span>新雪</span></div>
+    <div class="c1mi"><b>12<i>/17</i></b><span>缆车</span></div>
+    <div class="c1mi"><b>−8<i>°</i></b><span>山顶</span></div>
+    <div class="c1mi"><b>1<i>:15</i></b><span>车程</span></div></div>
+  <div class="c1mline"></div>
+  <div class="c1mbot"><span class="c1wn">23</span><div class="c1wt"><b>本周末雪友出行</b>
+  <span>3 个拼车在拼 · 周六 6:30</span></div><span class="c1btn">看拼车</span></div>
+</div>
 <div class="c1warn glass"><b>⚠ 避坑</b>　Kandahar 黑道午后结冰,新手勿上</div>
 <div class="c1sh">推 荐 雪 场</div>
 <div class="c1rail">
   <a class="c1rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.7)),var(--ph-peak)"><b>加米施经典区</b><span>新雪 15cm</span></a>
   <a class="c1rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.7)),var(--ph-vista)"><b>楚格峰</b><span>冰川全年</span></a>
   <a class="c1rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.7)),var(--ph-lift)"><b>施平湖</b><span>新手友好</span></a></div>
-<div style="height:16px"></div></div><div class="c1nav"><span class="on">首页</span><span class="">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="resort" hidden><div class="c1scr"><div class="c1ph">雪场</div><div class="c1search glass">搜索雪场 · 地区 · 难度</div><div class="c1chips"><span class="on">全部 8</span><span class="">收藏 2</span><span class="">巴伐利亚 3</span><span class="">提洛尔 3</span><span class="">萨尔茨堡 1</span><span class="">福拉尔贝格 1</span></div><div class="c1note cnt">8 座已上线 · 按距离排序</div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="c1tag">新雪 15cm</span><span class="favc on">♥</span></div><div class="c1cb"><div class="c1cr"><b>加米施经典区</b><span class="c1rt">★ 4.8</span></div><div class="c1cm">巴伐利亚 · 40km · 慕尼黑 1h15</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="c1tag">冰川全年</span><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>楚格峰</b><span class="c1rt">★ 4.7</span></div><div class="c1cm">巴伐利亚 · 20km · 德国最高峰 · 2h</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-lift)"><span class="c1tag">新手友好</span><span class="favc on">♥</span></div><div class="c1cb"><div class="c1cr"><b>施平湖</b><span class="c1rt">★ 4.5</span></div><div class="c1cm">巴伐利亚 · 12km · 家门口 · 45min</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>基茨山冰川</b><span class="c1rt">★ 4.6</span></div><div class="c1cm">萨尔茨堡 · 41km · 冰川 · 2h30</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>圣安东</b><span class="c1rt">★ 4.9</span></div><div class="c1cm">提洛尔 · 305km · 大雪区 · 3h</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-lift)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>索尔登</b><span class="c1rt">★ 4.7</span></div><div class="c1cm">提洛尔 · 144km · 高海拔 · 3h30</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>莱赫</b><span class="c1rt">★ 4.8</span></div><div class="c1cm">福拉尔贝格 · 305km · 粉雪 · 3h20</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>北链山</b><span class="c1rt">★ 4.4</span></div><div class="c1cm">提洛尔 · 15km · 城边雪场 · 2h20</div></div></div><div style="height:14px"></div></div><div class="c1nav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="c1scr">
+<a class="c1row glass"><div class="c1av">攻</div><div class="c1ci"><b>加米施经典区完全指南</b>
+<span>缆车 / 雪道 / 午餐,一篇写完</span></div><span class="c1btn">阅读</span></a><div style="height:16px"></div></div><div class="c1nav"><span class="on">首页</span><span class="">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="resort" hidden><div class="c1scr"><div class="c1ph">雪场</div><div class="c1search glass">搜索雪场 · 地区 · 难度</div><div class="c1chips"><span class="on">全部 8</span><span class="">收藏 2</span><span class="">巴伐利亚 3</span><span class="">提洛尔 3</span><span class="">萨尔茨堡 1</span><span class="">福拉尔贝格 1</span></div><div class="c1note cnt">8 座已上线 · 按距离排序</div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="c1tag">新雪 15cm</span><span class="favc on">♥</span></div><div class="c1cb"><div class="c1cr"><b>加米施经典区</b><span class="c1rt">★ 4.8</span></div><div class="c1cm">巴伐利亚 · 40km · 慕尼黑 1h15</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="c1tag">冰川全年</span><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>楚格峰</b><span class="c1rt">★ 4.7</span></div><div class="c1cm">巴伐利亚 · 20km · 德国最高峰 · 2h</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-lift)"><span class="c1tag">新手友好</span><span class="favc on">♥</span></div><div class="c1cb"><div class="c1cr"><b>施平湖</b><span class="c1rt">★ 4.5</span></div><div class="c1cm">巴伐利亚 · 12km · 家门口 · 45min</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>基茨山冰川</b><span class="c1rt">★ 4.6</span></div><div class="c1cm">萨尔茨堡 · 41km · 冰川 · 2h30</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>圣安东</b><span class="c1rt">★ 4.9</span></div><div class="c1cm">提洛尔 · 305km · 大雪区 · 3h</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-lift)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>索尔登</b><span class="c1rt">★ 4.7</span></div><div class="c1cm">提洛尔 · 144km · 高海拔 · 3h30</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>莱赫</b><span class="c1rt">★ 4.8</span></div><div class="c1cm">福拉尔贝格 · 305km · 粉雪 · 3h20</div></div></div><div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c1cb"><div class="c1cr"><b>北链山</b><span class="c1rt">★ 4.4</span></div><div class="c1cm">提洛尔 · 15km · 城边雪场 · 2h20</div></div></div><div style="height:14px"></div></div><div class="c1nav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="c1scr">
 <div class="c1ph">教练</div>
 <div class="c1note">认证向导 · 资质与职业责任险已核验</div>
 <div class="c1row glass"><div class="c1av">L</div><div class="c1ci"><b>Lea</b>
@@ -1464,23 +1490,24 @@
     <div class="c5hn">加米施经典区</div>
     <div class="c5hm">GARMISCH-CLASSIC · 708–2050m · 40km</div></div>
 </div>
-<div class="c5tiles">
-  <div class="c5t"><b>15<i>cm</i></b><span>新雪</span></div>
-  <div class="c5t"><b>12<i>/17</i></b><span>缆车</span></div>
-  <div class="c5t"><b>−8<i>°</i></b><span>山顶</span></div>
-  <div class="c5t"><b>1<i>:15</i></b><span>车程</span></div></div>
-<div class="c5grid">
-  <div class="c5g">雪场</div><div class="c5g">教练</div>
-  <div class="c5g">活动</div><div class="c5g">攻略</div></div>
-<div class="c5wk"><span class="c5wn">23</span><div class="c5wt"><b>本周末雪友出行</b>
-<span>3 个拼车在拼 · 周六 6:30</span></div><span class="c5btn">看拼车</span></div>
+<div class="c5merge">
+  <div class="c5mrow">
+    <div class="c5mi"><b>15<i>cm</i></b><span>新雪</span></div>
+    <div class="c5mi"><b>12<i>/17</i></b><span>缆车</span></div>
+    <div class="c5mi"><b>−8<i>°</i></b><span>山顶</span></div>
+    <div class="c5mi"><b>1<i>:15</i></b><span>车程</span></div></div>
+  <div class="c5mline"></div>
+  <div class="c5mbot"><span class="c5wn">23</span><div class="c5wt"><b>本周末雪友出行</b>
+  <span>3 个拼车在拼 · 周六 6:30</span></div><span class="c5btn">看拼车</span></div>
+</div>
 <div class="c5warn"><b>⚠ 避坑</b>　Kandahar 黑道午后结冰,新手勿上</div>
 <div class="c5sh">推 荐 雪 场</div>
 <div class="c5rail">
   <a class="c5rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.66)),var(--ph-peak)"><b>加米施经典区</b><span>新雪 15cm</span></a>
   <a class="c5rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.66)),var(--ph-vista)"><b>楚格峰</b><span>冰川全年</span></a>
   <a class="c5rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.66)),var(--ph-lift)"><b>施平湖</b><span>新手友好</span></a></div>
-<div style="height:16px"></div></div><div class="c5nav"><span class="on">首页</span><span class="">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="resort" hidden><div class="c5scr"><div class="c5ph">雪场</div><div class="c5search">搜索雪场 · 地区 · 难度</div><div class="c5chips"><span class="on">全部 8</span><span class="">收藏 2</span><span class="">巴伐利亚 3</span><span class="">提洛尔 3</span><span class="">萨尔茨堡 1</span><span class="">福拉尔贝格 1</span></div><div class="c5note cnt">8 座已上线 · 按距离排序</div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"><span class="c5tag">新雪 15cm</span><span class="favc on">♥</span></div><div class="c5cb"><div class="c5cr"><b>加米施经典区</b><span class="c5rt">★ 4.8</span></div><div class="c5cm">巴伐利亚 · 40km · 慕尼黑 1h15</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class="c5tag">冰川全年</span><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>楚格峰</b><span class="c5rt">★ 4.7</span></div><div class="c5cm">巴伐利亚 · 20km · 德国最高峰 · 2h</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-lift)"><span class="c5tag">新手友好</span><span class="favc on">♥</span></div><div class="c5cb"><div class="c5cr"><b>施平湖</b><span class="c5rt">★ 4.5</span></div><div class="c5cm">巴伐利亚 · 12km · 家门口 · 45min</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>基茨山冰川</b><span class="c5rt">★ 4.6</span></div><div class="c5cm">萨尔茨堡 · 41km · 冰川 · 2h30</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>圣安东</b><span class="c5rt">★ 4.9</span></div><div class="c5cm">提洛尔 · 305km · 大雪区 · 3h</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-lift)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>索尔登</b><span class="c5rt">★ 4.7</span></div><div class="c5cm">提洛尔 · 144km · 高海拔 · 3h30</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>莱赫</b><span class="c5rt">★ 4.8</span></div><div class="c5cm">福拉尔贝格 · 305km · 粉雪 · 3h20</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>北链山</b><span class="c5rt">★ 4.4</span></div><div class="c5cm">提洛尔 · 15km · 城边雪场 · 2h20</div></div></div><div style="height:14px"></div></div><div class="c5nav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="c5scr">
+<a class="c5row"><div class="c5av">攻</div><div class="c5ci"><b>加米施经典区完全指南</b>
+<span>缆车 / 雪道 / 午餐,一篇写完</span></div><span class="c5btn">阅读</span></a><div style="height:16px"></div></div><div class="c5nav"><span class="on">首页</span><span class="">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="resort" hidden><div class="c5scr"><div class="c5ph">雪场</div><div class="c5search">搜索雪场 · 地区 · 难度</div><div class="c5chips"><span class="on">全部 8</span><span class="">收藏 2</span><span class="">巴伐利亚 3</span><span class="">提洛尔 3</span><span class="">萨尔茨堡 1</span><span class="">福拉尔贝格 1</span></div><div class="c5note cnt">8 座已上线 · 按距离排序</div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"><span class="c5tag">新雪 15cm</span><span class="favc on">♥</span></div><div class="c5cb"><div class="c5cr"><b>加米施经典区</b><span class="c5rt">★ 4.8</span></div><div class="c5cm">巴伐利亚 · 40km · 慕尼黑 1h15</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class="c5tag">冰川全年</span><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>楚格峰</b><span class="c5rt">★ 4.7</span></div><div class="c5cm">巴伐利亚 · 20km · 德国最高峰 · 2h</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-lift)"><span class="c5tag">新手友好</span><span class="favc on">♥</span></div><div class="c5cb"><div class="c5cr"><b>施平湖</b><span class="c5rt">★ 4.5</span></div><div class="c5cm">巴伐利亚 · 12km · 家门口 · 45min</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>基茨山冰川</b><span class="c5rt">★ 4.6</span></div><div class="c5cm">萨尔茨堡 · 41km · 冰川 · 2h30</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>圣安东</b><span class="c5rt">★ 4.9</span></div><div class="c5cm">提洛尔 · 305km · 大雪区 · 3h</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-lift)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>索尔登</b><span class="c5rt">★ 4.7</span></div><div class="c5cm">提洛尔 · 144km · 高海拔 · 3h30</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>莱赫</b><span class="c5rt">★ 4.8</span></div><div class="c5cm">福拉尔贝格 · 305km · 粉雪 · 3h20</div></div></div><div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div><div class="c5cb"><div class="c5cr"><b>北链山</b><span class="c5rt">★ 4.4</span></div><div class="c5cm">提洛尔 · 15km · 城边雪场 · 2h20</div></div></div><div style="height:14px"></div></div><div class="c5nav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="c5scr">
 <div class="c5ph">教练</div>
 <div class="c5note">认证向导 · 资质与职业责任险已核验</div>
 <div class="c5row"><div class="c5av">L</div><div class="c5ci"><b>Lea</b>
