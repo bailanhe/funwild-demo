@@ -249,6 +249,93 @@
 .mk-c4 .pr-free { color:#1f7a3d; } .mk-c4 .pr-pay { color:#17171a; } .mk-c4 .pr-book { color:#6a6a74; }
 .mk-c4 .wh-near { color:#17171a; font-weight:700; }
 
+/* ============ 组合 05 · 浅色玻璃 ============ */
+.mk-c5 { background:#f4f5f6; color:#17222a; }
+.mk-c5 .dsb { position:absolute; top:0; left:0; right:0; z-index:5; color:#e8edf1; text-shadow:0 1px 5px rgba(0,0,0,.55); }
+.mk-c5 .pg[data-pg="resort"] ~ *, .mk-c5 .c5ph { position:relative; z-index:6; }
+.mk-c5 .c5scr { flex:1; overflow-y:auto; }
+.mk-c5 .c5scr::-webkit-scrollbar { display:none; }
+.mk-c5 .c5hero { height:322px; margin-top:-30px; padding:34px 18px 0; background-size:cover;
+  background-position:center; display:flex; flex-direction:column; color:#fff; position:relative; }
+.mk-c5 .c5top { display:flex; align-items:center; }
+.mk-c5 .c5top b { font-size:15px; text-shadow:0 1px 8px rgba(0,0,0,.4); }
+.mk-c5 .c5top span { margin-left:auto; font-size:11px; text-shadow:0 1px 8px rgba(0,0,0,.5); }
+.mk-c5 .c5cap { margin-top:auto; padding-bottom:52px; }
+.mk-c5 .c5k { font-size:9px; letter-spacing:.24em; opacity:.92; }
+.mk-c5 .c5hn { font-size:26px; font-weight:700; letter-spacing:-.01em; margin:8px 0 4px;
+  text-shadow:0 2px 14px rgba(0,0,0,.35); }
+.mk-c5 .c5hm { font-size:11px; opacity:.95; text-shadow:0 1px 8px rgba(0,0,0,.45); }
+.mk-c5 .c5tiles { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin:-42px 14px 0;
+  position:relative; z-index:2; }
+.mk-c5 .c5t { padding:10px 3px; text-align:center; border-radius:15px; color:#fff;
+  background:rgba(16,26,34,.5); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.22); }
+.mk-c5 .c5t b { font-size:17px; font-weight:700; letter-spacing:-.02em; }
+.mk-c5 .c5t b i { font-style:normal; font-size:9.5px; color:#cfdde6; }
+.mk-c5 .c5t span { display:block; font-size:9.5px; color:#cfdde6; margin-top:2px; }
+.mk-c5 .c5grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin:10px 14px 0; }
+.mk-c5 .c5g { background:#fff; border-radius:15px; text-align:center; font-size:11.5px;
+  font-weight:600; color:#3a4a55; padding:12px 0; box-shadow:0 3px 10px rgba(20,40,55,.06); }
+.mk-c5 .c5wk { display:flex; align-items:center; gap:13px; margin:10px 14px 0; padding:13px 15px;
+  background:#fff; border-radius:17px; box-shadow:0 3px 10px rgba(20,40,55,.06); }
+.mk-c5 .c5wn { font-size:24px; font-weight:800; color:#c93d24; letter-spacing:-.02em; }
+.mk-c5 .c5wt b { font-size:12.5px; display:block; }
+.mk-c5 .c5wt span { font-size:10.5px; color:#71838f; }
+.mk-c5 .c5btn { margin-left:auto; background:#17222a; color:#fff; font-size:11px; font-weight:700;
+  padding:8px 15px; border-radius:100px; flex:none; }
+.mk-c5 .c5warn { margin:10px 14px 0; padding:10px 13px; border-radius:12px; background:#fdf3e3;
+  border-left:3px solid #d97706; font-size:10.5px; color:#7c4a03; line-height:1.5; }
+.mk-c5 .c5warn b { color:#a8761a; }
+.mk-c5 .c5sh { font-size:11px; letter-spacing:.2em; color:#71838f; padding:16px 18px 9px; }
+.mk-c5 .c5rail { display:flex; gap:10px; overflow-x:auto; padding:0 14px 4px; }
+.mk-c5 .c5rail::-webkit-scrollbar { display:none; }
+.mk-c5 .c5rl { flex:none; width:144px; height:150px; border-radius:17px; background-size:cover;
+  background-position:center; display:flex; flex-direction:column; justify-content:flex-end;
+  padding:12px; color:#fff; }
+.mk-c5 .c5rl b { font-size:13px; text-shadow:0 1px 6px rgba(0,0,0,.5); }
+.mk-c5 .c5rl span { font-size:10px; opacity:.94; text-shadow:0 1px 6px rgba(0,0,0,.5); }
+.mk-c5 .c5ph { font-size:22px; font-weight:800; padding:14px 18px 2px; letter-spacing:-.02em; }
+.mk-c5 .c5note { font-size:10.5px; color:#71838f; padding:2px 18px 10px; }
+.mk-c5 .c5search { margin:0 14px 10px; padding:10px 14px; border-radius:100px; background:#fff;
+  font-size:11.5px; color:#8b9aa4; box-shadow:0 3px 10px rgba(20,40,55,.06); }
+.mk-c5 .c5chips { display:flex; gap:7px; padding:0 14px 10px; overflow-x:auto; }
+.mk-c5 .c5chips::-webkit-scrollbar { display:none; }
+.mk-c5 .c5chips span { flex:none; font-size:11px; padding:6px 13px; border-radius:100px;
+  background:#fff; color:#5f7078; box-shadow:0 2px 7px rgba(20,40,55,.05); }
+.mk-c5 .c5chips .on { background:#17222a; color:#fff; font-weight:700; }
+.mk-c5 .c5card { margin:0 14px 11px; background:#fff; border-radius:19px; overflow:hidden;
+  box-shadow:0 4px 14px rgba(20,40,55,.07); }
+.mk-c5 .c5cimg { height:132px; background-size:cover; background-position:center; position:relative; }
+.mk-c5 .c5tag { position:absolute; left:10px; top:10px; font-size:10px; font-weight:700;
+  color:#17222a; background:rgba(255,255,255,.94); padding:3px 9px; border-radius:100px; }
+.mk-c5 .c5cb { padding:11px 14px 13px; }
+.mk-c5 .c5cr { display:flex; align-items:baseline; }
+.mk-c5 .c5cr b { font-size:15px; font-weight:700; }
+.mk-c5 .c5rt { margin-left:auto; font-size:12px; font-weight:700; color:#3a4a55; }
+.mk-c5 .c5cm { font-size:10.5px; color:#71838f; margin-top:3px; }
+.mk-c5 .c5row { display:flex; align-items:center; gap:11px; margin:0 14px 10px; padding:11px 12px;
+  background:#fff; border-radius:17px; box-shadow:0 3px 10px rgba(20,40,55,.06); }
+.mk-c5 .c5av { width:42px; height:42px; border-radius:50%; background:#f1e6e2; color:#c93d24;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size:17px; flex:none; }
+.mk-c5 .c5ci { flex:1; min-width:0; }
+.mk-c5 .c5ci b { font-size:13px; display:block; }
+.mk-c5 .c5ci span { font-size:10.5px; color:#71838f; }
+.mk-c5 .c5nav { display:flex; background:#fff; border-top:1px solid #e5e9ec; }
+.mk-c5 .c5nav span { flex:1; text-align:center; font-size:10.5px; color:#93a2ab; padding:11px 0 13px; position:relative; }
+.mk-c5 .c5nav span.on { color:#17222a; font-weight:700; }
+.mk-c5 .c5nav span.on::before { content:""; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:20px; height:2px; background:#c93d24; border-radius:2px; }
+.mk-c5 .capbar { margin-top:7px; height:5px; border-radius:3px; background:#e8edf0; overflow:hidden; }
+.mk-c5 .capbar i { display:block; height:100%; border-radius:3px; background:#4a5c68; }
+.mk-c5 .capbar i.hot { background:#c0392b; }
+.mk-c5 .capbar i.done { background:#9aa3a9; }
+.mk-c5 .capnum { font-size:10px; color:#71838f; margin-top:4px; }
+.mk-c5 .capnum b { color:#17222a; font-weight:700; display:inline; }
+.mk-c5 .capnum b.hot { color:#c0392b; }
+.mk-c5 .row-shut { opacity:.55; }
+.mk-c5 .pr-free { color:#1f7a3d; } .mk-c5 .pr-pay { color:#17222a; } .mk-c5 .pr-book { color:#6a6a74; }
+.mk-c5 .wh-near { color:#17222a; font-weight:700; }
+
 /* ============ 组合 01 · 玻璃工具 ============ */
 .mk-c1 { color:#eaf2f7; position:relative; }
 .mk-c1::before { content:""; position:absolute; inset:0; background-image:linear-gradient(180deg,rgba(6,14,20,.52),rgba(6,14,20,.8)),var(--ph-peak); background-size:cover; background-position:center; z-index:0; }
@@ -1392,7 +1479,60 @@
 <div class="c4lrow"><div class="c4th" style="background-image:var(--ph-vista)"></div><div class="c4li"><b>夜滑 · 施平湖</b><span><span class="wh-near">今天 18:00 开滑</span></span><div class="capbar"><i class="" style="width:67%"></i></div><div class="capnum"><b class="">10/15</b> · 剩 5 位</div></div><span class="c4price pr-pay">€18</span></div>
 <div class="c4lrow"><div class="c4th" style="background-image:var(--ph-lift)"></div><div class="c4li"><b>双板初学营 · 全天</b><span><span class="wh-near">本周日</span> · 含器材</span><div class="capbar"><i class="" style="width:50%"></i></div><div class="capnum"><b class="">12/24</b> · 剩 12 位</div></div><span class="c4price pr-pay">€39</span></div>
 <div class="c4lrow row-shut"><div class="c4th" style="background-image:var(--ph-peak)"></div><div class="c4li"><b>楚格峰进阶营</b><span>2 月 14 日 · 候补开放</span><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div><span class="c4price pr-pay">€59</span></div>
-<div class="c4lrow"><div class="c4th" style="background-image:var(--ph-vista)"></div><div class="c4li"><b>女生滑雪周</b><span>3 月 · 阿尔卑斯</span><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c4price pr-book">预约</span></div></div><div class="c4nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div></div>
+<div class="c4lrow"><div class="c4th" style="background-image:var(--ph-vista)"></div><div class="c4li"><b>女生滑雪周</b><span>3 月 · 阿尔卑斯</span><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c4price pr-book">预约</span></div></div><div class="c4nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">组合 05</div><div class="dseg" data-for="cmb5"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c5" id="cmb5"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c5scr">
+<div class="c5hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 40%,rgba(0,0,0,.66)),var(--ph-peak)">
+  <div class="c5top"><b>趣野</b><span>慕尼黑 ▾</span></div>
+  <div class="c5cap"><div class="c5k">本 周 精 选</div>
+    <div class="c5hn">加米施经典区</div>
+    <div class="c5hm">GARMISCH-CLASSIC · 708–2050m · 40km</div></div>
+</div>
+<div class="c5tiles">
+  <div class="c5t"><b>15<i>cm</i></b><span>新雪</span></div>
+  <div class="c5t"><b>12<i>/17</i></b><span>缆车</span></div>
+  <div class="c5t"><b>−8<i>°</i></b><span>山顶</span></div>
+  <div class="c5t"><b>1<i>:15</i></b><span>车程</span></div></div>
+<div class="c5grid">
+  <div class="c5g">雪场</div><div class="c5g">教练</div>
+  <div class="c5g">活动</div><div class="c5g">攻略</div></div>
+<div class="c5wk"><span class="c5wn">23</span><div class="c5wt"><b>本周末雪友出行</b>
+<span>3 个拼车在拼 · 周六 6:30</span></div><span class="c5btn">看拼车</span></div>
+<div class="c5warn"><b>⚠ 避坑</b>　Kandahar 黑道午后结冰,新手勿上</div>
+<div class="c5sh">推 荐 雪 场</div>
+<div class="c5rail">
+  <a class="c5rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.66)),var(--ph-peak)"><b>加米施经典区</b><span>新雪 15cm</span></a>
+  <a class="c5rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.66)),var(--ph-vista)"><b>楚格峰</b><span>冰川全年</span></a>
+  <a class="c5rl" style="background-image:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.66)),var(--ph-lift)"><b>施平湖</b><span>新手友好</span></a></div>
+<div style="height:16px"></div></div><div class="c5nav"><span class="on">首页</span><span class="">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="resort" hidden><div class="c5scr">
+<div class="c5ph">雪场</div>
+<div class="c5note">3 座已上线 · 另有 8 座陆续开放</div>
+<div class="c5search">搜索雪场 · 地区 · 难度</div>
+<div class="c5chips"><span class="on">全部</span><span>收藏</span><span>巴伐利亚</span><span>提洛尔</span></div>
+<div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"><span class="c5tag">新雪 15cm</span></div>
+<div class="c5cb"><div class="c5cr"><b>加米施经典区</b><span class="c5rt">★ 4.8</span></div>
+<div class="c5cm">40km · 慕尼黑 1h15 · 缆车 12/17</div></div></div>
+<div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class="c5tag">冰川全年</span></div>
+<div class="c5cb"><div class="c5cr"><b>楚格峰</b><span class="c5rt">★ 4.7</span></div>
+<div class="c5cm">德国最高峰 · 2h</div></div></div>
+<div class="c5card"><div class="c5cimg" style="background-image:var(--ph-lift)"><span class="c5tag">新手友好</span></div>
+<div class="c5cb"><div class="c5cr"><b>施平湖</b><span class="c5rt">★ 4.5</span></div>
+<div class="c5cm">家门口 · 45min</div></div></div>
+<div style="height:14px"></div></div><div class="c5nav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="c5scr">
+<div class="c5ph">教练</div>
+<div class="c5note">认证向导 · 资质与职业责任险已核验</div>
+<div class="c5row"><div class="c5av">L</div><div class="c5ci"><b>Lea</b>
+<span>单板 · DSLV L2 · 周六加米施</span></div><span class="c5btn">Wave</span></div>
+<div class="c5row"><div class="c5av">M</div><div class="c5ci"><b>Max</b>
+<span>双板 · 国家队青训 · 周日楚格峰</span></div><span class="c5btn">Wave</span></div>
+<div class="c5row"><div class="c5av">雨</div><div class="c5ci"><b>小雨</b>
+<span>单板 · 中文教学 · 可约时间</span></div><span class="c5btn">Wave</span></div></div><div class="c5nav"><span class="">首页</span><span class="">雪场</span><span class="on">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="act" hidden><div class="c5scr">
+<div class="c5ph">活动</div>
+<div class="c5note">N47 官方 + 认证合作方发布</div>
+<div class="c5card"><div class="c5cimg" style="background-image:var(--ph-peak)"></div><div class="c5cb"><div class="c5cr"><b>N47 加米施周末团</b><span class="c5rt pr-free">免费</span></div><div class="c5cm"><span class="wh-near">本周六 06:30 出发</span></div><div class="capbar"><i class="hot" style="width:90%"></i></div><div class="capnum"><b class="hot">18/20</b> · 剩 2 位</div></div></div>
+<div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"><span class='c5tag'>今晚出发</span></div><div class="c5cb"><div class="c5cr"><b>夜滑 · 施平湖</b><span class="c5rt pr-pay">€18</span></div><div class="c5cm"><span class="wh-near">今天 18:00 开滑</span></div><div class="capbar"><i class="" style="width:67%"></i></div><div class="capnum"><b class="">10/15</b> · 剩 5 位</div></div></div>
+<div class="c5card"><div class="c5cimg" style="background-image:var(--ph-lift)"></div><div class="c5cb"><div class="c5cr"><b>双板初学营 · 全天</b><span class="c5rt pr-pay">€39</span></div><div class="c5cm"><span class="wh-near">本周日</span> · 含教学与器材</div><div class="capbar"><i class="" style="width:50%"></i></div><div class="capnum"><b class="">12/24</b> · 剩 12 位</div></div></div>
+<div class="c5card row-shut"><div class="c5cimg" style="background-image:var(--ph-peak)"></div><div class="c5cb"><div class="c5cr"><b>楚格峰进阶营</b><span class="c5rt pr-pay">€59</span></div><div class="c5cm">2 月 14 日 · 候补开放</div><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div></div>
+<div class="c5card"><div class="c5cimg" style="background-image:var(--ph-vista)"></div><div class="c5cb"><div class="c5cr"><b>女生滑雪周</b><span class="c5rt pr-book">预约</span></div><div class="c5cm">3 月 · 阿尔卑斯</div><div class="capnum">剩 14 位 · 开放报名</div></div></div>
+<div style="height:14px"></div></div><div class="c5nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div></div>
 
 <h2>备选方案</h2>
 
