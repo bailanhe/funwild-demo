@@ -498,6 +498,12 @@
   .drow { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; align-items:start; }
   .dcol { display:flex; flex-direction:column; align-items:center; }
   .dtag { font-size:15px; font-weight:800; margin-bottom:2px; }
+  .secnote { font-size:13.5px; color:#6b6357; text-align:center; max-width:660px;
+    margin:2px auto 26px; line-height:1.75; }
+  .dnote { font-size:11.5px; color:#5f584e; line-height:1.6; width:322px;
+    margin:5px 0 9px; text-align:left; }
+  .dnote em { display:block; font-style:normal; font-size:10.5px; color:#9a9188;
+    margin-top:6px; }
   .dsub { font-size:11.5px; color:var(--faint); text-align:center; max-width:300px; line-height:1.5; margin-bottom:10px; min-height:34px; }
   .dseg { display:inline-flex; gap:2px; background:#ece5da; border-radius:10px; padding:3px; margin-bottom:12px; }
   .dseg button { border:none; background:transparent; font-size:12px; color:#6b6357; padding:6px 14px; border-radius:8px; cursor:pointer; font-family:inherit; }
@@ -1249,8 +1255,9 @@
 
 
 <h2>组合方案</h2>
+<p class="secnote">把大家点名的元素组合成五种首页逻辑。差别在「首屏第一眼给什么」,不在配色。每个都能切首页 / 雪场 / 教练 / 活动四个页面。</p>
 <div class="drow">
-<div class="dcol"><div class="dtag">组合 01</div><div class="dseg" data-for="cmb1"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c1" id="cmb1"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c1scr">
+<div class="dcol"><div class="dtag">A · 照片优先(深色)</div><div class="dnote">整屏雪山照片,数据和入口浮在照片上。首屏第一眼是画面。<em>取自 07 的玻璃面板与大标题 · 03 的四格数据与避坑条</em></div><div class="dseg" data-for="cmb1"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c1" id="cmb1"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c1scr">
 <div class="c1top"><b>趣野</b><span>慕尼黑 ▾</span></div>
 <div class="c1hero"><div class="c1k">本 周 精 选</div><div class="c1hn">加米施经典区</div>
 <div class="c1hm">GARMISCH-CLASSIC · 708–2050m · 40km</div></div>
@@ -1310,7 +1317,7 @@
 <div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"></div>
 <div class="c1cb"><div class="c1cr"><b>女生滑雪周</b><span class="c1rt pr-book">预约</span></div>
 <div class="c1cm">3 月 · 阿尔卑斯</div><div class="capnum">剩 14 位 · 开放报名</div></div></div>
-<div style="height:14px"></div></div><div class="c1nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">组合 02</div><div class="dseg" data-for="cmb2"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c2" id="cmb2"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c2scr">
+<div style="height:14px"></div></div><div class="c1nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">B · 数据面板</div><div class="dnote">照片缩小,四格数据与四个彩色入口占主位。首屏第一眼是能用的信息。<em>取自 03 的白卡结构 · 14 的彩色入口块</em></div><div class="dseg" data-for="cmb2"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c2" id="cmb2"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c2scr">
 <div class="c2top"><b>趣野</b><span>📍 慕尼黑</span></div>
 <div class="card c2hero"><div class="c2himg" style="background-image:var(--ph-peak)"></div>
 <div class="c2hb"><span class="c2pill">本周精选</span><div class="c2hn">加米施经典区</div>
@@ -1365,7 +1372,7 @@
 <div class="c2rm">2 月 14 日 · 候补开放</div><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div><span class="c2price pr-pay">€59</span></div>
 <div class="card c2row"><div class="c2th" style="background-image:var(--ph-vista)"></div>
 <div class="c2ri"><span class="c2rn">女生滑雪周</span>
-<div class="c2rm">3 月 · 阿尔卑斯</div><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c2price pr-book">预约</span></div></div><div class="c2nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">组合 03</div><div class="dseg" data-for="cmb3"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c3" id="cmb3"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c3scr">
+<div class="c2rm">3 月 · 阿尔卑斯</div><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c2price pr-book">预约</span></div></div><div class="c2nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">C · 行动优先</div><div class="dnote">顶部搜索,主按钮是「导航到雪场」「到场打卡」。首屏第一眼是当前该做的事。<em>取自 10 的搜索、状态标签与行动按钮 · 03 的四格数据</em></div><div class="dseg" data-for="cmb3"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c3" id="cmb3"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c3scr">
 <div class="c3search"><i>🔍</i>搜索雪场 · 地区<em>慕尼黑 ▾</em></div>
 <div class="c3hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1) 40%,rgba(0,0,0,.62)),var(--ph-peak)">
 <span class="c3fav">♡ 收藏</span><div class="c3ht"><b>加米施经典区</b><span>708–2050m · 40km · 慕尼黑 1h15</span></div></div>
@@ -1416,7 +1423,7 @@
 <div class="c3i"><b>楚格峰进阶营</b><span>2 月 14 日 · 候补开放</span><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div><span class="c3price pr-pay">€59</span></div>
 <div class="c3row"><div class="c3th" style="background-image:var(--ph-vista)"></div>
 <div class="c3i"><b>女生滑雪周</b><span>3 月 · 阿尔卑斯</span><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c3price pr-book">预约</span></div></div></div><div class="c3nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div>
-<div class="dcol"><div class="dtag">组合 04</div><div class="dseg" data-for="cmb4"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c4" id="cmb4"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c4scr">
+<div class="dcol"><div class="dtag">D · 内容流</div><div class="dnote">双列卡片,攻略、雪况、避坑、活动混排。首屏第一眼是内容。<em>取自 11 的瀑布流 · 全部为官方发布,不含用户投稿</em></div><div class="dseg" data-for="cmb4"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c4" id="cmb4"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c4scr">
 <div class="c4top"><b>趣野</b><span>慕尼黑 ▾</span></div>
 <div class="c4tabs"><span class="on">推荐</span><span>攻略</span><span>雪况</span><span>活动</span><span>教练</span></div>
 <div class="c4mson">
@@ -1479,7 +1486,7 @@
 <div class="c4lrow"><div class="c4th" style="background-image:var(--ph-vista)"></div><div class="c4li"><b>夜滑 · 施平湖</b><span><span class="wh-near">今天 18:00 开滑</span></span><div class="capbar"><i class="" style="width:67%"></i></div><div class="capnum"><b class="">10/15</b> · 剩 5 位</div></div><span class="c4price pr-pay">€18</span></div>
 <div class="c4lrow"><div class="c4th" style="background-image:var(--ph-lift)"></div><div class="c4li"><b>双板初学营 · 全天</b><span><span class="wh-near">本周日</span> · 含器材</span><div class="capbar"><i class="" style="width:50%"></i></div><div class="capnum"><b class="">12/24</b> · 剩 12 位</div></div><span class="c4price pr-pay">€39</span></div>
 <div class="c4lrow row-shut"><div class="c4th" style="background-image:var(--ph-peak)"></div><div class="c4li"><b>楚格峰进阶营</b><span>2 月 14 日 · 候补开放</span><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div><span class="c4price pr-pay">€59</span></div>
-<div class="c4lrow"><div class="c4th" style="background-image:var(--ph-vista)"></div><div class="c4li"><b>女生滑雪周</b><span>3 月 · 阿尔卑斯</span><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c4price pr-book">预约</span></div></div><div class="c4nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">组合 05</div><div class="dseg" data-for="cmb5"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c5" id="cmb5"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c5scr">
+<div class="c4lrow"><div class="c4th" style="background-image:var(--ph-vista)"></div><div class="c4li"><b>女生滑雪周</b><span>3 月 · 阿尔卑斯</span><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c4price pr-book">预约</span></div></div><div class="c4nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">E · 照片优先(浅色)</div><div class="dnote">A 的浅色版。照片收到顶部三分之一,以下是白底卡片。<em>结构与 A 相同,去掉深色主题</em></div><div class="dseg" data-for="cmb5"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c5" id="cmb5"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c5scr">
 <div class="c5hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 40%,rgba(0,0,0,.66)),var(--ph-peak)">
   <div class="c5top"><b>趣野</b><span>慕尼黑 ▾</span></div>
   <div class="c5cap"><div class="c5k">本 周 精 选</div>
