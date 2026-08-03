@@ -139,6 +139,25 @@
   .flcap { font-size:12px; color:var(--faint); text-align:center; max-width:520px; margin:0 auto 4px; line-height:1.6; }
 
 
+/* ---- capacity fill bar ---- */
+.mk-c1 .capbar { margin-top:7px; height:5px; border-radius:3px; background:rgba(255,255,255,.2); overflow:hidden; }
+.mk-c1 .capbar i { display:block; height:100%; border-radius:3px; background:#e8eef2; }
+.mk-c1 .capbar i.hot { background:#e8604a; }
+.mk-c1 .capbar i.done { background:rgba(255,255,255,.4); }
+.mk-c1 .capnum { font-size:10.5px; color:#b7cddb; margin-top:5px; }
+.mk-c1 .capnum b { color:#fff; font-weight:700; }
+.mk-c1 .capnum b.hot { color:#ff9077; }
+.mk-c2 .capbar, .mk-c3 .capbar { margin-top:6px; height:5px; border-radius:3px; background:#e6ebee; overflow:hidden; }
+.mk-c2 .capbar i, .mk-c3 .capbar i { display:block; height:100%; border-radius:3px; background:#4a5c68; }
+.mk-c2 .capbar i.hot, .mk-c3 .capbar i.hot { background:#c0392b; }
+.mk-c2 .capbar i.done, .mk-c3 .capbar i.done { background:#9aa3a9; }
+.mk-c2 .capnum, .mk-c3 .capnum { font-size:10px; color:#7d939f; margin-top:4px; }
+.mk-c2 .capnum b, .mk-c3 .capnum b { color:#17171a; font-weight:700; display:inline; }
+.mk-c2 .capnum b.hot, .mk-c3 .capnum b.hot { color:#c0392b; }
+.mk-c3 .capbar { height:4px; margin-top:5px; }
+.mk-c3 .c3i .capnum b { display:inline; font-size:10px; color:#17171a; font-weight:700; }
+.mk-c3 .c3i .capnum b.hot { color:#c0392b; }
+
 /* ---- status colour system (activity rows) ---- */
 .mk-c2 .sp-cnt, .mk-c3 .sp-cnt { background:#eceff1 !important; color:#4a4a52 !important; }
 .mk-c1 .sp-cnt { background:rgba(255,255,255,.24) !important; color:#fff !important; }
@@ -1125,21 +1144,21 @@
 <div style="height:14px"></div></div><div class="c1nav"><span class="">首页</span><span class="">雪场</span><span class="on">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="act" hidden><div class="c1scr">
 <div class="c1ph">活动</div>
 <div class="c1note">N47 官方 + 认证合作方发布</div>
-<div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="c1tag sp-full">剩 2 位</span></div>
+<div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-peak)"></div>
 <div class="c1cb"><div class="c1cr"><b>N47 加米施周末团</b><span class="c1rt pr-free">免费</span></div>
-<div class="c1cm"><span class="wh-near">本周六 06:30 出发</span></div></div></div>
-<div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="c1tag sp-soon">今晚出发 · 剩 5</span></div>
+<div class="c1cm"><span class="wh-near">本周六 06:30 出发</span></div><div class="capbar"><i class="hot" style="width:90%"></i></div><div class="capnum"><b class="hot">18/20</b> · 剩 2 位</div></div></div>
+<div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"><span class="c1tag sp-soon">今晚出发</span></div>
 <div class="c1cb"><div class="c1cr"><b>夜滑 · 施平湖</b><span class="c1rt pr-pay">€18</span></div>
-<div class="c1cm"><span class="wh-near">今天 18:00 开滑</span></div></div></div>
-<div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-lift)"><span class="c1tag sp-cnt">18 人已报</span></div>
+<div class="c1cm"><span class="wh-near">今天 18:00 开滑</span></div><div class="capbar"><i class="" style="width:67%"></i></div><div class="capnum"><b class="">10/15</b> · 剩 5 位</div></div></div>
+<div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-lift)"></div>
 <div class="c1cb"><div class="c1cr"><b>双板初学营 · 全天</b><span class="c1rt pr-pay">€39</span></div>
-<div class="c1cm"><span class="wh-near">本周日</span> · 含教学与器材</div></div></div>
-<div class="c1card glass row-shut"><div class="c1cimg" style="background-image:var(--ph-peak)"><span class="c1tag sp-shut">已满 20/20</span></div>
+<div class="c1cm"><span class="wh-near">本周日</span> · 含教学与器材</div><div class="capbar"><i class="" style="width:50%"></i></div><div class="capnum"><b class="">12/24</b> · 剩 12 位</div></div></div>
+<div class="c1card glass row-shut"><div class="c1cimg" style="background-image:var(--ph-peak)"></div>
 <div class="c1cb"><div class="c1cr"><b>楚格峰进阶营</b><span class="c1rt pr-pay">€59</span></div>
-<div class="c1cm">2 月 14 日 · 候补开放</div></div></div>
+<div class="c1cm">2 月 14 日 · 候补开放</div><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div></div>
 <div class="c1card glass"><div class="c1cimg" style="background-image:var(--ph-vista)"></div>
 <div class="c1cb"><div class="c1cr"><b>女生滑雪周</b><span class="c1rt pr-book">预约</span></div>
-<div class="c1cm">3 月 · 阿尔卑斯</div></div></div>
+<div class="c1cm">3 月 · 阿尔卑斯</div><div class="capnum">剩 14 位 · 开放报名</div></div></div>
 <div style="height:14px"></div></div><div class="c1nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">组合 02</div><div class="dseg" data-for="cmb2"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c2" id="cmb2"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c2scr">
 <div class="c2top"><b>趣野</b><span>📍 慕尼黑</span></div>
 <div class="card c2hero"><div class="c2himg" style="background-image:var(--ph-peak)"></div>
@@ -1181,21 +1200,21 @@
 <span class="c2wave">Wave</span></div></div><div class="c2nav"><span class="">首页</span><span class="">雪场</span><span class="on">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="act" hidden><div class="c2scr">
 <div class="c2ph">活动</div>
 <div class="c2note">N47 官方 + 认证合作方发布</div>
-<div class="card c2row"><div class="c2th" style="background-image:var(--ph-peak)"><span class="c2spot sp-full">剩 2 位</span></div>
+<div class="card c2row"><div class="c2th" style="background-image:var(--ph-peak)"></div>
 <div class="c2ri"><span class="c2rn">N47 加米施周末团</span>
-<div class="c2rm"><span class="wh-near">本周六 06:30 出发</span></div></div><span class="c2price pr-free">免费</span></div>
-<div class="card c2row"><div class="c2th" style="background-image:var(--ph-vista)"><span class="c2spot sp-soon">今晚 · 剩 5</span></div>
+<div class="c2rm"><span class="wh-near">本周六 06:30 出发</span></div><div class="capbar"><i class="hot" style="width:90%"></i></div><div class="capnum"><b class="hot">18/20</b> · 剩 2 位</div></div><span class="c2price pr-free">免费</span></div>
+<div class="card c2row"><div class="c2th" style="background-image:var(--ph-vista)"><span class="c2spot sp-soon">今晚出发</span></div>
 <div class="c2ri"><span class="c2rn">夜滑 · 施平湖</span>
-<div class="c2rm"><span class="wh-near">今天 18:00 开滑</span></div></div><span class="c2price pr-pay">€18</span></div>
-<div class="card c2row"><div class="c2th" style="background-image:var(--ph-lift)"><span class="c2spot sp-cnt">18 已报</span></div>
+<div class="c2rm"><span class="wh-near">今天 18:00 开滑</span></div><div class="capbar"><i class="" style="width:67%"></i></div><div class="capnum"><b class="">10/15</b> · 剩 5 位</div></div><span class="c2price pr-pay">€18</span></div>
+<div class="card c2row"><div class="c2th" style="background-image:var(--ph-lift)"></div>
 <div class="c2ri"><span class="c2rn">双板初学营 · 全天</span>
-<div class="c2rm"><span class="wh-near">本周日</span> · 含教学与器材</div></div><span class="c2price pr-pay">€39</span></div>
-<div class="card c2row row-shut"><div class="c2th" style="background-image:var(--ph-peak)"><span class="c2spot sp-shut">已满 20/20</span></div>
+<div class="c2rm"><span class="wh-near">本周日</span> · 含教学与器材</div><div class="capbar"><i class="" style="width:50%"></i></div><div class="capnum"><b class="">12/24</b> · 剩 12 位</div></div><span class="c2price pr-pay">€39</span></div>
+<div class="card c2row row-shut"><div class="c2th" style="background-image:var(--ph-peak)"></div>
 <div class="c2ri"><span class="c2rn">楚格峰进阶营</span>
-<div class="c2rm">2 月 14 日 · 候补开放</div></div><span class="c2price pr-pay">€59</span></div>
+<div class="c2rm">2 月 14 日 · 候补开放</div><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div><span class="c2price pr-pay">€59</span></div>
 <div class="card c2row"><div class="c2th" style="background-image:var(--ph-vista)"></div>
 <div class="c2ri"><span class="c2rn">女生滑雪周</span>
-<div class="c2rm">3 月 · 阿尔卑斯</div></div><span class="c2price pr-book">预约</span></div></div><div class="c2nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">组合 03</div><div class="dseg" data-for="cmb3"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c3" id="cmb3"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c3scr">
+<div class="c2rm">3 月 · 阿尔卑斯</div><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c2price pr-book">预约</span></div></div><div class="c2nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div><div class="dcol"><div class="dtag">组合 03</div><div class="dseg" data-for="cmb3"><button data-pg="home" class="on">首页</button><button data-pg="resort">雪场</button><button data-pg="coach">教练</button><button data-pg="act">活动</button></div><div class="dmock mk-c3" id="cmb3"><div class="dsb"><span>9:41</span><span>●●●</span></div><div class="dpgs"><div class="pg" data-pg="home"><div class="c3scr">
 <div class="c3search"><i>🔍</i>搜索雪场 · 地区<em>慕尼黑 ▾</em></div>
 <div class="c3hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1) 40%,rgba(0,0,0,.62)),var(--ph-peak)">
 <span class="c3fav">♡ 收藏</span><div class="c3ht"><b>加米施经典区</b><span>708–2050m · 40km · 慕尼黑 1h15</span></div></div>
@@ -1234,16 +1253,16 @@
 <div class="c3ph">活动</div>
 <div class="c3note">N47 官方 + 认证合作方发布</div>
 <div class="c3sec">
-<div class="c3row"><div class="c3th" style="background-image:var(--ph-peak)"><span class="c3spot sp-full">剩 2</span></div>
-<div class="c3i"><b>N47 加米施周末团</b><span><span class="wh-near">本周六 06:30 出发</span></span></div><span class="c3price pr-free">免费</span></div>
-<div class="c3row"><div class="c3th" style="background-image:var(--ph-vista)"><span class="c3spot sp-soon">今晚</span></div>
-<div class="c3i"><b>夜滑 · 施平湖</b><span><span class="wh-near">今天 18:00 开滑</span></span></div><span class="c3price pr-pay">€18</span></div>
-<div class="c3row"><div class="c3th" style="background-image:var(--ph-lift)"><span class="c3spot sp-cnt">18</span></div>
-<div class="c3i"><b>双板初学营 · 全天</b><span><span class="wh-near">本周日</span> · 含教学与器材</span></div><span class="c3price pr-pay">€39</span></div>
-<div class="c3row row-shut"><div class="c3th" style="background-image:var(--ph-peak)"><span class="c3spot sp-shut">20/20</span></div>
-<div class="c3i"><b>楚格峰进阶营</b><span>2 月 14 日 · 候补开放</span></div><span class="c3price pr-pay">€59</span></div>
+<div class="c3row"><div class="c3th" style="background-image:var(--ph-peak)"></div>
+<div class="c3i"><b>N47 加米施周末团</b><span><span class="wh-near">本周六 06:30 出发</span></span><div class="capbar"><i class="hot" style="width:90%"></i></div><div class="capnum"><b class="hot">18/20</b> · 剩 2 位</div></div><span class="c3price pr-free">免费</span></div>
+<div class="c3row"><div class="c3th" style="background-image:var(--ph-vista)"><span class="c3spot sp-soon">今晚出发</span></div>
+<div class="c3i"><b>夜滑 · 施平湖</b><span><span class="wh-near">今天 18:00 开滑</span></span><div class="capbar"><i class="" style="width:67%"></i></div><div class="capnum"><b class="">10/15</b> · 剩 5 位</div></div><span class="c3price pr-pay">€18</span></div>
+<div class="c3row"><div class="c3th" style="background-image:var(--ph-lift)"></div>
+<div class="c3i"><b>双板初学营 · 全天</b><span><span class="wh-near">本周日</span> · 含教学与器材</span><div class="capbar"><i class="" style="width:50%"></i></div><div class="capnum"><b class="">12/24</b> · 剩 12 位</div></div><span class="c3price pr-pay">€39</span></div>
+<div class="c3row row-shut"><div class="c3th" style="background-image:var(--ph-peak)"></div>
+<div class="c3i"><b>楚格峰进阶营</b><span>2 月 14 日 · 候补开放</span><div class="capbar"><i class="done" style="width:100%"></i></div><div class="capnum"><b>20/20</b> · 已满,可候补</div></div><span class="c3price pr-pay">€59</span></div>
 <div class="c3row"><div class="c3th" style="background-image:var(--ph-vista)"></div>
-<div class="c3i"><b>女生滑雪周</b><span>3 月 · 阿尔卑斯</span></div><span class="c3price pr-book">预约</span></div></div></div><div class="c3nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div>
+<div class="c3i"><b>女生滑雪周</b><span>3 月 · 阿尔卑斯</span><div class="capnum">剩 14 位 · 开放报名</div></div><span class="c3price pr-book">预约</span></div></div></div><div class="c3nav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div></div>
 </div>
 
 <h2>备选方案</h2>
