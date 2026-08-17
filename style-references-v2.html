@@ -137,6 +137,38 @@
   .flseg button { border:none; background:transparent; font-size:13.5px; color:#6b6357; padding:8px 22px; border-radius:9px; cursor:pointer; font-family:inherit; }
   .flseg button.on { background:#fff; color:#17171a; box-shadow:0 1px 3px rgba(0,0,0,.12); font-weight:600; }
   .flcap { font-size:12px; color:var(--faint); text-align:center; max-width:520px; margin:0 auto 4px; line-height:1.6; }
+  /* 首选方案 · 与组合方案对齐的状态系统 */
+  .flmock .flstats { display:flex; margin:14px 16px 0; padding:13px 4px; background:#f7f7f6; border-radius:16px; }
+  .flmock .flst { flex:1; text-align:center; }
+  .flmock .flst b { display:block; font-size:19px; font-weight:800; letter-spacing:-.02em; color:#17171a; }
+  .flmock .flst b i { font-style:normal; font-size:11px; font-weight:700; }
+  .flmock .flst span { font-size:9.5px; color:#8b8b92; letter-spacing:.04em; }
+  .flmock .flalert { margin:12px 16px 0; padding:10px 13px; font-size:11px; line-height:1.55; color:#8a3a1e; background:#fdf3ee; border:1px solid #f6ddd0; border-radius:12px; }
+  .flmock .flalert b { font-weight:700; margin-right:5px; }
+  .flmock .flguide { display:flex; align-items:center; gap:11px; margin:12px 16px 0; padding:11px 13px; border:1px solid #ececea; border-radius:16px; }
+  .flmock .flguide .flav { background:#f4ece4; color:#8a5a2b; font-size:14px; }
+  .flmock .flcnt { font-size:10.5px; color:#a3a3a8; padding:2px 18px 6px; }
+  .flmock .fav { flex:none; font-size:15px; line-height:1; color:#c6c6cb; margin-left:10px; }
+  .flmock .fav.on { color:#d8452b; }
+  .flmock .favc { position:absolute; right:10px; top:10px; width:28px; height:28px; border-radius:50%;
+    background:rgba(255,255,255,.92); display:flex; align-items:center; justify-content:center;
+    font-size:14px; color:#8b8b92; }
+  .flmock .favc.on { color:#d8452b; }
+  .flmock .capbar { margin-top:7px; height:5px; border-radius:3px; background:#eeeeec; overflow:hidden; }
+  .flmock .capbar i { display:block; height:100%; border-radius:3px; background:#5c5c63; }
+  .flmock .capbar i.hot { background:#d8452b; }
+  .flmock .capbar i.done { background:#b4b4b9; }
+  .flmock .capnum { font-size:10px; color:#8b8b92; margin-top:5px; }
+  .flmock .capnum b { color:#17171a; font-weight:700; }
+  .flmock .capnum b.hot { color:#d8452b; }
+  .flmock .pr-free { color:#1f7a3d; }
+  .flmock .pr-pay { color:#17171a; }
+  .flmock .pr-book { color:#6a6a74; font-size:12.5px; font-weight:700; }
+  .flmock .row-shut { opacity:.55; }
+  .flmock .wh-near { color:#17171a; font-weight:700; }
+  .flmock .flspots.sp-soon { background:#966818; }
+  .flmock .flspots.sp-full { background:#6e6e78; }
+  .flmock .flarea { font-size:10px; color:#a3a3a8; letter-spacing:.02em; }
 
 
 /* ---- merged stats card (组合 01 / 05) ---- */
@@ -1273,6 +1305,12 @@
         <div class="flhn">加米施经典区</div>
         <div class="flhm">新雪 15cm　缆车 12/17 开放　40km 雪道</div></div>
     </div>
+    <div class="flstats">
+      <div class="flst"><b>15<i>cm</i></b><span>新雪</span></div>
+      <div class="flst"><b>12<i>/17</i></b><span>缆车</span></div>
+      <div class="flst"><b>−8<i>°</i></b><span>山顶</span></div>
+      <div class="flst"><b>1<i>:15</i></b><span>车程</span></div></div>
+    <div class="flalert"><b>⚠ 避坑</b>Kandahar 黑道午后结冰,新手勿上。缆车 12/17 才开放。</div>
     <div class="flweek"><div class="flwk"><b>23</b><span>周末雪友出行</span></div><div class="flwl"></div><div class="flwk"><b>3</b><span>拼车在拼</span></div><a class="flwa">看拼车</a></div>
     <div class="flsh"><h4>推荐雪场</h4><a class="flmore">全部</a></div>
     <div class="flrail"><a class="flrl"><div class="flrlimg" style="background-image:var(--ph-peak)"></div>
@@ -1280,35 +1318,66 @@
       <div class="flrlb"><b>楚格峰</b><span>冰川全年 · 2h</span></div></a><a class="flrl"><div class="flrlimg" style="background-image:var(--ph-lift)"></div>
       <div class="flrlb"><b>施平湖</b><span>新手友好 · 45min</span></div></a></div>
     <a class="flcoach"><div class="flav">L</div><div class="flci"><b>Lea · 单板教练</b><span>DSLV L2 · 本周六在加米施</span></div><span class="flwave">Wave</span></a>
+    <a class="flguide"><div class="flav">攻</div><div class="flci"><b>加米施经典区完全指南</b><span>缆车 / 雪道 / 午餐,一篇写完</span></div><span class="flwave">阅读</span></a>
     <div class="flsafe"><b>野外不是赌博</b>　不 Solo · 告诉两个人 · 先训练再行动</div>
   </div><div class="flnav"><span class="on">首页</span><span class="">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="resort" hidden><div class="flscr">
     <div class="flph"><h3>雪场</h3><div class="flsearch">搜索雪场</div></div>
-    <div class="flchips"><span class="on">全部</span><span>收藏</span><span>新手友好</span><span>近慕尼黑</span></div>
-    <div class="flcard"><div class="flcimg" style="background-image:var(--ph-peak)"><span class="flsnow">新雪 15cm</span></div>
+    <div class="flchips"><span class="on">全部 8</span><span>收藏 2</span><span>巴伐利亚 3</span><span>提洛尔 3</span><span>萨尔茨堡 1</span><span>福拉尔贝格 1</span></div>
+    <div class="flcnt">8 座已上线 · 按距离排序</div>
+    <div class="flcard"><div class="flcimg" style="background-image:var(--ph-peak)"><span class="flsnow">新雪 15cm</span><span class="favc on">♥</span></div>
       <div class="flcb"><div class="flcr1"><b>加米施经典区</b><span class="flrate">★ 4.8</span></div>
-      <div class="flen">GARMISCH-CLASSIC</div><div class="flmeta">40km · 慕尼黑 1h15</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-vista)"><span class="flsnow">冰川全年</span></div>
+      <div class="flen">GARMISCH-CLASSIC</div><div class="flmeta"><span class="flarea">巴伐利亚</span> · 40km · 慕尼黑 1h15</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-vista)"><span class="flsnow">冰川全年</span><span class="favc">♡</span></div>
       <div class="flcb"><div class="flcr1"><b>楚格峰</b><span class="flrate">★ 4.7</span></div>
-      <div class="flen">ZUGSPITZE</div><div class="flmeta">德国最高峰 · 2h</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-lift)"><span class="flsnow">新手友好</span></div>
+      <div class="flen">ZUGSPITZE</div><div class="flmeta"><span class="flarea">巴伐利亚</span> · 20km · 德国最高峰 · 2h</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-lift)"><span class="flsnow">新手友好</span><span class="favc on">♥</span></div>
       <div class="flcb"><div class="flcr1"><b>施平湖</b><span class="flrate">★ 4.5</span></div>
-      <div class="flen">SPITZINGSEE</div><div class="flmeta">家门口 · 45min</div></div></div><div class="flsoon">另有 8 座雪场陆续上线</div></div><div class="flnav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="flscr">
+      <div class="flen">SPITZINGSEE</div><div class="flmeta"><span class="flarea">巴伐利亚</span> · 12km · 家门口 · 45min</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>基茨山冰川</b><span class="flrate">★ 4.6</span></div>
+      <div class="flen">KITZSTEINHORN</div><div class="flmeta"><span class="flarea">萨尔茨堡</span> · 41km · 冰川 · 2h30</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>圣安东</b><span class="flrate">★ 4.9</span></div>
+      <div class="flen">ST. ANTON</div><div class="flmeta"><span class="flarea">提洛尔</span> · 305km · 大雪区 · 3h</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-lift)"><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>索尔登</b><span class="flrate">★ 4.7</span></div>
+      <div class="flen">SÖLDEN</div><div class="flmeta"><span class="flarea">提洛尔</span> · 144km · 高海拔 · 3h30</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-peak)"><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>莱赫</b><span class="flrate">★ 4.8</span></div>
+      <div class="flen">LECH</div><div class="flmeta"><span class="flarea">福拉尔贝格</span> · 305km · 粉雪 · 3h20</div></div></div><div class="flcard"><div class="flcimg" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>北链山</b><span class="flrate">★ 4.4</span></div>
+      <div class="flen">NORDKETTE</div><div class="flmeta"><span class="flarea">提洛尔</span> · 15km · 城边雪场 · 2h20</div></div></div><div style="height:14px"></div></div><div class="flnav"><span class="">首页</span><span class="on">雪场</span><span class="">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="coach" hidden><div class="flscr">
     <div class="flph"><h3>教练</h3></div>
     <div class="flnote">认证向导 · 资质与职业责任险已核验</div>
     <div class="flcrow"><div class="flav">L</div>
       <div class="flci"><div class="flcr1"><b>Lea</b><span class="flwhen">本周六 · 加米施</span></div>
-      <div class="flmeta">单板 · DSLV L2</div><div class="fltags"><em>带过 N47 第 3 期</em></div></div><span class="flwave">Wave</span></div><div class="flcrow"><div class="flav">M</div>
+      <div class="flmeta">单板 · DSLV L2</div><div class="fltags"><em>带过 N47 第 3 期</em></div></div><span class="flwave">打招呼</span></div><div class="flcrow"><div class="flav">M</div>
       <div class="flci"><div class="flcr1"><b>Max</b><span class="flwhen">本周日 · 楚格峰</span></div>
-      <div class="flmeta">双板 · 国家队青训</div><div class="fltags"><em>带过国内学员</em></div></div><span class="flwave">Wave</span></div><div class="flcrow"><div class="flav">雨</div>
-      <div class="flci"><div class="flcr1"><b>小雨</b><span class="flwhen">可约时间</span></div>
-      <div class="flmeta">单板 · 中文教学</div><div class="fltags"><em>耐心细致</em></div></div><span class="flwave">Wave</span></div></div><div class="flnav"><span class="">首页</span><span class="">雪场</span><span class="on">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="act" hidden><div class="flscr">
+      <div class="flmeta">双板 · 国家队青训</div><div class="fltags"><em>带过国内学员</em></div></div><span class="flwave">继续聊</span></div><div class="flcrow"><div class="flav">雨</div>
+      <div class="flci"><div class="flcr1"><b>小雨<span class="unread"></span></b><span class="flwhen">可约时间</span></div>
+      <div class="flmeta">单板 · 中文教学</div><div class="fltags"><em>耐心细致</em></div></div><span class="flwave">继续聊</span></div><div class="flcrow"><div class="flav">T</div>
+      <div class="flci"><div class="flcr1"><b>Tobias<span class="old">老学员</span></b></div>
+      <div class="flmeta">双板 · 上过 3 次课</div><div class="fltags"><em>去年一起去过索尔登</em></div></div><span class="flwave">继续聊</span></div><div class="flcrow"><div class="flav">A</div>
+      <div class="flci"><div class="flcr1"><b>Anna</b><span class="flwhen">本周已满</span></div>
+      <div class="flmeta">单板 · 儿童教学</div><div class="fltags"><em>带小孩有耐心</em></div></div><span class="flwave">打招呼</span></div><div style="height:14px"></div></div><div class="flnav"><span class="">首页</span><span class="">雪场</span><span class="on">教练</span><span class="">活动</span></div></div><div class="pg" data-pg="act" hidden><div class="flscr">
     <div class="flph"><h3>活动</h3></div>
     <div class="flnote">N47 官方 + 认证合作方发布</div>
-    <div class="flcard"><div class="flcimg flcimg2" style="background-image:var(--ph-peak)"><span class="flspots">剩 4 位</span></div>
-      <div class="flcb"><div class="flcr1"><b>N47 加米施周末团</b><span class="flprice">免费</span></div>
-      <div class="flmeta">周六 06:30 · 慕尼黑出发</div></div></div><div class="flcard"><div class="flcimg flcimg2" style="background-image:var(--ph-vista)"><span class="flspots">第 4 期</span></div>
-      <div class="flcb"><div class="flcr1"><b>双板初学营 · 全天</b><span class="flprice">€39</span></div>
-      <div class="flmeta">周日 · 含教学与器材</div></div></div><div class="flcard"><div class="flcimg flcimg2" style="background-image:var(--ph-lift)"><span class="flspots">报名中</span></div>
-      <div class="flcb"><div class="flcr1"><b>女生滑雪周</b><span class="flprice">预约</span></div>
-      <div class="flmeta">3 月 · 阿尔卑斯</div></div></div></div><div class="flnav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div>
+    <div class="flchips"><span class="on">全部 5</span><span>收藏 1</span><span>本周 3</span><span>免费 1</span></div>
+    <div class="flcnt">5 个活动 · 按时间排序</div>
+    <div class="flcard"><div class="flcimg flcimg2" style="background-image:var(--ph-peak)"><span class="favc on">♥</span></div>
+      <div class="flcb"><div class="flcr1"><b>N47 加米施周末团</b><span class="flprice pr-free">免费</span></div>
+      <div class="flmeta"><span class="wh-near">本周六 06:30 出发</span> · 慕尼黑</div>
+      <div class="capbar"><i class="hot" style="width:90%"></i></div>
+      <div class="capnum"><b class="hot">18/20</b> · 剩 2 位</div></div></div><div class="flcard"><div class="flcimg flcimg2" style="background-image:var(--ph-vista)"><span class="flspots sp-soon">今晚出发</span><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>夜滑 · 施平湖</b><span class="flprice pr-pay">€18</span></div>
+      <div class="flmeta"><span class="wh-near">今天 18:00 开滑</span></div>
+      <div class="capbar"><i style="width:67%"></i></div>
+      <div class="capnum"><b>10/15</b> · 剩 5 位</div></div></div><div class="flcard"><div class="flcimg flcimg2" style="background-image:var(--ph-lift)"><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>双板初学营 · 全天</b><span class="flprice pr-pay">€39</span></div>
+      <div class="flmeta"><span class="wh-near">本周日</span> · 含教学与器材</div>
+      <div class="capbar"><i style="width:50%"></i></div>
+      <div class="capnum"><b>12/24</b> · 剩 12 位</div></div></div><div class="flcard row-shut"><div class="flcimg flcimg2" style="background-image:var(--ph-peak)"><span class="flspots sp-full">已满</span><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>楚格峰进阶营</b><span class="flprice pr-pay">€59</span></div>
+      <div class="flmeta">2 月 14 日 · 候补开放</div>
+      <div class="capbar"><i class="done" style="width:100%"></i></div>
+      <div class="capnum"><b>20/20</b> · 已满</div></div></div><div class="flcard"><div class="flcimg flcimg2" style="background-image:var(--ph-vista)"><span class="favc">♡</span></div>
+      <div class="flcb"><div class="flcr1"><b>女生滑雪周</b><span class="flprice pr-book">预约</span></div>
+      <div class="flmeta">3 月 · 阿尔卑斯</div>
+      <div class="capnum">剩 14 位 · 开放报名</div></div></div><div style="height:14px"></div></div><div class="flnav"><span class="">首页</span><span class="">雪场</span><span class="">教练</span><span class="on">活动</span></div></div></div></div>
 </div>
 
 
